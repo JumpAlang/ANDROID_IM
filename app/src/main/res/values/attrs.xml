@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="speed" format="integer"/>
+    <attr name="outcircle" format="integer"/>
+    <declare-styleable name="RotateView">
+        <attr name="speed"/>
+        <attr name="outcircle"/>
+    </declare-styleable>
+</resources>

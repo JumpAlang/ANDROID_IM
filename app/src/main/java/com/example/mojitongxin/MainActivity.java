@@ -16,10 +16,5 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        RotateView rotateView = findViewById(R.id.RotateView);
-
-        Bitmap bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.test1);
-
-        rotateView.setSource(bitmap);
     }
 }

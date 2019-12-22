@@ -6,4 +6,5 @@
         <attr name="speed"/>
         <attr name="outcircle"/>
     </declare-styleable>
+    <item name="aaa" type="id"/>
 </resources>

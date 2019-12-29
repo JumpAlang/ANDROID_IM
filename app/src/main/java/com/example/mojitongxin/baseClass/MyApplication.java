@@ -1,4 +1,4 @@
-package com.sunhaobin.imapp;
+package com.example.mojitongxin.baseClass;
 
 import android.app.Application;
 import android.content.Context;

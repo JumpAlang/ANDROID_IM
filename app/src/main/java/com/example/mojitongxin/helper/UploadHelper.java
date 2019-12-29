@@ -1,6 +1,5 @@
-package com.sunhaobin.imapp;
+package com.example.mojitongxin.helper;
 
-import android.content.Context;
 import android.text.format.DateFormat;
 import android.util.Log;
 
@@ -12,10 +11,11 @@ import com.alibaba.sdk.android.oss.callback.OSSCompletedCallback;
 import com.alibaba.sdk.android.oss.callback.OSSProgressCallback;
 import com.alibaba.sdk.android.oss.common.auth.OSSCredentialProvider;
 import com.alibaba.sdk.android.oss.common.auth.OSSPlainTextAKSKCredentialProvider;
-import com.alibaba.sdk.android.oss.common.auth.OSSStsTokenCredentialProvider;
 import com.alibaba.sdk.android.oss.internal.OSSAsyncTask;
 import com.alibaba.sdk.android.oss.model.PutObjectRequest;
 import com.alibaba.sdk.android.oss.model.PutObjectResult;
+import com.example.mojitongxin.baseClass.MyApplication;
+import com.example.mojitongxin.util.HashUtil;
 
 import java.io.File;
 import java.util.Date;

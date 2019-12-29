@@ -1,4 +1,4 @@
-package com.sunhaobin.imapp;
+package com.example.mojitongxin.util;
 
 import java.io.File;
 import java.io.FileInputStream;

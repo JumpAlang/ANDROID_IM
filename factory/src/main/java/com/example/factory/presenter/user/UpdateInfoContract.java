@@ -1,6 +1,7 @@
 package com.example.factory.presenter.user;
 
-import net.qiujuer.italker.factory.presenter.BaseContract;
+import com.example.common.factory.presenter.BaseContract;
+
 
 /**
  * 更新用户信息的基本的契约

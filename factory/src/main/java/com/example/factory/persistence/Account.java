@@ -145,10 +145,11 @@ public class Account {
      */
     public static User getUser() {
         // 如果为null返回一个new的User，其次从数据库查询
-        return TextUtils.isEmpty(userId) ? new User() : SQLite.select()
-                .from(User.class)
-                .where(User_Table.id.eq(userId))
-                .querySingle();
+//        return TextUtils.isEmpty(userId) ? new User() : SQLite.select()
+//                .from(User.class)
+//                .where(User_Table.id.eq(userId))
+//                .querySingle();
+        return null;
     }
 
     /**

@@ -1,14 +1,15 @@
 package com.example.factory.data.helper;
 
-import net.qiujuer.italker.factory.Factory;
-import net.qiujuer.italker.factory.R;
-import net.qiujuer.italker.factory.data.DataSource;
-import net.qiujuer.italker.factory.model.api.RspModel;
-import net.qiujuer.italker.factory.model.api.user.UserUpdateModel;
-import net.qiujuer.italker.factory.model.card.UserCard;
-import net.qiujuer.italker.factory.model.db.User;
-import net.qiujuer.italker.factory.net.Network;
-import net.qiujuer.italker.factory.net.RemoteService;
+
+import com.example.common.factory.data.DataSource;
+import com.example.factory.Factory;
+import com.example.factory.R;
+import com.example.factory.model.api.RspModel;
+import com.example.factory.model.api.user.UserUpdateModel;
+import com.example.factory.model.card.UserCard;
+import com.example.factory.model.db.User;
+import com.example.factory.net.Network;
+import com.example.factory.net.RemoteService;
 
 import retrofit2.Call;
 import retrofit2.Callback;

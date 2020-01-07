@@ -1,6 +1,7 @@
 package com.example.factory.model.card;
 
-import net.qiujuer.italker.factory.model.db.User;
+import com.example.factory.model.db.User;
+
 
 import java.util.Date;
 

@@ -2,17 +2,16 @@ package com.example.factory.presenter.user;
 
 import android.text.TextUtils;
 
-import net.qiujuer.genius.kit.handler.Run;
-import net.qiujuer.genius.kit.handler.runable.Action;
-import net.qiujuer.italker.factory.Factory;
-import net.qiujuer.italker.factory.R;
-import net.qiujuer.italker.factory.data.DataSource;
-import net.qiujuer.italker.factory.data.helper.UserHelper;
-import net.qiujuer.italker.factory.model.api.user.UserUpdateModel;
-import net.qiujuer.italker.factory.model.card.UserCard;
-import net.qiujuer.italker.factory.model.db.User;
-import net.qiujuer.italker.factory.net.UploadHelper;
-import net.qiujuer.italker.factory.presenter.BasePresenter;
+import com.example.common.factory.data.DataSource;
+import com.example.common.factory.presenter.BasePresenter;
+import com.example.factory.Factory;
+import com.example.factory.R;
+import com.example.factory.data.helper.UserHelper;
+import com.example.factory.model.api.user.UserUpdateModel;
+import com.example.factory.model.card.UserCard;
+import com.example.factory.model.db.User;
+import com.example.factory.net.UploadHelper;
+
 
 /**
  * @author qiujuer Email:qiujuer@live.cn
@@ -37,7 +36,7 @@ public class UpdateInfoPresenter extends BasePresenter<UpdateInfoContract.View>
             Factory.runOnAsync(new Runnable() {
                 @Override
                 public void run() {
-                    String url = UploadHelper.uploadPortrait(photoFilePath);
+                    String url = UploadHelper.getInstance().uploadPortrait(photoFilePath);
                     if (TextUtils.isEmpty(url)) {
                         // 上传失败
                         view.showError(R.string.data_upload_error);
@@ -59,12 +58,12 @@ public class UpdateInfoPresenter extends BasePresenter<UpdateInfoContract.View>
         if (view == null)
             return;
         // 强制执行在主线程中
-        Run.onUiAsync(new Action() {
-            @Override
-            public void call() {
-                view.updateSucceed();
-            }
-        });
+//        Run.onUiAsync(new Action() {
+//            @Override
+//            public void call() {
+//                view.updateSucceed();
+//            }
+//        });
     }
 
     @Override
@@ -73,11 +72,11 @@ public class UpdateInfoPresenter extends BasePresenter<UpdateInfoContract.View>
         if (view == null)
             return;
         // 强制执行在主线程中
-        Run.onUiAsync(new Action() {
-            @Override
-            public void call() {
-                view.showError(strRes);
-            }
-        });
+//        Run.onUiAsync(new Action() {
+//            @Override
+//            public void call() {
+//                view.showError(strRes);
+//            }
+//        });
     }
 }

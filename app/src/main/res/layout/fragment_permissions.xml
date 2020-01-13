@@ -1,23 +1,22 @@
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="net.qiujuer.italker.push.frags.assist.PermissionsFragment">
+    android:layout_height="match_parent">
 
-    <android.support.design.widget.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+    <!--<com.google.android.material.appbar.AppBarLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content">-->
 
-        <android.support.v7.widget.Toolbar
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:textAlignment="center"
-            app:title="@string/title_assist_permissions"
-            app:titleTextAppearance="@style/TextAppearance.AppCompat.Medium"
-            app:titleTextColor="@color/textPrimary" />
-    </android.support.design.widget.AppBarLayout>
+        <!--<Too-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:background="@color/white"-->
+            <!--android:textAlignment="center"-->
+            <!--app:title="@string/title_assist_permissions"-->
+            <!--app:titleTextAppearance="@style/TextAppearance.AppCompat.Medium"-->
+            <!--app:titleTextColor="@color/textPrimary" />-->
+    <!--</com.google.android.material.appbar.AppBarLayout>-->
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -166,22 +165,20 @@
                     android:src="@drawable/ic_done"
                     android:tint="@color/colorAccent" />
             </FrameLayout>
-
-            <net.qiujuer.genius.ui.widget.Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_submit"
-                android:layout_width="@dimen/len_172"
-                android:layout_height="@dimen/len_44"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="@dimen/len_48"
-                android:layout_marginTop="@dimen/len_48"
-                android:background="@drawable/sel_btn_bg_accent_44"
+                android:layout_width="165dp"
+                android:layout_height="60dp"
+                android:gravity="center_horizontal"
                 android:text="@string/label_permission_submit"
+                android:textAppearance="?android:textAppearanceButton"
+                android:insetBottom="0dp"
+                app:backgroundTint="@color/colorAccent"
                 android:textColor="@color/white"
-                app:gTouchColor="@color/white_alpha_48"
-                app:gTouchCornerRadius="22dp"
-                app:gTouchEffect="ripple" />
-
+                android:textSize="20sp"
+                app:cornerRadius="10dp"
+                app:rippleColor="@color/black_alpha_48"/>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
-</android.support.design.widget.CoordinatorLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

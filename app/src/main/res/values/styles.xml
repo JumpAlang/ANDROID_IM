@@ -1,16 +1,9 @@
-<resources>
+<resources  xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <style name="AppTheme" parent="AppTheme.Base">
-        <!--
-        <item name="toolbarStyle">@style/Widget.Toolbar</item>
-        <item name="toolbarNavigationButtonStyle">@style/Widget.ToolbarNavigationButtonStyle</item>
-        <item name="actionOverflowButtonStyle">@style/Widget.ActionButton.Overflow</item>
-        <item name="actionOverflowMenuStyle">@style/Widget.PopupMenu.Overflow</item>
-        -->
-
-        <!--顶部导航条中的Icon和二级字体的颜色-->
-        <item name="colorControlNormal">@color/white_alpha_240</item>
-        <item name="colorControlActivated">@color/textPrimary</item>
+    <style name="AppTheme" parent="Theme.MaterialComponents.NoActionBar.Bridge">
+        <!--&lt;!&ndash;顶部导航条中的Icon和二级字体的颜色&ndash;&gt;-->
+        <!--<item name="colorControlNormal">@color/white_alpha_240</item>-->
+        <!--<item name="colorControlActivated">@color/textPrimary</item>-->
     </style>
 
     <style name="AppTheme.TransStatusBar.Base" parent="AppTheme">

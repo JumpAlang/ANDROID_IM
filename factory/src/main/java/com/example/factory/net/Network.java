@@ -36,7 +36,7 @@ public class Network {
     public static Retrofit getRetrofit() {
         if (instance.retrofit != null)
             return instance.retrofit;
-		HttpLoggingInterceptor logInterceptor = new HttpLoggingInterceptor();
+//		HttpLoggingInterceptor logInterceptor = new HttpLoggingInterceptor();
         // 得到一个OK Client
         OkHttpClient client = new OkHttpClient.Builder()
                 // 给所有的请求添加一个拦截器
@@ -57,14 +57,14 @@ public class Network {
                         return chain.proceed(newRequest);
                     }
                 })
-				.addInterceptor(logInterceptor)
+//				.addInterceptor(logInterceptor)
                 .build();
-		if(BuildConfig.DEBUG){
-            //显示日志
-            logInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-        }else {
-            logInterceptor.setLevel(HttpLoggingInterceptor.Level.NONE);
-        }
+//		if(BuildConfig.DEBUG){
+//            //显示日志
+//            logInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+//        }else {
+//            logInterceptor.setLevel(HttpLoggingInterceptor.Level.NONE);
+//        }
 
         Retrofit.Builder builder = new Retrofit.Builder();
 

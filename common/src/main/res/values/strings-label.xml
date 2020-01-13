@@ -11,6 +11,7 @@
     <string name="label_permission_write_desc">用于OSS日志存储</string>
     <string name="label_permission_record_audio">麦克风</string>
     <string name="label_permission_record_audio_desc">用于音频聊天</string>
+    <string name="label_permission_denied">没有权限，有些功能可能无法使用</string>
     <string name="label_permission_submit">授权</string>
     <string name="label_permission_ok">授权成功！</string>
 
@@ -21,7 +22,7 @@
     <string name="label_login">登录</string>
     <string name="label_phone">电话</string>
     <string name="label_register_welcome">欢迎您!</string>
-    <string name="label_register">注册</string>
+    <string name="label_register">新用户</string>
     <string name="label_password">密码</string>
     <string name="label_portrait_tips">选择你的专属头像</string>
     <string name="label_name">名字</string>

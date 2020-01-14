@@ -2,7 +2,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/activity_launch"
-    android:background="@color/white"
     android:layout_width="360dp"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -27,7 +26,6 @@
                 app:gAutoRun="true"
                 app:gBackgroundColor="@null"
                 app:gForegroundColor="@color/colorAccent" />
-
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/register_btn"
                 android:layout_width="165dp"
@@ -35,14 +33,14 @@
                 android:layout_marginStart="10dp"
                 android:gravity="center"
                 android:text="@string/label_register"
-                android:textColor="@color/colorAccent"
+                android:textColor="@color/my_colorAccent"
                 android:textAppearance="?android:textAppearanceButton"
                 android:textSize="20sp"
                 android:insetBottom="0dp"
                 app:backgroundTint="@color/white"
                 app:cornerRadius="10dp"
                 app:rippleColor="@color/black_alpha_48"
-                app:strokeColor="@color/colorAccent"
+                app:strokeColor="@color/my_colorAccent"
                 app:strokeWidth="2dp" />
 
             <com.google.android.material.button.MaterialButton
@@ -54,7 +52,7 @@
                 android:text="@string/label_login"
                 android:textAppearance="?android:textAppearanceButton"
                 android:insetBottom="0dp"
-                app:backgroundTint="@color/colorAccent"
+                app:backgroundTint="@color/my_colorAccent"
                 android:textColor="@color/white"
                 android:textSize="20sp"
                 app:cornerRadius="10dp"

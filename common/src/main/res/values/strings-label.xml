@@ -16,7 +16,7 @@
     <string name="label_permission_ok">授权成功！</string>
 
 
-    <string name="label_update_info_tips">仅差一步了</string>
+    <string name="label_update_info_tips">下一步</string>
     <string name="label_login_welcome">登录</string>
     <string name="label_submit">提交</string>
     <string name="label_login">登录</string>

@@ -4,25 +4,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:background="@drawable/bg_src_tianjin"
-    tools:context="net.qiujuer.italker.push.frags.account.LoginFragment">
+    android:background="@drawable/bg_src_tianjin">
 
-    <android.support.v7.widget.Toolbar
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/bg_gradient_black"
-        android:paddingBottom="@dimen/len_28"
-        android:paddingTop="@dimen/len_40"
-        app:title="@string/label_login_welcome"
-        app:titleTextAppearance="@style/TextAppearance.AppCompat.Display1" />
-
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/icon_image"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="100dp"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/portrait"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/len_16"
         android:layout_marginRight="@dimen/len_16"
-        android:layout_marginTop="@dimen/len_16"
+        android:layout_marginTop="25dp"
         android:background="@drawable/bg_account_input"
         android:orientation="vertical"
         android:paddingBottom="@dimen/len_8"
@@ -42,7 +39,7 @@
                 android:layout_marginRight="@dimen/len_8"
                 android:contentDescription="@string/app_name"
                 android:src="@drawable/ic_phone"
-                android:tint="@color/colorAccent" />
+                android:tint="@color/my_colorAccent" />
 
             <EditText
                 android:id="@+id/edit_phone"
@@ -85,7 +82,7 @@
                 android:layout_marginRight="@dimen/len_8"
                 android:contentDescription="@string/app_name"
                 android:src="@drawable/ic_key"
-                android:tint="@color/colorAccent" />
+                android:tint="@color/my_colorAccent" />
 
             <EditText
                 android:id="@+id/edit_password"
@@ -147,17 +144,20 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/len_28">
 
-        <net.qiujuer.genius.ui.widget.Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_submit"
-            android:layout_width="@dimen/len_172"
-            android:layout_height="@dimen/len_44"
-            android:layout_gravity="center"
-            android:background="@drawable/sel_btn_bg_black_alpha_44"
+            android:layout_width="165dp"
+            android:layout_height="60dp"
+            android:gravity="center"
             android:text="@string/label_login"
+            android:textAppearance="?android:textAppearanceButton"
+            android:insetBottom="0dp"
+            android:layout_gravity="center"
+            app:backgroundTint="@color/my_colorAccent"
             android:textColor="@color/white"
-            app:gTouchColor="@color/colorAccentAlpha"
-            app:gTouchCornerRadius="22dp"
-            app:gTouchEffect="ripple" />
+            android:textSize="20sp"
+            app:cornerRadius="30dp"
+            app:rippleColor="@color/black_alpha_48"/>
 
         <net.qiujuer.genius.ui.widget.Loading
             android:id="@+id/loading"

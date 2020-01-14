@@ -4,17 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:background="@drawable/bg_src_tianjin"
-    tools:context="net.qiujuer.italker.push.frags.account.RegisterFragment">
-
-    <android.support.v7.widget.Toolbar
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/bg_gradient_black"
-        android:paddingBottom="@dimen/len_28"
-        android:paddingTop="@dimen/len_40"
-        app:title="@string/label_register_welcome"
-        app:titleTextAppearance="@style/TextAppearance.AppCompat.Display1" />
+    android:background="@drawable/bg_src_tianjin">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -42,7 +32,7 @@
                 android:layout_marginRight="@dimen/len_8"
                 android:contentDescription="@string/app_name"
                 android:src="@drawable/ic_phone"
-                android:tint="@color/colorAccent" />
+                android:tint="@color/my_colorAccent" />
 
             <EditText
                 android:id="@+id/edit_phone"
@@ -90,7 +80,7 @@
                 android:layout_marginRight="@dimen/len_8"
                 android:contentDescription="@string/app_name"
                 android:src="@drawable/ic_key"
-                android:tint="@color/colorAccent" />
+                android:tint="@color/my_colorAccent" />
 
             <EditText
                 android:id="@+id/edit_password"
@@ -137,7 +127,7 @@
                 android:layout_marginRight="@dimen/len_8"
                 android:contentDescription="@string/app_name"
                 android:src="@drawable/ic_person"
-                android:tint="@color/colorAccent" />
+                android:tint="@color/my_colorAccent" />
 
             <EditText
                 android:id="@+id/edit_name"
@@ -204,17 +194,21 @@
         android:layout_marginBottom="@dimen/len_28">
 
 
-        <net.qiujuer.genius.ui.widget.Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_submit"
-            android:layout_width="@dimen/len_172"
-            android:layout_height="@dimen/len_44"
+            android:layout_width="165dp"
+            android:layout_height="60dp"
+            android:gravity="center"
+            android:text="@string/label_update_info_tips"
+            android:textAppearance="?android:textAppearanceButton"
+            android:drawableRight="@drawable/next_icn"
+            android:insetBottom="0dp"
             android:layout_gravity="center"
-            android:background="@drawable/sel_btn_bg_black_alpha_44"
-            android:text="@string/label_register"
+            app:backgroundTint="@color/my_colorAccent"
             android:textColor="@color/white"
-            app:gTouchColor="@color/white_alpha_48"
-            app:gTouchCornerRadius="22dp"
-            app:gTouchEffect="ripple" />
+            android:textSize="20sp"
+            app:cornerRadius="30dp"
+            app:rippleColor="@color/black_alpha_48"/>
 
 
         <net.qiujuer.genius.ui.widget.Loading

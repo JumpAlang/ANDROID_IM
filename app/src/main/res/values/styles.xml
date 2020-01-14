@@ -1,9 +1,12 @@
 <resources  xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <style name="AppTheme" parent="Theme.MaterialComponents.NoActionBar.Bridge">
-        <!--&lt;!&ndash;顶部导航条中的Icon和二级字体的颜色&ndash;&gt;-->
-        <!--<item name="colorControlNormal">@color/white_alpha_240</item>-->
-        <!--<item name="colorControlActivated">@color/textPrimary</item>-->
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="android:textColorPrimary">@color/my_textColorPrimary</item>
+        <item name="colorPrimary">@color/my_colorPrimary</item>
+        <item name="colorPrimaryDark">@color/my_colorPrimaryDark</item>
+        <item name="colorAccent">@color/my_colorAccent</item>
     </style>
 
     <style name="AppTheme.TransStatusBar.Base" parent="AppTheme">

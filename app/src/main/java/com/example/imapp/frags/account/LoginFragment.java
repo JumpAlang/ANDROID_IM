@@ -26,6 +26,7 @@ public class LoginFragment extends PresenterFragment<LoginContract.Presenter>
 
     @BindView(R.id.edit_phone)
     EditText mPhone;
+
     @BindView(R.id.edit_password)
     EditText mPassword;
 

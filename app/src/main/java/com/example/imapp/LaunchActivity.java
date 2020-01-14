@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import com.example.common.common.app.Activity;
 import com.example.common.common.app.Application;
 import com.example.factory.persistence.Account;
+import com.example.imapp.activities.AccountActivity;
 import com.example.imapp.activities.MainActivity;
 import com.example.imapp.helper.PermissionHelper;
 import com.google.android.material.button.MaterialButton;
@@ -19,6 +20,7 @@ import net.qiujuer.genius.ui.widget.Loading;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 import me.jessyan.autosize.AutoSizeConfig;
 import pub.devrel.easypermissions.EasyPermissions;
 
@@ -42,7 +44,7 @@ public class LaunchActivity extends Activity implements EasyPermissions.Permissi
     @Override
     protected void initWidget() {
         super.initWidget();
-
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         //初始话autoSize
         AutoSizeConfig.getInstance()
                 .setBaseOnWidth(true)
@@ -91,6 +93,15 @@ public class LaunchActivity extends Activity implements EasyPermissions.Permissi
                     }
                 }, 500);
     }
+    @OnClick(R.id.login_btn)
+    void onLoginClick(){
+        AccountActivity.show(this);
+    }
+    @OnClick(R.id.register_btn)
+    void onRegisterClick(){
+        MainActivity.show(this);
+    }
+
     /**
      * 显示加载，等待判断是否登陆，或等待个推分发设备ID
      */

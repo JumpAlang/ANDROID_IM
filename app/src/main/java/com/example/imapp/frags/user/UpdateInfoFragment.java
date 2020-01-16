@@ -26,6 +26,7 @@ import java.io.File;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -41,8 +42,8 @@ public class UpdateInfoFragment extends PresenterFragment<UpdateInfoContract.Pre
     @BindView(R.id.edit_desc)
     EditText mDesc;
 
-//    @BindView(R.id.im_portrait)
-//    PortraitView mPortrait;
+    @BindView(R.id.im_portrait)
+    CircleImageView mPortrait;
 
     @BindView(R.id.loading)
     Loading mLoading;
@@ -117,11 +118,11 @@ public class UpdateInfoFragment extends PresenterFragment<UpdateInfoContract.Pre
         // 得到头像地址
         mPortraitPath = uri.getPath();
 
-//        Glide.with(this)
-//                .load(uri)
-//                .asBitmap()
-//                .centerCrop()
-//                .into(mPortrait);
+        Glide.with(this)
+                .asBitmap()
+                .load(uri)
+                .centerCrop()
+                .into(mPortrait);
     }
 
     @OnClick(R.id.im_sex)

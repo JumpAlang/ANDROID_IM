@@ -1,6 +1,7 @@
 package com.example.factory.presenter.account;
 
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.example.common.common.Common;
 import com.example.common.factory.data.DataSource;
@@ -20,12 +21,15 @@ import java.util.regex.Pattern;
  */
 public class RegisterPresenter extends BasePresenter<RegisterContract.View>
         implements RegisterContract.Presenter, DataSource.Callback<User> {
+    public static final String TAG = "RegisterPresenter";
+
     public RegisterPresenter(RegisterContract.View view) {
         super(view);
     }
 
     @Override
     public void register(String phone, String name, String password) {
+        Log.d(TAG, "register phone:"+phone+",name:"+name+",password:"+password);
         // 调用开始方法，在start中默认启动了Loading
         start();
 

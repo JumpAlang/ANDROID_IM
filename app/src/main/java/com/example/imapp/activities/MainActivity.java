@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import com.example.common.common.app.Activity;
+import com.example.factory.persistence.Account;
 import com.example.imapp.R;
 import com.example.imapp.frags.main.ActiveFragment;
 import com.example.imapp.frags.main.ContactFragment;
@@ -57,7 +58,7 @@ public class MainActivity extends Activity
     @Override
     protected boolean initArgs(Bundle bundle) {
 //        if(Account.isComplete()) {
-//            // 判断用户信息是否完全，完全则走正常流程
+            // 判断用户信息是否完全，完全则走正常流程
 //            return super.initArgs(bundle);
 //        }else{
 //            UserActivity.show(this);

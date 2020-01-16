@@ -10,6 +10,7 @@ import com.example.factory.presenter.account.RegisterContract;
 import com.example.factory.presenter.account.RegisterPresenter;
 import com.example.imapp.R;
 import com.example.imapp.activities.MainActivity;
+import com.example.imapp.activities.UserActivity;
 
 import net.qiujuer.genius.ui.widget.Loading;
 
@@ -62,6 +63,9 @@ public class RegisterFragment extends PresenterFragment<RegisterContract.Present
 
     @OnClick(R.id.btn_submit)
     void onSubmitClick() {
+        //跳转下一步
+        UserActivity.show(getActivity());
+
         String phone = mPhone.getText().toString();
         String name = mName.getText().toString();
         String password = mPassword.getText().toString();

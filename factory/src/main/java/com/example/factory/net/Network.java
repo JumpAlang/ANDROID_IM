@@ -3,6 +3,7 @@ package com.example.factory.net;
 import android.text.TextUtils;
 
 import com.example.common.common.Common;
+import com.example.factory.BuildConfig;
 import com.example.factory.Factory;
 import com.example.factory.persistence.Account;
 
@@ -12,6 +13,7 @@ import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -36,7 +38,14 @@ public class Network {
     public static Retrofit getRetrofit() {
         if (instance.retrofit != null)
             return instance.retrofit;
-//		HttpLoggingInterceptor logInterceptor = new HttpLoggingInterceptor();
+		HttpLoggingInterceptor logInterceptor = new HttpLoggingInterceptor();
+        logInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        if(BuildConfig.DEBUG){
+            //显示日志
+            logInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        }else {
+            logInterceptor.setLevel(HttpLoggingInterceptor.Level.NONE);
+        }
         // 得到一个OK Client
         OkHttpClient client = new OkHttpClient.Builder()
                 // 给所有的请求添加一个拦截器
@@ -57,14 +66,8 @@ public class Network {
                         return chain.proceed(newRequest);
                     }
                 })
-//				.addInterceptor(logInterceptor)
+				.addInterceptor(logInterceptor)
                 .build();
-//		if(BuildConfig.DEBUG){
-//            //显示日志
-//            logInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-//        }else {
-//            logInterceptor.setLevel(HttpLoggingInterceptor.Level.NONE);
-//        }
 
         Retrofit.Builder builder = new Retrofit.Builder();
 

@@ -5,32 +5,41 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <FrameLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="360dp"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@color/my_colorPrimary">
-            <TextView
-                android:id="@+id/app_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:lines="1"
-                android:textColor="#000000"
-                android:ellipsize="end"
-                android:textSize="16sp" />
-        </androidx.appcompat.widget.Toolbar>
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appBarLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/my_colorPrimary"
+                app:layout_scrollFlags="scroll|enterAlways|snap">
+                <TextView
+                    android:id="@+id/app_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:lines="1"
+                    android:textColor="#000000"
+                    android:ellipsize="end"
+                    android:textSize="16sp" />
+            </androidx.appcompat.widget.Toolbar>
+        </com.google.android.material.appbar.AppBarLayout>
 
         <FrameLayout
             android:id="@+id/lay_container"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+
+            />
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottom_menu"
-            android:layout_width="360dp"
+            android:layout_width="match_parent"
             android:layout_height="52dp"
             android:layout_gravity="bottom"
             android:background="@color/white"
@@ -42,7 +51,7 @@
             app:menu="@menu/navigation_items"
             tools:targetApi="lollipop"
             tools:visibility="invisible" />
-    </FrameLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/left_menu"

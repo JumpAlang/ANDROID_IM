@@ -17,10 +17,12 @@ import com.example.imapp.frags.main.ActiveFragment;
 import com.example.imapp.frags.main.ContactFragment;
 import com.example.imapp.frags.main.GroupFragment;
 import com.example.imapp.helper.NavHelper;
+import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.widget.Toolbar;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import butterknife.BindView;
@@ -44,6 +46,9 @@ public class MainActivity extends Activity
 
     @BindView(R.id.drawer_layout)
     DrawerLayout mDrawerLayout;
+
+    @BindView(R.id.appBarLayout)
+    AppBarLayout mAppBarLayout;
 
     private NavHelper<Integer> mNavHelper;
 

@@ -3,9 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg_src_tianjin"
     android:orientation="vertical"
-    android:background="@drawable/bg_src_tianjin">
-
+    >
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -59,11 +59,10 @@
         <net.qiujuer.genius.ui.widget.EditText
             android:id="@+id/edit_desc"
             android:layout_width="0dp"
-            android:layout_height="37dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="70dp"
             android:layout_marginEnd="16dp"
-            android:layout_marginBottom="32dp"
             android:hint="@string/label_desc_tips"
             android:inputType="textMultiLine"
             android:maxLength="64"
@@ -78,9 +77,35 @@
             app:gLineSize="1dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/im_portrait" />
+
+        <net.qiujuer.genius.ui.widget.EditText
+            android:id="@+id/edit_stuId"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginEnd="16dp"
+            android:hint="@string/label_desc_sutId"
+            android:inputType="textMultiLine"
+            android:maxLength="64"
+            android:maxLines="2"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white_alpha_128"
+            android:textSize="@dimen/font_16"
+            app:gHintTitle="none"
+            app:gLineColor="@color/white_alpha_160"
+            app:gLineSize="1dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/im_portrait"
+            app:layout_constraintVertical_bias="0.0" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <Space

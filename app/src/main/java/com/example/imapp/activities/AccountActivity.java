@@ -19,6 +19,7 @@ import com.example.imapp.frags.account.RegisterFragment;
 import butterknife.BindView;
 
 public class AccountActivity extends Activity implements AccountTrigger {
+    private static boolean isLogin =true;
     private Fragment mCurFragment;
     private Fragment mLoginFragment;
     private Fragment mRegisterFragment;
@@ -27,12 +28,12 @@ public class AccountActivity extends Activity implements AccountTrigger {
     ImageView mBg;
 
     /**
-     * 账户Activity显示的入口
-     *
+     * 显示入口
      * @param context Context
      */
-    public static void show(Context context) {
+    public static void show(Context context,boolean isLogin) {
         context.startActivity(new Intent(context, AccountActivity.class));
+        AccountActivity.isLogin=isLogin;
     }
 
     @Override
@@ -43,31 +44,16 @@ public class AccountActivity extends Activity implements AccountTrigger {
     @Override
     protected void initWidget() {
         super.initWidget();
-
+        if(isLogin==true){
+            mCurFragment = mLoginFragment = new LoginFragment();
+        } else {
+            mCurFragment = mLoginFragment = new RegisterFragment();
+        }
         // 初始化Fragment
-        mCurFragment = mLoginFragment = new LoginFragment();
         getSupportFragmentManager()
                 .beginTransaction()
                 .add(R.id.lay_container, mCurFragment)
                 .commit();
-
-        // 初始化背景
-//        Glide.with(this)
-//                .load(R.drawable.bg_src_tianjin)
-//                .centerCrop() //居中剪切
-//                .into(new ViewTarget<ImageView, GlideDrawable>(mBg) {
-//                    @Override
-//                    public void onResourceReady(GlideDrawable resource, GlideAnimation<? super GlideDrawable> glideAnimation) {
-//                        // 拿到glide的Drawable
-//                        Drawable drawable = resource.getCurrent();
-//                        // 使用适配类进行包装
-//                        drawable = DrawableCompat.wrap(drawable);
-//                        drawable.setColorFilter(UiCompat.getColor(getResources(), R.color.colorAccent),
-//                                PorterDuff.Mode.SCREEN); // 设置着色的效果和颜色，蒙板模式
-//                        // 设置给ImageView
-//                        this.view.setImageDrawable(drawable);
-//                    }
-//                });
     }
 
     @Override

@@ -28,7 +28,8 @@ public abstract class PresenterFragment<Presenter extends BaseContract.Presenter
     protected abstract Presenter initPresenter();
 
     @Override
-    public void showError(int str) {
+    public void showError(int strId) {
+        String str = Application.getInstance().getResources().getString(strId);
         // 显示错误
         Application.showToast(str);
     }

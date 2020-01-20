@@ -4,6 +4,7 @@ import android.os.SystemClock;
 import android.widget.Toast;
 
 
+import androidx.annotation.MainThread;
 import androidx.annotation.StringRes;
 
 import java.io.File;
@@ -90,20 +91,11 @@ public class Application extends android.app.Application {
 
     /**
      * 显示一个Toast
-     *
      * @param msg 字符串
      */
+    @MainThread
     public static void showToast(final String msg) {
-        // Toast 只能在主线程中显示，所有需要进行线程转换，
-        // 保证一定是在主线程进行的show操作
-//        Run.onUiAsync(new Action() {
-//            @Override
-//            public void call() {
-//                // 这里进行回调的时候一定就是主线程状态了
-//                Toast.makeText(instance, msg, Toast.LENGTH_SHORT).show();
-//            }
-//        });
-
+        Toast.makeText(instance, msg, Toast.LENGTH_SHORT).show();
     }
 
     /**

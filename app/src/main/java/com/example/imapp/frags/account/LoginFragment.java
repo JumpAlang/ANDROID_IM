@@ -8,6 +8,7 @@ import android.widget.EditText;
 import com.example.common.common.app.PresenterFragment;
 import com.example.factory.presenter.account.LoginContract;
 import com.example.factory.presenter.account.LoginPresenter;
+import com.example.imapp.App;
 import com.example.imapp.R;
 import com.example.imapp.activities.MainActivity;
 
@@ -74,8 +75,8 @@ public class LoginFragment extends PresenterFragment<LoginContract.Presenter>
     }
 
     @Override
-    public void showError(int str) {
-        super.showError(str);
+    public void showError(int strId) {
+        super.showError(strId);
         // 当需要显示错误的时候触发，一定是结束了
 
         // 停止Loading
@@ -85,6 +86,7 @@ public class LoginFragment extends PresenterFragment<LoginContract.Presenter>
         mPassword.setEnabled(true);
         // 提交按钮可以继续点击
         mSubmit.setEnabled(true);
+        mSubmit.setText(R.string.label_login);
     }
 
     @Override
@@ -99,6 +101,7 @@ public class LoginFragment extends PresenterFragment<LoginContract.Presenter>
         mPassword.setEnabled(false);
         // 提交按钮不可以继续点击
         mSubmit.setEnabled(false);
+        mSubmit.setText("");
     }
 
     @Override

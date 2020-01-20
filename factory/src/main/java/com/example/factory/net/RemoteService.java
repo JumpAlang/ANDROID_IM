@@ -7,6 +7,7 @@ import com.example.factory.model.api.account.RegisterModel;
 import com.example.factory.model.api.user.UserUpdateModel;
 import com.example.factory.model.card.UserCard;
 
+import io.reactivex.Observable;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
@@ -28,7 +29,7 @@ public interface RemoteService {
      * @return 返回的是RspModel<AccountRspModel>
      */
     @POST("account/register")
-    Call<RspModel<AccountRspModel>> accountRegister(@Body RegisterModel model);
+    Observable<RspModel<AccountRspModel>> accountRegister(@Body RegisterModel model);
 
     /**
      * 登录接口
@@ -37,7 +38,7 @@ public interface RemoteService {
      * @return RspModel<AccountRspModel>
      */
     @POST("account/login")
-    Call<RspModel<AccountRspModel>> accountLogin(@Body LoginModel model);
+    Observable<RspModel<AccountRspModel>> accountLogin(@Body LoginModel model);
 
     /**
      * 绑定设备Id
@@ -46,7 +47,7 @@ public interface RemoteService {
      * @return RspModel<AccountRspModel>
      */
     @POST("account/bind/{pushId}")
-    Call<RspModel<AccountRspModel>> accountBind(@Path(encoded = true, value = "pushId") String pushId);
+    Observable<RspModel<AccountRspModel>> accountBind(@Path(encoded = true, value = "pushId") String pushId);
 
     // 用户更新的接口
     @PUT("user")

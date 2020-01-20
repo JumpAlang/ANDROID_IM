@@ -6,8 +6,12 @@ import android.util.Log;
 import com.example.common.common.Common;
 import com.example.common.factory.data.DataSource;
 import com.example.common.factory.presenter.BasePresenter;
+import com.example.factory.BaseObserver;
+import com.example.factory.Factory;
 import com.example.factory.R;
 import com.example.factory.data.helper.AccountHelper;
+import com.example.factory.model.api.RspModel;
+import com.example.factory.model.api.account.AccountRspModel;
 import com.example.factory.model.api.account.RegisterModel;
 import com.example.factory.model.db.User;
 import com.example.factory.persistence.Account;
@@ -15,12 +19,14 @@ import com.example.factory.persistence.Account;
 
 import java.util.regex.Pattern;
 
+import static com.example.factory.data.helper.AccountHelper.bindPush;
+
 /**
  * @author qiujuer Email:qiujuer@live.cn
  * @version 1.0.0
  */
 public class RegisterPresenter extends BasePresenter<RegisterContract.View>
-        implements RegisterContract.Presenter, DataSource.Callback<User> {
+        implements RegisterContract.Presenter {
     public static final String TAG = "RegisterPresenter";
 
     public RegisterPresenter(RegisterContract.View view) {
@@ -51,10 +57,48 @@ public class RegisterPresenter extends BasePresenter<RegisterContract.View>
             // 构造Model，进行请求调用
             RegisterModel model = new RegisterModel(phone, password, name, Account.getPushId());
             // 进行网络请求，并设置回送接口为自己
-            AccountHelper.register(model, this);
+            AccountHelper.register(model, new RegisterObserver());
         }
     }
+    class RegisterObserver extends BaseObserver<AccountRspModel>{
+        final RegisterContract.View view = getView();
+        @Override
+        public void onNext(RspModel<AccountRspModel> rspModel) {
+            super.onNext(rspModel);
+            if (view == null)
+                return;
+            if (rspModel.success()) {
+                // 拿到实体
+                AccountRspModel accountRspModel = rspModel.getResult();
 
+                // 判断绑定状态，是否绑定设备
+                if (accountRspModel.isBind()) {
+                    // 设置绑定状态为True
+                    Account.setBind(true);
+                    view.registerSuccess();
+                } else {
+                    // 进行绑定的唤起
+                    bindPush(new BaseObserver<AccountRspModel>() {
+                        @Override
+                        public void onNext(RspModel<AccountRspModel> accountRspModelRspModel) {
+                            super.onNext(accountRspModelRspModel);
+                            view.registerSuccess();
+                        }
+                    });
+                }
+            } else {
+                int id = Factory.decodeRspCode(rspModel);
+                view.showError(id);
+            }
+        }
+        @Override
+        public void onError(Throwable e) {
+            super.onError(e);
+            if (view == null)
+                return;
+            view.showError(R.string.data_network_error);
+        }
+    }
     /**
      * 检查手机号是否合法
      *
@@ -66,40 +110,5 @@ public class RegisterPresenter extends BasePresenter<RegisterContract.View>
         // 手机号不为空，并且满足格式
         return !TextUtils.isEmpty(phone)
                 && Pattern.matches(Common.Constance.REGEX_MOBILE, phone);
-    }
-
-    @Override
-    public void onDataLoaded(User user) {
-        // 当网络请求成功，注册好了，回送一个用户信息回来
-        // 告知界面，注册成功
-        final RegisterContract.View view = getView();
-        if (view == null)
-            return;
-        // 此时是从网络回送回来的，并不保证处于主现场状态
-        // 强制执行在主线程中
-//        Run.onUiAsync(new Action() {
-//            @Override
-//            public void call() {
-//                // 调用主界面注册成功
-//                view.registerSuccess();
-//            }
-//        });
-    }
-
-    @Override
-    public void onDataNotAvailable(final int strRes) {
-        // 网络请求告知注册失败
-        final RegisterContract.View view = getView();
-        if (view == null)
-            return;
-        // 此时是从网络回送回来的，并不保证处于主现场状态
-        // 强制执行在主线程中
-//        Run.onUiAsync(new Action() {
-//            @Override
-//            public void call() {
-//                // 调用主界面注册失败显示错误
-//                view.showError(strRes);
-//            }
-//        });
     }
 }

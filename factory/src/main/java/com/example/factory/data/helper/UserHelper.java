@@ -41,7 +41,7 @@ public class UserHelper {
                     callback.onDataLoaded(userCard);
                 } else {
                     // 错误情况下进行错误分配
-                    Factory.decodeRspCode(rspModel, callback);
+//                    Factory.decodeRspCode(rspModel, callback);
                 }
             }
 

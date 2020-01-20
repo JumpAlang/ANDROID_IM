@@ -63,7 +63,7 @@ public class MessageReceiver extends BroadcastReceiver {
         if (Account.isLogin()) {
             // 账户登录状态，进行一次PushId绑定
             // 没有登录是不能绑定PushId的
-            AccountHelper.bindPush(null);
+            AccountHelper.bindPush();
         }
     }
 

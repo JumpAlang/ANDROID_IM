@@ -93,13 +93,14 @@ public class LaunchActivity extends Activity implements EasyPermissions.Permissi
                     }
                 }, 500);
     }
+
     @OnClick(R.id.login_btn)
     void onLoginClick(){
-        AccountActivity.show(this);
+        AccountActivity.show(this,true);
     }
     @OnClick(R.id.register_btn)
     void onRegisterClick(){
-        MainActivity.show(this);
+        AccountActivity.show(this,false);
     }
 
     /**

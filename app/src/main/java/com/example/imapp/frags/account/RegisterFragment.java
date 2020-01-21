@@ -64,8 +64,6 @@ public class RegisterFragment extends PresenterFragment<RegisterContract.Present
     @OnClick(R.id.btn_submit)
     void onSubmitClick() {
         //跳转下一步
-        UserActivity.show(getActivity());
-
         String phone = mPhone.getText().toString();
         String name = mName.getText().toString();
         String password = mPassword.getText().toString();
@@ -93,6 +91,7 @@ public class RegisterFragment extends PresenterFragment<RegisterContract.Present
         mPassword.setEnabled(true);
         // 提交按钮可以继续点击
         mSubmit.setEnabled(true);
+        mSubmit.setText(R.string.label_update_info_tips);
     }
 
     @Override
@@ -108,7 +107,7 @@ public class RegisterFragment extends PresenterFragment<RegisterContract.Present
         mPassword.setEnabled(false);
         // 提交按钮不可以继续点击
         mSubmit.setEnabled(false);
-
+        mSubmit.setText("");
     }
 
     @Override

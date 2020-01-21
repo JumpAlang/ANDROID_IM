@@ -51,6 +51,6 @@ public interface RemoteService {
 
     // 用户更新的接口
     @PUT("user")
-    Call<RspModel<UserCard>> userUpdate(@Body UserUpdateModel model);
+    Observable<RspModel<UserCard>> userUpdate(@Body UserUpdateModel model);
 
 }

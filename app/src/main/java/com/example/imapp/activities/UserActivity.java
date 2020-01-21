@@ -43,24 +43,6 @@ public class UserActivity extends Activity {
                 .beginTransaction()
                 .add(R.id.lay_container, mCurFragment)
                 .commit();
-
-        // 初始化背景
-//        Glide.with(this)
-//                .load(R.drawable.bg_src_tianjin)
-//                .centerCrop() //居中剪切
-//                .into(new ViewTarget<ImageView, GlideDrawable>(mBg) {
-//                    @Override
-//                    public void onResourceReady(GlideDrawable resource, GlideAnimation<? super GlideDrawable> glideAnimation) {
-//                        // 拿到glide的Drawable
-//                        Drawable drawable = resource.getCurrent();
-//                        // 使用适配类进行包装
-//                        drawable = DrawableCompat.wrap(drawable);
-//                        drawable.setColorFilter(UiCompat.getColor(getResources(), R.color.colorAccent),
-//                                PorterDuff.Mode.SCREEN); // 设置着色的效果和颜色，蒙板模式
-//                        // 设置给ImageView
-//                        this.view.setImageDrawable(drawable);
-//                    }
-//                });
     }
 
     // Activity中收到剪切图片成功的回调

@@ -82,6 +82,7 @@ public class RegisterPresenter extends BasePresenter<RegisterContract.View>
                         @Override
                         public void onNext(RspModel<AccountRspModel> accountRspModelRspModel) {
                             super.onNext(accountRspModelRspModel);
+                            Account.setBind(true);
                             view.registerSuccess();
                         }
                     });

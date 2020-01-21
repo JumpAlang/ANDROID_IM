@@ -12,6 +12,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import com.example.common.common.app.Activity;
 import com.example.factory.persistence.Account;
+import com.example.imapp.LaunchActivity;
 import com.example.imapp.R;
 import com.example.imapp.frags.main.ActiveFragment;
 import com.example.imapp.frags.main.ContactFragment;
@@ -153,6 +154,9 @@ public class MainActivity extends Activity
         Log.d(TAG, "onOptionsItemSelected:"+item);
         switch (item.getItemId()){
             case R.id.search:
+                //fixme 退出登陆的接口
+                Account.clear(this);
+                AccountActivity.show(this,true);
                 break;
             case R.id.add:
 
@@ -164,4 +168,5 @@ public class MainActivity extends Activity
         }
         return true;
     }
+
 }

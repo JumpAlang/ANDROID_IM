@@ -61,7 +61,20 @@ public class Account {
         account = sp.getString(KEY_ACCOUNT, "");
     }
 
-
+    /**
+     * 清空数据XML文件
+     */
+    public static void clear(Context context) {
+        // 获取数据持久化的SP
+        SharedPreferences sp = context.getSharedPreferences(Account.class.getName(),
+                Context.MODE_PRIVATE);
+        sp.edit().remove(KEY_PUSH_ID)
+                .remove(KEY_IS_BIND)
+                .remove(KEY_TOKEN)
+                .remove(KEY_USER_ID)
+                .remove(KEY_ACCOUNT)
+                .apply();
+    }
     /**
      * 设置并存储设备的Id
      *

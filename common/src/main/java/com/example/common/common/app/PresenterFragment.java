@@ -29,14 +29,20 @@ public abstract class PresenterFragment<Presenter extends BaseContract.Presenter
 
     @Override
     public void showError(int strId) {
-        String str = Application.getInstance().getResources().getString(strId);
         // 显示错误
-        Application.showToast(str);
+        if(mPlaceHolderView!=null){
+            mPlaceHolderView.triggerError(strId);
+        } else {
+            String str = Application.getInstance().getResources().getString(strId);
+            Application.showToast(str);
+        }
     }
 
     @Override
     public void showLoading() {
-        // TODO 显示一个Loading
+        if(mPlaceHolderView!=null){
+            mPlaceHolderView.triggerLoading();
+        }
     }
 
     @Override

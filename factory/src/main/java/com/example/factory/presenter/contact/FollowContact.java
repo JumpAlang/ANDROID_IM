@@ -10,7 +10,7 @@ import com.example.factory.model.card.UserCard;
  * @author qiujuer Email:qiujuer@live.cn
  * @version 1.0.0
  */
-public interface FollowContract {
+public interface FollowContact {
     // 任务调度者
     interface Presenter extends BaseContract.Presenter {
         // 关注一个人

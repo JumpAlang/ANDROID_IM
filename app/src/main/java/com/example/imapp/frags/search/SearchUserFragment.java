@@ -3,7 +3,6 @@ package com.example.imapp.frags.search;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -15,16 +14,12 @@ import com.example.common.common.widget.EmptyView;
 import com.example.common.common.widget.PortraitView;
 import com.example.common.common.widget.recycler.RecyclerAdapter;
 import com.example.factory.model.card.UserCard;
-import com.example.factory.presenter.contact.FollowContract;
+import com.example.factory.presenter.contact.FollowContact;
+import com.example.factory.presenter.contact.FollowPresenter;
 import com.example.factory.presenter.search.SearchContract;
 import com.example.factory.presenter.search.SearchUserPresenter;
 import com.example.imapp.R;
 import com.example.imapp.activities.SearchActivity;
-
-import net.qiujuer.genius.ui.Ui;
-import net.qiujuer.genius.ui.compat.UiCompat;
-import net.qiujuer.genius.ui.drawable.LoadingCircleDrawable;
-import net.qiujuer.genius.ui.drawable.LoadingDrawable;
 
 import java.util.List;
 
@@ -109,7 +104,7 @@ public class SearchUserFragment extends PresenterFragment<SearchContract.Present
      * 每一个Cell的布局操作
      */
     class ViewHolder extends RecyclerAdapter.ViewHolder<UserCard>
-            implements FollowContract.View {
+            implements FollowContact.View {
         @BindView(R.id.im_portrait)
         PortraitView mPortraitView;
 
@@ -121,13 +116,13 @@ public class SearchUserFragment extends PresenterFragment<SearchContract.Present
 
         @BindView(R.id.added_contact)
         Button mFollowed;
-        private FollowContract.Presenter mPresenter;
+        private FollowContact.Presenter mPresenter;
 
 
         public ViewHolder(View itemView) {
             super(itemView);
             // 当前View和Presenter绑定
-//            new FollowPresenter(this);
+            new FollowPresenter(this);
         }
 
         void refreshFollow(UserCard userCard){
@@ -144,6 +139,7 @@ public class SearchUserFragment extends PresenterFragment<SearchContract.Present
         protected void onBind(UserCard userCard) {
             mPortraitView.setup(Glide.with(SearchUserFragment.this), userCard.getPortrait());
             mName.setText(userCard.getName());
+            Log.d(TAG, "onBind: "+userCard.getName()+" isFollow:"+userCard.isFollow());
             refreshFollow(userCard);
         }
 
@@ -187,7 +183,7 @@ public class SearchUserFragment extends PresenterFragment<SearchContract.Present
         }
 
         @Override
-        public void setPresenter(FollowContract.Presenter presenter) {
+        public void setPresenter(FollowContact.Presenter presenter) {
             mPresenter = presenter;
         }
 

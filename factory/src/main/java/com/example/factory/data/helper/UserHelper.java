@@ -17,6 +17,7 @@ import java.util.List;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -31,8 +32,8 @@ public class UserHelper {
     public static void update(UserUpdateModel model, Observer<RspModel<UserCard>> observer) {
         // 调用Retrofit对我们的网络请求接口做代理
         RemoteService service = Network.remote();
-        // 得到一个Call
         Observable<RspModel<UserCard>> rspModelObservable = service.userUpdate(model);
+
         // 网络请求
         rspModelObservable.subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -42,10 +43,30 @@ public class UserHelper {
     public static void search(String name, Observer<RspModel<List<UserCard>>> observer) {
         // 调用Retrofit对我们的网络请求接口做代理
         RemoteService service = Network.remote();
-        // 得到一个Call
         Observable<RspModel<List<UserCard>>> rspModelObservable = service.userSearch(name);
+
         // 网络请求
         rspModelObservable.subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
+    // 关注的网络请求
+    public static void follow(String id,Observer<RspModel<UserCard>> observer) {
+        RemoteService service = Network.remote();
+        Observable<RspModel<UserCard>> rspModelObservable = service.userFollow(id);
+
+        // 网络请求
+        rspModelObservable.subscribeOn(Schedulers.newThread())
+                .observeOn(Schedulers.io())
+                .doOnNext(new Consumer<RspModel<UserCard>>() {
+                    @Override
+                    public void accept(RspModel<UserCard> rspModel) throws Exception {
+                        UserCard userCard = rspModel.getResult();
+                        // 保存到本地数据库
+                        User user = userCard.build();
+                        user.save();
+                    }
+                })
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
     }

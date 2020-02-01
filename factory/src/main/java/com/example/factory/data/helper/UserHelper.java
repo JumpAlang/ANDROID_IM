@@ -12,6 +12,8 @@ import com.example.factory.model.db.User;
 import com.example.factory.net.Network;
 import com.example.factory.net.RemoteService;
 
+import java.util.List;
+
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -31,6 +33,17 @@ public class UserHelper {
         RemoteService service = Network.remote();
         // 得到一个Call
         Observable<RspModel<UserCard>> rspModelObservable = service.userUpdate(model);
+        // 网络请求
+        rspModelObservable.subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
+    // 搜索的方法
+    public static void search(String name, Observer<RspModel<List<UserCard>>> observer) {
+        // 调用Retrofit对我们的网络请求接口做代理
+        RemoteService service = Network.remote();
+        // 得到一个Call
+        Observable<RspModel<List<UserCard>>> rspModelObservable = service.userSearch(name);
         // 网络请求
         rspModelObservable.subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())

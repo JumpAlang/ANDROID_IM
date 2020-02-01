@@ -7,4 +7,11 @@
         <attr name="bubble_textSize" format="dimension"/>
         <attr name="bubble_textColor" format="color"/>
     </declare-styleable>
+    <declare-styleable name="EmptyView">
+        <attr name="comEmptyText" format="integer" />
+        <attr name="comErrorText" format="integer" />
+        <attr name="comLoadingText" format="integer" />
+        <attr name="comEmptyDrawable" format="integer" />
+        <attr name="comErrorDrawable" format="integer" />
+    </declare-styleable>
 </resources>

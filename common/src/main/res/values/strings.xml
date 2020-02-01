@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Common</string>
+
+    <string name="btn_follow">Follow</string>
+    <string name="btn_send_start">发起聊天</string>
+    <string name="btn_preview">预览</string>
+    <string name="btn_send">发送</string>
+    <string name="label_permission_denied">申请权限失败</string>
+    <string name="label_desc_sutId">输入你的学号</string>
 </resources>

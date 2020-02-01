@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import com.example.common.common.app.Activity;
+import com.example.common.common.app.Application;
 import com.example.factory.persistence.Account;
 import com.example.imapp.LaunchActivity;
 import com.example.imapp.R;
@@ -27,6 +28,8 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import butterknife.BindView;
+
+import static com.example.imapp.activities.SearchActivity.TYPE_USER;
 
 public class MainActivity extends Activity
         implements BottomNavigationView.OnNavigationItemSelectedListener,
@@ -154,9 +157,10 @@ public class MainActivity extends Activity
         Log.d(TAG, "onOptionsItemSelected:"+item);
         switch (item.getItemId()){
             case R.id.search:
-                //fixme 退出登陆的接口
-                Account.clear(this);
-                AccountActivity.show(this,true);
+//                Account.clear(this);
+//                AccountActivity.show(this,true);
+                //todo 先默认搜索人
+                SearchActivity.show(this,TYPE_USER);
                 break;
             case R.id.add:
 

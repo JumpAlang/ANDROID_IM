@@ -32,11 +32,8 @@ public class FollowPresenter extends BasePresenter<FollowContact.View> implement
             if (view == null)
                 return;
             if (rspModel.success()) {
-                String name = rspModel.getResult().getName();
-                Log.d(TAG, "onNext: "+name);
-//                List<UserCard> userCards = rspModel.getResult();
-//                view.onSearchDone(userCards);
-
+                UserCard userCard = rspModel.getResult();
+                view.onFollowSucceed(userCard);
             } else {
                 int id = Factory.decodeRspCode(rspModel);
                 view.showError(id);

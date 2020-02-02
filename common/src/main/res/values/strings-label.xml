@@ -28,6 +28,7 @@
     <string name="label_go_login">已有账户？去登录</string>
     <string name="lable_add_contact">添加</string>
     <string name="lable_added_contact">已添加</string>
+    <string name="lable_added_error">错误</string>
 
     <string name="label_follows">Follows\n%s</string>
     <string name="label_following">Following\n%s</string>

@@ -72,4 +72,19 @@
         app:cornerRadius="10dp"
         app:rippleColor="@color/black_alpha_96"
         android:visibility="gone"/>
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/add_contact_error"
+        android:layout_width="@dimen/len_52"
+        android:layout_height="@dimen/len_28"
+        android:layout_gravity="center_vertical"
+        android:gravity="center"
+        android:text="@string/lable_added_error"
+        android:textAppearance="?android:textAppearanceButton"
+        android:insetBottom="0dp"
+        app:backgroundTint="@color/red_a700"
+        android:textColor="@color/white"
+        android:textSize="10sp"
+        app:cornerRadius="10dp"
+        app:rippleColor="@color/black_alpha_96"
+        android:visibility="gone"/>
 </LinearLayout>

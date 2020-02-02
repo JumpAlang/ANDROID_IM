@@ -10,6 +10,8 @@ import com.example.factory.R;
 import com.example.factory.data.helper.UserHelper;
 import com.example.factory.model.api.RspModel;
 import com.example.factory.model.card.UserCard;
+import com.example.factory.presenter.contact.FollowContact;
+
 import java.util.List;
 
 /**
@@ -26,6 +28,10 @@ public class SearchUserPresenter extends BasePresenter<SearchContract.UserView>
         super(view);
     }
 
+    /**
+     * 搜索联系人
+     * @param content
+     */
     @Override
     public void search(String content) {
         Log.d(TAG, "search: "+content);

@@ -116,6 +116,10 @@ public class SearchUserFragment extends PresenterFragment<SearchContract.Present
 
         @BindView(R.id.added_contact)
         Button mFollowed;
+
+        @BindView(R.id.add_contact_error)
+        Button mFollowError;
+
         private FollowContact.Presenter mPresenter;
 
 
@@ -129,9 +133,12 @@ public class SearchUserFragment extends PresenterFragment<SearchContract.Present
             if(userCard.isFollow()){
                 mFollow.setVisibility(View.GONE);
                 mFollowed.setVisibility(View.VISIBLE);
+                mFollowError.setVisibility(View.GONE);
+
             }else {
                 mFollow.setVisibility(View.VISIBLE);
                 mFollowed.setVisibility(View.GONE);
+                mFollowError.setVisibility(View.GONE);
             }
         }
 
@@ -154,32 +161,16 @@ public class SearchUserFragment extends PresenterFragment<SearchContract.Present
             // 发起关注
             mPresenter.follow(mData.getId());
         }
-//
         @Override
         public void showError(int str) {
-            // 更改当前界面状态
-//            if (mFollow.getDrawable() instanceof LoadingDrawable) {
-//                // 失败则停止动画，并且显示一个圆圈
-//                LoadingDrawable drawable = (LoadingDrawable) mFollow.getDrawable();
-//                drawable.setProgress(1);
-//                drawable.stop();
-//            }
+            mFollow.setVisibility(View.GONE);
+            mFollowed.setVisibility(View.GONE);
+            mFollowError.setVisibility(View.VISIBLE);
         }
 
         @Override
         public void showLoading() {
-//            int minSize = (int) Ui.dipToPx(getResources(), 22);
-//            int maxSize = (int) Ui.dipToPx(getResources(), 30);
-//            // 初始化一个圆形的动画的Drawable
-//            LoadingDrawable drawable = new LoadingCircleDrawable(minSize, maxSize);
-//            drawable.setBackgroundColor(0);
-//
-//            int[] color = new int[]{UiCompat.getColor(getResources(), R.color.white_alpha_208)};
-//            drawable.setForegroundColor(color);
-//            // 设置进去
-//            mFollow.setImageDrawable(drawable);
-//            // 启动动画
-//            drawable.start();
+            mFollow.setEnabled(false);
         }
 
         @Override
@@ -190,12 +181,7 @@ public class SearchUserFragment extends PresenterFragment<SearchContract.Present
         @Override
         public void onFollowSucceed(UserCard userCard) {
             Log.d(TAG, "onFollowSucceed: ");
-//             更改当前界面状态
-//            if (mFollow.getDrawable() instanceof LoadingDrawable) {
-//                ((LoadingDrawable) mFollow.getDrawable()).stop();
-//                 设置为默认的
-//                mFollow.setImageResource(R.drawable.sel_opt_done_add);
-//            }
+            refreshFollow(userCard);
             // 发起更新
             updateData(userCard);
         }

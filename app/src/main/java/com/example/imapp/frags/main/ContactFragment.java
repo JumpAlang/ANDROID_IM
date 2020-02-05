@@ -1,10 +1,39 @@
 package com.example.imapp.frags.main;
 
 
-import com.example.common.common.app.Fragment;
-import com.example.imapp.R;
+import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
 
-public class ContactFragment extends Fragment {
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.Glide;
+import com.example.common.common.app.PresenterFragment;
+import com.example.common.common.widget.EmptyView;
+import com.example.common.common.widget.PortraitView;
+import com.example.common.common.widget.recycler.RecyclerAdapter;
+import com.example.factory.model.db.User;
+import com.example.factory.presenter.contact.ContactContract;
+import com.example.factory.presenter.contact.ContactPresenter;
+import com.example.imapp.R;
+import com.example.imapp.activities.PersonalActivity;
+
+import butterknife.BindView;
+import butterknife.OnClick;
+
+public class ContactFragment extends PresenterFragment<ContactContract.Presenter>
+        implements ContactContract.View {
+    public static final String TAG="ContactFragment";
+
+    @BindView(R.id.empty)
+    EmptyView mEmptyView;
+
+    @BindView(R.id.recycler)
+    RecyclerView mRecycler;
+
+    // 适配器，User，可以直接从数据库查询数据
+    private RecyclerAdapter<User> mAdapter;
 
     public ContactFragment() {
         // Required empty public constructor
@@ -16,4 +45,101 @@ public class ContactFragment extends Fragment {
         return R.layout.fragment_contact;
     }
 
+    @Override
+    protected void initWidget(View root) {
+        super.initWidget(root);
+
+        // 初始化Recycler
+        mRecycler.setLayoutManager(new LinearLayoutManager(getContext()));
+        mRecycler.setAdapter(mAdapter = new RecyclerAdapter<User>() {
+            @Override
+            public void onBindViewHolder(ViewHolder<User> holder, int position) {
+//                if(position==0){
+//
+//                }else{
+                    super.onBindViewHolder(holder, position);
+//                }
+            }
+
+            @Override
+            protected int getItemViewType(int position, User userCard) {
+                // 返回cell的布局id
+//                if(position==0){
+//                    return R.layout.cell_contact_grow;
+//                }else {
+                    return R.layout.cell_contact_person;
+//                }
+            }
+
+            @Override
+            protected ViewHolder<User> onCreateViewHolder(View root, int viewType) {
+                return new ContactFragment.ViewHolder(root);
+            }
+        });
+
+        // 点击事件监听
+        mAdapter.setListener(new RecyclerAdapter.AdapterListenerImpl<User>() {
+            @Override
+            public void onItemClick(RecyclerAdapter.ViewHolder holder, User user) {
+                // 跳转到聊天界面
+//                MessageActivity.show(getContext(), user);
+            }
+        });
+
+        // 初始化占位布局
+        mEmptyView.bind(mRecycler);
+        setPlaceHolderView(mEmptyView);
+
+    }
+
+    @Override
+    protected void onFirstInit() {
+        super.onFirstInit();
+        // 进行一次数据加载
+        mPresenter.start();
+    }
+
+    @Override
+    protected ContactContract.Presenter initPresenter() {
+        // 初始化Presenter
+        return new ContactPresenter(this);
+    }
+
+    @Override
+    public RecyclerAdapter<User> getRecyclerAdapter() {
+        return mAdapter;
+    }
+
+    @Override
+    public void onAdapterDataChanged() {
+        // 进行界面操作
+        mPlaceHolderView.triggerOkOrEmpty(mAdapter.getItemCount() > 0);
+    }
+
+
+    class ViewHolder extends RecyclerAdapter.ViewHolder<User> {
+        @BindView(R.id.im_portrait)
+        PortraitView mPortraitView;
+
+        @BindView(R.id.txt_name)
+        TextView mName;
+
+
+        public ViewHolder(View itemView) {
+            super(itemView);
+        }
+
+        @Override
+        protected void onBind(User user) {
+            Log.d(TAG, "onBind: ");
+            mPortraitView.setup(Glide.with(ContactFragment.this), user.getPortrait());
+            mName.setText(user.getName());
+        }
+
+        @OnClick(R.id.im_portrait)
+        void onPortraitClick() {
+            // 显示信息
+            PersonalActivity.show(getActivity(), mData.getId());
+        }
+    }
 }

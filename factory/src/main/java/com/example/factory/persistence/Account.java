@@ -165,6 +165,14 @@ public class Account {
                 .querySingle();
     }
 
+    public static String getUserId() {
+        return userId;
+    }
+
+    public static void setUserId(String userId) {
+        Account.userId = userId;
+    }
+
     /**
      * 获取当前登录的Token
      *

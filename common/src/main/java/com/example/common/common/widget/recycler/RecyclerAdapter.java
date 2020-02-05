@@ -1,5 +1,6 @@
 package com.example.common.common.widget.recycler;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,7 +28,7 @@ public abstract class RecyclerAdapter<Data>
         implements View.OnClickListener, View.OnLongClickListener, AdapterCallback<Data> {
     private final List<Data> mDataList;
     private AdapterListener<Data> mListener;
-
+    public static final String TAG="RecyclerAdapter";
     /**
      * 构造函数模块
      */
@@ -104,7 +105,14 @@ public abstract class RecyclerAdapter<Data>
      * @return ViewHolder
      */
     protected abstract ViewHolder<Data> onCreateViewHolder(View root, int viewType);
-
+    /**
+     * 返回整个集合
+     *
+     * @return List<Data>
+     */
+    public List<Data> getItems() {
+        return mDataList;
+    }
     /**
      * 绑定数据到一个Holder上
      *
@@ -113,6 +121,7 @@ public abstract class RecyclerAdapter<Data>
      */
     @Override
     public void onBindViewHolder(ViewHolder<Data> holder, int position) {
+        Log.d(TAG, "onBindViewHolder: ");
         // 得到需要绑定的数据
         Data data = mDataList.get(position);
         // 触发Holder的绑定方法
@@ -199,6 +208,7 @@ public abstract class RecyclerAdapter<Data>
 
     @Override
     public void onClick(View v) {
+        Log.d(TAG, "onClick: ");
         ViewHolder viewHolder = (ViewHolder) v.getTag(R.id.tag_recycler_holder);
         if (this.mListener != null) {
             // 得到ViewHolder当前对应的适配器中的坐标

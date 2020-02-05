@@ -1,14 +1,24 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    android:layout_width="360dp"
     android:layout_height="match_parent">
-
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
+    <com.example.common.common.widget.SideBar
+        android:layout_width="20dp"
         android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="Contact"
-        android:textColor="@color/blue_500" />
-
+        android:layout_marginLeft="340dp"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clipToPadding="false"
+        android:elevation="1dp"
+        android:outlineProvider="bounds"
+        android:paddingTop="@dimen/len_4"
+        android:paddingBottom="@dimen/len_4"
+        android:visibility="gone"
+        tools:targetApi="lollipop" />
+    <com.example.common.common.widget.EmptyView
+        android:id="@+id/empty"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 </FrameLayout>

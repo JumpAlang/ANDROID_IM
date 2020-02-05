@@ -112,6 +112,23 @@ public class UserCard {
     // 缓存一个对应的User, 不能被GSON框架解析使用ø
     private transient User user;
 
+    @Override
+    public String toString() {
+        return "UserCard{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", phone='" + phone + '\'' +
+                ", portrait='" + portrait + '\'' +
+                ", desc='" + desc + '\'' +
+                ", sex=" + sex +
+                ", follows=" + follows +
+                ", following=" + following +
+                ", isFollow=" + isFollow +
+                ", modifyAt=" + modifyAt +
+                ", user=" + user +
+                '}';
+    }
+
     public User build() {
         if (user == null) {
             User user = new User();

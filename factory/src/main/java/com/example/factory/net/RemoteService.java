@@ -64,10 +64,10 @@ public interface RemoteService {
     @PUT("user/follow/{userId}")
     Observable<RspModel<UserCard>> userFollow(@Path("userId") String userId);
 
-//    // 获取联系人列表
-//    @GET("user/contact")
-//    Call<RspModel<List<UserCard>>> userContacts();
-//
-//    @GET("user/{userId}")
-//    Call<RspModel<UserCard>> userFind(@Path("userId") String userId);
+    // 获取联系人列表
+    @GET("user/contact")
+    Observable<RspModel<List<UserCard>>> userContacts();
+
+    @GET("user/{userId}")
+    Call<RspModel<UserCard>> userFind(@Path("userId") String userId);
 }

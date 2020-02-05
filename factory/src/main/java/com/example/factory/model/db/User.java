@@ -1,18 +1,21 @@
 package com.example.factory.model.db;
 
+import com.example.common.factory.model.Author;
+import com.example.factory.utils.DiffUiDataCallback;
 import com.raizlabs.android.dbflow.annotation.Column;
 import com.raizlabs.android.dbflow.annotation.PrimaryKey;
 import com.raizlabs.android.dbflow.annotation.Table;
 import com.raizlabs.android.dbflow.structure.BaseModel;
 
 import java.util.Date;
+import java.util.Objects;
 
 /**
  * @author qiujuer Email:qiujuer@live.cn
  * @version 1.0.0
  */
 @Table(database = AppDatabase.class)
-public class User extends BaseModel {
+public class User extends BaseModel implements Author, DiffUiDataCallback.UiDataDiffer<User>{
     public static final int SEX_MAN = 1;
     public static final int SEX_WOMAN = 2;
 
@@ -154,5 +157,21 @@ public class User extends BaseModel {
                 ", isFollow=" + isFollow +
                 ", modifyAt=" + modifyAt +
                 '}';
+    }
+
+    @Override
+    public boolean isSame(User old) {
+        return this == old || Objects.equals(id, old.id);
+    }
+
+    @Override
+    public boolean isUiContentSame(User old) {
+        // 显示的内容是否一样，主要判断 名字，头像，性别，是否已经关注
+        return this == old || (
+                Objects.equals(name, old.name)
+                        && Objects.equals(portrait, old.portrait)
+                        && Objects.equals(sex, old.sex)
+                        && Objects.equals(isFollow, old.isFollow)
+        );
     }
 }

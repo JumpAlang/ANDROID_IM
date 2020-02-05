@@ -1,13 +1,12 @@
 package com.example.imapp.frags.main;
 
 
-import android.provider.DocumentsContract;
+import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
-import android.widget.TextView;
 
 import com.example.common.common.app.Fragment;
 import com.example.common.common.widget.recycler.RecyclerAdapter;
-import com.example.factory.model.card.UserCard;
 import com.example.imapp.R;
 
 import java.util.ArrayList;
@@ -19,7 +18,7 @@ import butterknife.BindView;
 
 
 public class ActiveFragment extends Fragment implements RecyclerAdapter.AdapterListener<String>{
-
+    public static final String TAG="ActiveFragment";
     @BindView(R.id.call_list)
     RecyclerView mRecyclerView;
 
@@ -44,7 +43,7 @@ public class ActiveFragment extends Fragment implements RecyclerAdapter.AdapterL
         RecyclerAdapter<String> adapter=new RecyclerAdapter<String>(cards,this) {
             @Override
             protected int getItemViewType(int position, String s) {
-                return R.layout.item_call;
+                return R.layout.cell_conversation_list;
             }
 
             @Override
@@ -54,23 +53,43 @@ public class ActiveFragment extends Fragment implements RecyclerAdapter.AdapterL
                     @Override
                     protected void onBind(String s) {
                         //绑定数据的回掉
-                        TextView textId = view.findViewById(R.id.item_text);
-                        textId.setText(s);
+//                        TextView textId = view.findViewById(R.id.item_text);
+//                        textId.setText(s);
                     }
                 };
             }
         } ;
         mRecyclerView.setAdapter(adapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        mRecyclerView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
+            @Override
+            public boolean onInterceptTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
+                Log.d(TAG, "onInterceptTouchEvent: ");
+                rv.requestDisallowInterceptTouchEvent(true);
+                return false;
+            }
+
+            @Override
+            public void onTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
+
+            }
+
+            @Override
+            public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+
+            }
+        });
+        boolean clipChildren = mRecyclerView.getClipChildren();
+        Log.d(TAG, "initData: "+clipChildren);
     }
 
     @Override
     public void onItemClick(RecyclerAdapter.ViewHolder holder, String s) {
-
+        Log.d(TAG, "onItemClick: ");
     }
 
     @Override
     public void onItemLongClick(RecyclerAdapter.ViewHolder holder, String s) {
-
+        Log.d(TAG, "onItemLongClick: ");
     }
 }

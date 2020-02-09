@@ -47,4 +47,5 @@ dependencies {
     implementation 'net.qiujuer.genius:ui:2.1.1'//UI框架
     implementation 'net.qiujuer.genius:res:2.1.1'
     implementation 'com.aliyun.dpa:oss-android-sdk:+'
+    implementation "net.qiujuer.genius:kit-reflect:2.0.0"
 }

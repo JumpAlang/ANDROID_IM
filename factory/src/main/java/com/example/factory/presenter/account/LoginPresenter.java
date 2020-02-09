@@ -14,6 +14,8 @@ import com.example.factory.model.api.account.AccountRspModel;
 import com.example.factory.model.api.account.LoginModel;
 import com.example.factory.persistence.Account;
 
+import io.reactivex.disposables.Disposable;
+
 import static com.example.factory.data.helper.AccountHelper.bindPush;
 
 
@@ -27,6 +29,7 @@ public class LoginPresenter extends BasePresenter<LoginContract.View>
         implements LoginContract.Presenter{
     
     public static final String TAG="LoginPresenter";
+    Disposable disposable;
     
     public LoginPresenter(LoginContract.View view) {
         super(view);
@@ -52,6 +55,7 @@ public class LoginPresenter extends BasePresenter<LoginContract.View>
      */
     class loginObserver extends BaseObserver<AccountRspModel> {
         final LoginContract.View view = getView();
+
         @Override
         public void onNext(RspModel<AccountRspModel> rspModel) {
             super.onNext(rspModel);

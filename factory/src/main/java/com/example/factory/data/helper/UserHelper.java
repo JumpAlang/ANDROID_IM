@@ -1,19 +1,30 @@
 package com.example.factory.data.helper;
 
 
+import android.util.Log;
+
 import com.example.common.factory.data.DataSource;
+import com.example.factory.BaseObserver;
 import com.example.factory.Factory;
 import com.example.factory.R;
+import com.example.factory.data.user.UserDispatcher;
 import com.example.factory.model.api.RspModel;
 import com.example.factory.model.api.account.AccountRspModel;
 import com.example.factory.model.api.user.UserUpdateModel;
 import com.example.factory.model.card.UserCard;
+import com.example.factory.model.db.AppDatabase;
 import com.example.factory.model.db.User;
 import com.example.factory.model.db.User_Table;
 import com.example.factory.net.Network;
 import com.example.factory.net.RemoteService;
+import com.example.factory.presenter.contact.ContactContract;
+import com.raizlabs.android.dbflow.config.DatabaseDefinition;
+import com.raizlabs.android.dbflow.config.FlowManager;
 import com.raizlabs.android.dbflow.sql.language.SQLite;
+import com.raizlabs.android.dbflow.structure.database.DatabaseWrapper;
+import com.raizlabs.android.dbflow.structure.database.transaction.ITransaction;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Observable;
@@ -65,22 +76,36 @@ public class UserHelper {
                     public void accept(RspModel<UserCard> rspModel) throws Exception {
                         UserCard userCard = rspModel.getResult();
                         // 保存到本地数据库
-                        User user = userCard.build();
-                        user.save();
+                        Factory.getUserCenter().dispatch(userCard);
                     }
                 })
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
     }
     // 刷新联系人的操作
-    public static void refreshContacts(final Observer<RspModel<List<UserCard>>> observer) {
+    public static void refreshContacts() {
         RemoteService service = Network.remote();
         Observable<RspModel<List<UserCard>>> rspModelObservable = service.userContacts();
 
         // 网络请求
         rspModelObservable.subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(observer);
+                .subscribe(new BaseObserver<List<UserCard>>() {
+                    @Override
+                    public void onNext(RspModel<List<UserCard>> rspModel) {
+                        super.onNext(rspModel);
+                        if (rspModel.success()) {
+                            List<UserCard> userCards = rspModel.getResult();
+                            // 转换为User
+                            final List<User> users = new ArrayList<>();
+                            for (UserCard userCard : userCards) {
+                                users.add(userCard.build());
+                                Log.d(TAG, "onNext: "+userCard.toString());
+                            }
+                            UserDispatcher.instance().dispatch(userCards.toArray(new UserCard[0]));
+                        }
+                    }
+                });
     }
 
     // 从本地查询一个用户的信息
@@ -102,7 +127,7 @@ public class UserHelper {
                 // TODO 数据库的存储但是没有通知
                 User user = card.build();
                 user.save();
-
+//                Factory.getUserCenter().dispatch();
                 return user;
             }
 

@@ -48,4 +48,6 @@ dependencies {
     implementation 'net.qiujuer.genius:res:2.1.1'
     implementation 'com.aliyun.dpa:oss-android-sdk:+'
     implementation "net.qiujuer.genius:kit-reflect:2.0.0"
+    implementation 'cn.jiguang.imui:chatinput:0.10.0' //聊天输入框
+    implementation 'cn.jiguang.imui:messagelist:0.8.0'//聊天信息列表
 }

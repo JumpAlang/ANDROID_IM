@@ -1,5 +1,7 @@
 package com.example.factory.model.db;
 
+import android.util.Log;
+
 import com.example.common.factory.model.Author;
 import com.example.factory.utils.DiffUiDataCallback;
 import com.raizlabs.android.dbflow.annotation.Column;
@@ -10,12 +12,14 @@ import com.raizlabs.android.dbflow.structure.BaseModel;
 import java.util.Date;
 import java.util.Objects;
 
+import cn.jiguang.imui.commons.models.IUser;
+
 /**
  * @author qiujuer Email:qiujuer@live.cn
  * @version 1.0.0
  */
 @Table(database = AppDatabase.class)
-public class User extends BaseDbModel<User> implements Author {
+public class User extends BaseDbModel<User> implements Author, IUser {
     public static final int SEX_MAN = 1;
     public static final int SEX_WOMAN = 2;
 
@@ -55,6 +59,17 @@ public class User extends BaseDbModel<User> implements Author {
 
     public String getId() {
         return id;
+    }
+
+    @Override
+    public String getDisplayName() {
+        return name;
+    }
+
+    @Override
+    public String getAvatarFilePath() {
+        Log.d("", "getAvatarFilePath: "+portrait);
+        return portrait;
     }
 
     public void setId(String id) {

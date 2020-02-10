@@ -113,7 +113,7 @@ public class MessageCard {
         message.setId(id);
         message.setContent(content);
         message.setAttach(attach);
-        message.setType(type);
+        message.setOldType(type);
         message.setCreateAt(createAt);
         message.setGroup(group);
         message.setSender(sender);

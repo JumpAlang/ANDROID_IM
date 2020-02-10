@@ -1,6 +1,7 @@
 package com.example.common.common.app;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.example.common.factory.presenter.BaseContract;
 
@@ -15,6 +16,7 @@ public abstract class PresenterFragment<Presenter extends BaseContract.Presenter
 
     @Override
     public void onAttach(Context context) {
+        Log.d("TAG", "onAttach: ");
         super.onAttach(context);
 
         // 在界面onAttach之后就触发初始化Presenter

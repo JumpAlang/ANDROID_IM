@@ -1,4 +1,4 @@
-package com.example.factory.presenter.user;
+package com.example.factory.data.user;
 
 import com.example.common.factory.data.DbDataSource;
 import com.example.factory.model.db.User;

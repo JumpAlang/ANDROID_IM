@@ -1,39 +1,18 @@
 package com.example.factory.presenter.contact;
 
 
-import android.service.autofill.UserData;
-        import android.util.Log;
+import androidx.recyclerview.widget.DiffUtil;
 
-        import androidx.annotation.NonNull;
-        import androidx.recyclerview.widget.DiffUtil;
-        import androidx.recyclerview.widget.RecyclerView;
-        import com.example.common.common.app.Application;
-        import com.example.common.common.widget.recycler.RecyclerAdapter;
+import com.example.common.common.widget.recycler.RecyclerAdapter;
         import com.example.common.factory.data.DataSource;
-        import com.example.common.factory.presenter.BaseContract;
-        import com.example.common.factory.presenter.BasePresenter;
-        import com.example.factory.BaseObserver;
-        import com.example.factory.Factory;
-        import com.example.factory.R;
-        import com.example.factory.data.helper.UserHelper;
-        import com.example.factory.model.api.RspModel;
-        import com.example.factory.model.card.UserCard;
-        import com.example.factory.model.db.AppDatabase;
-        import com.example.factory.model.db.User;
-        import com.example.factory.model.db.User_Table;
-        import com.example.factory.persistence.Account;
-        import com.example.factory.presenter.BaseSourcePresenter;
-        import com.example.factory.presenter.user.ContactDataSource;
-        import com.example.factory.presenter.user.ContactRepository;
+import com.example.factory.data.helper.UserHelper;
+import com.example.factory.model.db.User;
+import com.example.factory.presenter.BaseSourcePresenter;
+        import com.example.factory.data.user.ContactDataSource;
+        import com.example.factory.data.user.ContactRepository;
         import com.example.factory.utils.DiffUiDataCallback;
-        import com.raizlabs.android.dbflow.config.DatabaseDefinition;
-        import com.raizlabs.android.dbflow.config.FlowManager;
-        import com.raizlabs.android.dbflow.sql.language.SQLite;
-        import com.raizlabs.android.dbflow.structure.database.DatabaseWrapper;
-        import com.raizlabs.android.dbflow.structure.database.transaction.ITransaction;
-        import com.raizlabs.android.dbflow.structure.database.transaction.QueryTransaction;
-        import java.util.ArrayList;
-        import java.util.List;
+
+import java.util.List;
 
 /**
  * 联系人的Presenter实现

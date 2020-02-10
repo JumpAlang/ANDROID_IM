@@ -1,5 +1,7 @@
 package com.example.factory.model.db;
 
+import android.util.Log;
+
 import com.example.factory.persistence.Account;
 import com.example.factory.utils.DiffUiDataCallback;
 import com.raizlabs.android.dbflow.annotation.Column;
@@ -9,7 +11,11 @@ import com.raizlabs.android.dbflow.annotation.Table;
 import com.raizlabs.android.dbflow.structure.BaseModel;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Objects;
+
+import cn.jiguang.imui.commons.models.IMessage;
+import cn.jiguang.imui.commons.models.IUser;
 
 
 /**
@@ -19,7 +25,8 @@ import java.util.Objects;
  * @version 1.0.0
  */
 @Table(database = AppDatabase.class)
-public class Message extends BaseDbModel<Message> implements  Serializable {
+public class Message extends BaseDbModel<Message> implements  Serializable, IMessage {
+    public static final String TAG="Message";
     // 接收者类型
     public static final int RECEIVER_TYPE_NONE = 1;
     public static final int RECEIVER_TYPE_GROUP = 2;
@@ -42,7 +49,7 @@ public class Message extends BaseDbModel<Message> implements  Serializable {
     @Column
     private String attach;// 附属信息
     @Column
-    private int type;// 消息类型
+    private int oldType;// 消息类型
     @Column
     private Date createAt;// 创建时间
     @Column
@@ -51,7 +58,7 @@ public class Message extends BaseDbModel<Message> implements  Serializable {
     @ForeignKey(tableClass = Group.class, stubbedRelationship = true)
     private Group group;// 接收者群外键
 
-    @ForeignKey(tableClass = User.class, stubbedRelationship = true)
+    @ForeignKey(tableClass = User.class)
     private User sender;// 发送者 外键
 
     @ForeignKey(tableClass = User.class, stubbedRelationship = true)
@@ -81,12 +88,116 @@ public class Message extends BaseDbModel<Message> implements  Serializable {
         this.attach = attach;
     }
 
-    public int getType() {
-        return type;
+    @Override
+    public String getMsgId() {
+        return id;
     }
 
-    public void setType(int type) {
-        this.type = type;
+    public int getOldType() {
+        return oldType;
+    }
+
+    public void setOldType(int oldType) {
+        this.oldType = oldType;
+    }
+
+    @Override
+    public IUser getFromUser() {
+        Log.d(TAG, "getFromUser: "+sender.getAvatarFilePath());
+        return sender;
+    }
+
+    @Override
+    public String getTimeString() {
+        return createAt.toString();
+    }
+
+    /**
+     * 判断当前的消息是发送还是接收
+     */
+    public boolean isSend(){
+        String snederID = sender.getId();
+        String myId = Account.getUserId();
+        Log.d(TAG, "snederID: "+ snederID);
+        return snederID.equals(myId);
+    }
+
+    public int getType() {
+        MessageType Itype=MessageType.EVENT;
+        Log.d(TAG, "onDataLoaded11: "+oldType);
+        switch (oldType){
+            case TYPE_STR:
+                if(isSend())
+                    Itype = MessageType.SEND_TEXT;
+                else
+                    Itype = MessageType.RECEIVE_TEXT;
+                break;
+            case TYPE_PIC:
+                if(isSend())
+                    Itype=MessageType.SEND_IMAGE;
+                else
+                    Itype = MessageType.RECEIVE_IMAGE;
+                break;
+            case TYPE_AUDIO:
+                if(isSend())
+                    Itype=MessageType.SEND_VOICE;
+                else
+                    Itype = MessageType.RECEIVE_VOICE;
+                break;
+            case TYPE_FILE:
+                if(isSend())
+                    Itype=MessageType.SEND_FILE;
+                else
+                    Itype = MessageType.RECEIVE_FILE;
+                break;
+        }
+        return Itype.ordinal();
+    }
+
+    @Override
+    public MessageStatus getMessageStatus() {
+        MessageStatus messageStatus=MessageStatus.RECEIVE_SUCCEED;
+        switch (status){
+            case STATUS_DONE:
+                if(isSend())
+                    messageStatus = MessageStatus.SEND_SUCCEED;
+                break;
+            case STATUS_CREATED:
+                if(isSend())
+                    messageStatus=MessageStatus.SEND_GOING;
+                break;
+            case STATUS_FAILED:
+                if(isSend())
+                    messageStatus=MessageStatus.SEND_FAILED;
+                break;
+        }
+        return messageStatus;
+    }
+
+    @Override
+    public String getText() {
+        return content;
+    }
+
+    @Override
+    public String getMediaFilePath() {
+        return null;
+        //todo 媒体储存路径？？
+    }
+
+    @Override
+    public long getDuration() {
+        return 0;
+    }
+
+    @Override
+    public String getProgress() {
+        return null;
+    }
+
+    @Override
+    public HashMap<String, String> getExtras() {
+        return null;
     }
 
     public Date getCreateAt() {
@@ -152,11 +263,11 @@ public class Message extends BaseDbModel<Message> implements  Serializable {
      * @return 一个消息描述
      */
     String getSampleContent() {
-        if (type == TYPE_PIC)
+        if (oldType == TYPE_PIC)
             return "[图片]";
-        else if (type == TYPE_AUDIO)
+        else if (oldType == TYPE_AUDIO)
             return "🎵";
-        else if (type == TYPE_FILE)
+        else if (oldType == TYPE_FILE)
             return "📃";
         return content;
     }
@@ -168,7 +279,7 @@ public class Message extends BaseDbModel<Message> implements  Serializable {
 
         Message message = (Message) o;
 
-        return type == message.type
+        return oldType == message.oldType
                 && status == message.status
                 && Objects.equals(id, message.id)
                 && Objects.equals(content, message.content)

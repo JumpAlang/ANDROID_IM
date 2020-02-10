@@ -11,9 +11,9 @@ android {
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         manifestPlaceholders = [
-                GETUI_APP_ID    : "k5lqcTrg2zAyM94qqUmTY6",
-                GETUI_APP_KEY   : "iYT19iGphd5aUKKInXliX2",
-                GETUI_APP_SECRET: "ieZNm8fDplAJEOtm8Ucc88"
+                GETUI_APP_ID    : "lpVqsklbR09q9AaxM7sKA8",
+                GETUI_APP_KEY   : "e21KGyw5ET8M2bZz5Yun",
+                GETUI_APP_SECRET: "O7CX4KrZZp8uhmj0b0mKG4"
         ]
         ndk {
             // 添加项目所需CPU类型的最小集
@@ -31,13 +31,15 @@ android {
         targetCompatibility = '1.8'
     }
 }
-//膝上仔猫m
+
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
+    implementation 'cn.jiguang.imui:chatinput:0.10.0' //聊天输入框
+    implementation 'cn.jiguang.imui:messagelist:0.8.0'//聊天信息列表
     implementation 'com.getui:sdk:2.13.3.0'//个推sdk
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     implementation 'com.jakewharton:butterknife:10.2.1'//安卓注解机制框架，简化获取控件id等操操作

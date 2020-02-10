@@ -17,6 +17,7 @@ import com.example.factory.model.db.User;
 import com.example.factory.presenter.contact.ContactContract;
 import com.example.factory.presenter.contact.ContactPresenter;
 import com.example.imapp.R;
+import com.example.imapp.activities.MessageActivity;
 import com.example.imapp.activities.PersonalActivity;
 
 import butterknife.BindView;
@@ -82,7 +83,8 @@ public class ContactFragment extends PresenterFragment<ContactContract.Presenter
             @Override
             public void onItemClick(RecyclerAdapter.ViewHolder holder, User user) {
                 // 跳转到聊天界面
-//                MessageActivity.show(getContext(), user);
+                Log.d(TAG, "onItemClick: "+user.getId());
+                MessageActivity.show(getContext(), user);
             }
         });
 

@@ -1,13 +1,11 @@
-package com.example.factory.presenter.user;
+package com.example.factory.data.user;
 
 import com.example.common.factory.data.DataSource;
 import com.example.factory.data.BaseDbRepository;
-import com.example.factory.model.db.BaseDbModel;
 import com.example.factory.model.db.User;
 import com.example.factory.model.db.User_Table;
 import com.example.factory.persistence.Account;
 import com.raizlabs.android.dbflow.sql.language.SQLite;
-import com.raizlabs.android.dbflow.structure.BaseModel;
 
 import java.util.List;
 

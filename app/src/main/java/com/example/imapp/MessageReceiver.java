@@ -11,6 +11,8 @@ import com.example.factory.data.helper.AccountHelper;
 import com.example.factory.persistence.Account;
 import com.igexin.sdk.PushConsts;
 
+import cn.jiguang.imui.messages.MessageList;
+
 /**
  * 个推的消息接收器
  *

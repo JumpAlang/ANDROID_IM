@@ -6,6 +6,7 @@ import android.widget.ImageView;
 
 import com.example.common.common.app.Activity;
 import com.example.common.common.app.Fragment;
+import com.example.common.common.app.ToolbarActivity;
 import com.example.imapp.R;
 import com.example.imapp.frags.user.UpdateInfoFragment;
 
@@ -15,7 +16,7 @@ import butterknife.BindView;
  * 用户信息界面
  * 可以提供用户信息修改
  */
-public class UserActivity extends Activity {
+public class UserActivity extends ToolbarActivity {
     private Fragment mCurFragment;
     @BindView(R.id.im_bg)
     ImageView mBg;

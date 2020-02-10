@@ -109,7 +109,8 @@ public class Message extends BaseDbModel<Message> implements  Serializable, IMes
 
     @Override
     public String getTimeString() {
-        return createAt.toString();
+//        return createAt.toString();
+        return null;
     }
 
     /**

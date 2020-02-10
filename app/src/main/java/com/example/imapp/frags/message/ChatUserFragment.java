@@ -2,16 +2,20 @@ package com.example.imapp.frags.message;
 
 
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -78,6 +82,7 @@ public class ChatUserFragment extends PresenterFragment<ChatContract.Presenter> 
     MsgListAdapter<Message> adapter;
     String mReceiverId;
     String sessionName;
+    private InputMethodManager mImm;
     @Override
     protected int getContentLayoutId() {
         return R.layout.fragment_chat_user;
@@ -95,9 +100,13 @@ public class ChatUserFragment extends PresenterFragment<ChatContract.Presenter> 
             //发送消息
             @Override
             public boolean onSendTextMessage(CharSequence input) {
-                Log.d(TAG, "onSendTextMessage: "+input.toString());
-                mPresenter.pushText(input.toString());
-                return true;
+                String str = input.toString();
+                if(str!=null && !str.equals("")){
+                    Log.d(TAG, "onSendTextMessage: "+input.toString());
+                    mPresenter.pushText(input.toString());
+                    return true;
+                }
+                return false;
             }
             //发送文件
             @Override
@@ -182,6 +191,7 @@ public class ChatUserFragment extends PresenterFragment<ChatContract.Presenter> 
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 Log.d(TAG, "onTouch: ");
+                scrollToBottom();
                 return false;
             }
         });
@@ -196,7 +206,6 @@ public class ChatUserFragment extends PresenterFragment<ChatContract.Presenter> 
         adapter=new MsgListAdapter<Message>(sessionName, new ImageLoader() {
             @Override
             public void loadAvatarImage(ImageView avatarImageView, String string) {
-                Log.d(TAG, "loadAvatarImage: "+string);
                 Glide.with(getActivity())
                         .load(string)
                         .centerCrop()
@@ -214,6 +223,7 @@ public class ChatUserFragment extends PresenterFragment<ChatContract.Presenter> 
             }
         });
         mChatView.setAdapter(adapter);
+        this.mImm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
     }
 
     @Override
@@ -255,16 +265,6 @@ public class ChatUserFragment extends PresenterFragment<ChatContract.Presenter> 
         return mPresenter;
     }
 
-    @Override
-    public void showError(int str) {
-
-    }
-
-    @Override
-    public void showLoading() {
-
-    }
-
     //作废
     @Override
     public RecyclerAdapter<Message> getRecyclerAdapter() {
@@ -301,10 +301,40 @@ public class ChatUserFragment extends PresenterFragment<ChatContract.Presenter> 
     }
 
     @Override
-    public boolean onTouch(View v, MotionEvent event) {
+    public boolean onTouch(View view, MotionEvent motionEvent) {
+        switch (motionEvent.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                ChatInputView chatInputView = mChatView.getChatInputView();
+                if (chatInputView.getMenuState() == View.VISIBLE) {
+                    chatInputView.dismissMenuLayout();
+                }
+                mChatView.setMsgListHeight(true);
+                try {
+                    View v = getActivity().getCurrentFocus();
+                    if (mImm != null && v != null) {
+                        mImm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+                        view.clearFocus();
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                break;
+            case MotionEvent.ACTION_UP:
+                view.performClick();
+                break;
+        }
         return false;
     }
-
+    private void scrollToBottom() {
+        mChatView.setMsgListHeight(false);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mChatView.getMessageListView().smoothScrollToPosition(0);
+            }
+        }, 200);
+    }
     @Override
     public void onSensorChanged(SensorEvent event) {
 

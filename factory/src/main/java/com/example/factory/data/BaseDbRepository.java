@@ -16,6 +16,8 @@ import java.lang.reflect.Type;
 import java.util.LinkedList;
 import java.util.List;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
+
 /**
  * 基础的数据库仓库
  * 实现对数据库的基本的监听操作
@@ -154,9 +156,14 @@ public abstract class BaseDbRepository<Data extends BaseDbModel<Data>> implement
 
     // 通知界面刷新的方法
     private void notifyDataChange() {
-        SucceedCallback<List<Data>> callback = this.callback;
+        final SucceedCallback<List<Data>> callback = this.callback;
         if (callback != null)
-            callback.onDataLoaded(dataList);
+            AndroidSchedulers.mainThread().scheduleDirect(new Runnable() {
+                @Override
+                public void run() {
+                    callback.onDataLoaded(dataList);
+                }
+            });
     }
 
 }

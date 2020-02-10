@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.common.R;
@@ -42,7 +43,7 @@ public class ChatView extends RelativeLayout
     private PullToRefreshLayout mPtrLayout;
     private ImageButton mSelectAlbumIb;
     private Context mContext;
-
+    int mMsgListHeight;
     public ChatView(Context context) {
         super(context);
         mContext=context;
@@ -121,7 +122,7 @@ public class ChatView extends RelativeLayout
                 }
             }
         });
-
+        mMsgListHeight = mMsgList.getHeight();
     }
 
     public PullToRefreshLayout getPtrLayout() {
@@ -198,7 +199,7 @@ public class ChatView extends RelativeLayout
             }
         } else {
             ViewGroup.LayoutParams layoutParams = mMsgList.getLayoutParams();
-            layoutParams.height = mMsgList.getHeight();
+            layoutParams.height=ViewGroup.LayoutParams.MATCH_PARENT;
             Log.d("ChatView", "set MessageList height, height = " + layoutParams.height);
             mMsgList.setLayoutParams(layoutParams);
         }

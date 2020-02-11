@@ -1,12 +1,23 @@
 package com.example.imapp.frags.main;
 
 
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.common.common.app.Fragment;
+import com.example.common.common.app.PresenterFragment;
+import com.example.common.common.widget.EmptyView;
+import com.example.common.common.widget.PortraitView;
 import com.example.common.common.widget.recycler.RecyclerAdapter;
+import com.example.common.utils.DateTimeUtil;
+import com.example.factory.model.db.Session;
+import com.example.factory.presenter.contact.ContactContract;
+import com.example.factory.presenter.message.SessionContract;
+import com.example.factory.presenter.message.SessionPresenter;
 import com.example.imapp.R;
 
 import java.util.ArrayList;
@@ -17,10 +28,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 
 
-public class ActiveFragment extends Fragment implements RecyclerAdapter.AdapterListener<String>{
+public class ActiveFragment extends PresenterFragment<SessionContract.Presenter> implements SessionContract.View{
     public static final String TAG="ActiveFragment";
+
     @BindView(R.id.call_list)
-    RecyclerView mRecyclerView;
+    RecyclerView mRecycler;
+
+    @BindView(R.id.empty)
+    EmptyView mEmptyView;
+
+    RecyclerAdapter<Session> mAdapter;
 
     public ActiveFragment() {
         // Required empty public constructor
@@ -31,37 +48,33 @@ public class ActiveFragment extends Fragment implements RecyclerAdapter.AdapterL
     protected int getContentLayoutId() {
         return R.layout.fragment_active;
     }
-    private ArrayList<String> cards=new ArrayList<String>();
 
     @Override
     protected void initData() {
         super.initData();
-        for (int i = 0; i < 10; i++) {
-            cards.add("asghrweffwefwf");
-        }
+    }
 
-        RecyclerAdapter<String> adapter=new RecyclerAdapter<String>(cards,this) {
+    @Override
+    protected void initWidget(View root) {
+        super.initWidget(root);
+        mEmptyView.bind(mRecycler);
+        setPlaceHolderView(mEmptyView);
+
+        mRecycler.setAdapter(mAdapter = new RecyclerAdapter<Session>() {
             @Override
-            protected int getItemViewType(int position, String s) {
+            protected int getItemViewType(int position, Session session) {
+                // 返回cell的布局id
                 return R.layout.cell_conversation_list;
             }
 
             @Override
-            protected ViewHolder<String> onCreateViewHolder(View root, int viewType) {
-                View view = root.inflate(getContext(),viewType,null);
-                return new ViewHolder<String>(view) {
-                    @Override
-                    protected void onBind(String s) {
-                        //绑定数据的回掉
-//                        TextView textId = view.findViewById(R.id.item_text);
-//                        textId.setText(s);
-                    }
-                };
+            protected ViewHolder<Session> onCreateViewHolder(View root, int viewType) {
+                return new ActiveFragment.ViewHolder(root);
             }
-        } ;
-        mRecyclerView.setAdapter(adapter);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        mRecyclerView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
+        });
+        mRecycler.setAdapter(mAdapter);
+        mRecycler.setLayoutManager(new LinearLayoutManager(getContext()));
+        mRecycler.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
             @Override
             public boolean onInterceptTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
                 Log.d(TAG, "onInterceptTouchEvent: ");
@@ -79,17 +92,55 @@ public class ActiveFragment extends Fragment implements RecyclerAdapter.AdapterL
 
             }
         });
-        boolean clipChildren = mRecyclerView.getClipChildren();
-        Log.d(TAG, "initData: "+clipChildren);
     }
 
     @Override
-    public void onItemClick(RecyclerAdapter.ViewHolder holder, String s) {
-        Log.d(TAG, "onItemClick: ");
+    protected void onFirstInit() {
+        super.onFirstInit();
+        // 进行一次数据加载
+        mPresenter.start();
+    }
+    // 界面数据渲染
+    class ViewHolder extends RecyclerAdapter.ViewHolder<Session> {
+        @BindView(R.id.im_portrait)
+        PortraitView mPortraitView;
+
+        @BindView(R.id.txt_name)
+        TextView mName;
+
+        @BindView(R.id.text_detail)
+        TextView mContent;
+
+        @BindView(R.id.txt_time)
+        TextView mTime;
+
+        ViewHolder(View itemView) {
+            super(itemView);
+        }
+
+        @Override
+        protected void onBind(Session session) {
+            session.load();
+            Log.d(TAG, "onBind: "+session.getTitle());
+            mPortraitView.setup(Glide.with(ActiveFragment.this), session.getPicture());
+            mName.setText(session.getTitle());
+            mContent.setText(TextUtils.isEmpty(session.getContent()) ? "" : session.getContent());
+            mTime.setText(DateTimeUtil.getSampleDate(session.getModifyAt()));
+        }
+    }
+    @Override
+    protected SessionContract.Presenter initPresenter() {
+        mPresenter=new SessionPresenter(this);
+        return mPresenter;
     }
 
     @Override
-    public void onItemLongClick(RecyclerAdapter.ViewHolder holder, String s) {
-        Log.d(TAG, "onItemLongClick: ");
+    public RecyclerAdapter<Session> getRecyclerAdapter() {
+        return mAdapter;
+    }
+
+    @Override
+    public void onAdapterDataChanged() {
+        mPlaceHolderView.triggerOkOrEmpty(mAdapter.getItemCount() > 0);
     }
 }

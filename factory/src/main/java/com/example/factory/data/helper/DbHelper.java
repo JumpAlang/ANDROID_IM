@@ -1,5 +1,7 @@
 package com.example.factory.data.helper;
 
+import android.util.Log;
+
 import com.example.factory.model.db.AppDatabase;
 import com.example.factory.model.db.Group;
 import com.example.factory.model.db.GroupMember;
@@ -28,6 +30,7 @@ import java.util.Set;
  * @version 1.0.0
  */
 public class DbHelper {
+    public static final String TAG="DbHelper";
     private static final DbHelper instance;
 
     static {
@@ -68,6 +71,7 @@ public class DbHelper {
      */
     public static <Model extends BaseModel> void addChangedListener(final Class<Model> tClass,
                                                                     ChangedListener<Model> listener) {
+        Log.d(TAG, "addChangedListener: "+tClass.getName());
         Set<ChangedListener> changedListeners = instance.getListeners(tClass);
         if (changedListeners == null) {
             // 初始化某一类型的容器
@@ -88,6 +92,7 @@ public class DbHelper {
      */
     public static <Model extends BaseModel> void removeChangedListener(final Class<Model> tClass,
                                                                        ChangedListener<Model> listener) {
+        Log.d(TAG, "removeChangedListener: "+tClass.getName());
         Set<ChangedListener> changedListeners = instance.getListeners(tClass);
         if (changedListeners == null) {
             // 容器本身为null，代表根本就没有
@@ -163,6 +168,7 @@ public class DbHelper {
      */
     private final <Model extends BaseModel> void notifySave(final Class<Model> tClass,
                                                             final Model... models) {
+        Log.d(TAG, "notifySave: "+tClass.getName());
         // 找监听器
         final Set<ChangedListener> listeners = getListeners(tClass);
         if (listeners != null && listeners.size() > 0) {
@@ -192,6 +198,7 @@ public class DbHelper {
     @SuppressWarnings("unchecked")
     private final <Model extends BaseModel> void notifyDelete(final Class<Model> tClass,
                                                               final Model... models) {
+        Log.d(TAG, "notifyDelete: "+tClass.getName());
         // 找监听器
         final Set<ChangedListener> listeners = getListeners(tClass);
         if (listeners != null && listeners.size() > 0) {
@@ -263,7 +270,6 @@ public class DbHelper {
             public void execute(DatabaseWrapper databaseWrapper) {
                 ModelAdapter<Session> adapter = FlowManager.getModelAdapter(Session.class);
                 Session[] sessions = new Session[identifies.size()];
-
                 int index = 0;
                 for (Session.Identify identify : identifies) {
                     Session session = SessionHelper.findFromLocal(identify.id);
@@ -276,6 +282,7 @@ public class DbHelper {
                     // 把会话，刷新到当前Message的最新状态
                     session.refreshToNow();
                     // 数据存储
+                    Log.d(TAG, "execute: "+session.getContent());
                     adapter.save(session);
                     // 添加到集合
                     sessions[index++] = session;

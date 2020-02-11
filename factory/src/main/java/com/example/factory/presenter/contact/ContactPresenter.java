@@ -1,6 +1,8 @@
 package com.example.factory.presenter.contact;
 
 
+import android.util.Log;
+
 import androidx.recyclerview.widget.DiffUtil;
 
 import com.example.common.common.widget.recycler.RecyclerAdapter;
@@ -22,7 +24,7 @@ import java.util.List;
  */
 public class ContactPresenter extends BaseSourcePresenter<User, User, ContactDataSource, ContactContract.View>
         implements ContactContract.Presenter, DataSource.SucceedCallback<List<User>> {
-
+    public static final String TAG="ContactPresenter";
     public ContactPresenter(ContactContract.View view) {
         // 初始化数据仓库
         super(new ContactRepository(), view);
@@ -40,6 +42,7 @@ public class ContactPresenter extends BaseSourcePresenter<User, User, ContactDat
     // 运行到这里的时候是子线程
     @Override
     public void onDataLoaded(List<User> users) {
+        Log.d(TAG, "onDataLoaded: ");
         // 无论怎么操作，数据变更，最终都会通知到这里来
         final ContactContract.View view = getView();
         if (view == null)

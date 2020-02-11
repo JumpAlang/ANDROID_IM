@@ -7,4 +7,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipChildren = "false"/>
+    <com.example.common.common.widget.EmptyView
+        android:id="@+id/empty"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 </FrameLayout>

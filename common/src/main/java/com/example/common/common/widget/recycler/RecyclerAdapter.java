@@ -121,9 +121,9 @@ public abstract class RecyclerAdapter<Data>
      */
     @Override
     public void onBindViewHolder(ViewHolder<Data> holder, int position) {
-        Log.d(TAG, "onBindViewHolder: ");
         // 得到需要绑定的数据
         Data data = mDataList.get(position);
+        Log.d(TAG, "onBindViewHolder: "+data.toString());
         // 触发Holder的绑定方法
         holder.bind(data);
     }

@@ -4,9 +4,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -16,6 +18,7 @@ import com.example.common.common.app.Activity;
 import com.example.common.common.app.PresenterToolbarActivity;
 import com.example.common.common.widget.PortraitView;
 import com.example.factory.model.db.User;
+import com.example.factory.persistence.Account;
 import com.example.factory.presenter.contact.PersonalContract;
 import com.example.factory.presenter.contact.PersonalPresenter;
 import com.example.imapp.R;
@@ -40,7 +43,8 @@ public class PersonalActivity extends PresenterToolbarActivity<PersonalContract.
     TextView mPhone;
     @BindView(R.id.btn_say_hello)
     Button mSayHello;
-
+    @BindView(R.id.btn_delete)
+    Button mDelete;
 
     public static void show(Context context, String userId) {
         Intent intent = new Intent(context, PersonalActivity.class);
@@ -64,6 +68,10 @@ public class PersonalActivity extends PresenterToolbarActivity<PersonalContract.
     @Override
     protected void initWidget() {
         super.initWidget();
+        if(userId.equals(Account.getUserId())){
+            mSayHello.setVisibility(View.INVISIBLE);
+            mDelete.setVisibility(View.INVISIBLE);
+        }
         setTitle("");
     }
 
@@ -91,13 +99,13 @@ public class PersonalActivity extends PresenterToolbarActivity<PersonalContract.
         return super.onOptionsItemSelected(item);
     }
 
-    @OnClick(R.id.btn_say_hello)
+    @OnClick(R.id.btn_delete)
     void onSayHelloClick() {
         // 发起聊天的点击
-//        User user = mPresenter.getUserPersonal();
-//        if (user == null)
-//            return;
-//        MessageActivity.show(this, user);
+        User user = mPresenter.getUserPersonal();
+        if (user == null)
+            return;
+        MessageActivity.show(this, user);
     }
 
 
@@ -130,7 +138,6 @@ public class PersonalActivity extends PresenterToolbarActivity<PersonalContract.
         mName.setText(user.getName());
         mDesc.setText(user.getDesc());
         mPhone.setText(user.getPhone());
-
 //        mFollows.setText(String.format(getString(R.string.label_follows), user.getFollows()));
 //        mFollowing.setText(String.format(getString(R.string.label_following), user.getFollowing()));
         hideLoading();

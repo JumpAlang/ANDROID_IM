@@ -36,6 +36,11 @@ public class LoginPresenter extends BasePresenter<LoginContract.View>
     }
 
     @Override
+    public void destroy() {
+        super.destroy();
+    }
+
+    @Override
     public void login(String phone, String password) {
         start();
 

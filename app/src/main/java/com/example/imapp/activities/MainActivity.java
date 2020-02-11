@@ -9,7 +9,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
+
+import com.bumptech.glide.Glide;
 import com.example.common.common.app.Activity;
 import com.example.common.common.app.Application;
 import com.example.factory.persistence.Account;
@@ -28,6 +31,7 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import butterknife.BindView;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 import static com.example.imapp.activities.SearchActivity.TYPE_USER;
 
@@ -53,7 +57,8 @@ public class MainActivity extends Activity
 
     @BindView(R.id.appBarLayout)
     AppBarLayout mAppBarLayout;
-
+    CircleImageView imagePortrait;
+    TextView username;
     private NavHelper<Integer> mNavHelper;
 
     /**
@@ -102,6 +107,12 @@ public class MainActivity extends Activity
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setHomeAsUpIndicator(R.drawable.menu_icon);
         }
+        mNavigationLeft.getHeaderView(0).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PersonalActivity.show(MainActivity.this,Account.getUserId());
+            }
+        });
     }
 
     @Override
@@ -111,6 +122,13 @@ public class MainActivity extends Activity
         Menu menu = mNavigationBottom.getMenu();
         // 触发首次选中Home
         menu.performIdentifierAction(R.id.action_home, 0);
+        imagePortrait=mNavigationLeft.getHeaderView(0).findViewById(R.id.icon_image);
+        username=mNavigationLeft.getHeaderView(0).findViewById(R.id.username);
+        Glide.with(this)
+                .asBitmap()
+                .load(Account.getUser().getPortrait())
+                .into(imagePortrait);
+        username.setText(Account.getUser().getName());
     }
 
     /**

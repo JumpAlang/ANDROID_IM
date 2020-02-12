@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.example.common.common.app.Activity;
@@ -50,6 +52,17 @@ public class MessageActivity extends ToolbarActivity {
         context.startActivity(intent);
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.person,menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Log.d(TAG, "onOptionsItemSelected:"+item);
+        PersonalActivity.show(this,mReceiverId);
+        return true;
+    }
     /**
      * 显示人的聊天界面
      *

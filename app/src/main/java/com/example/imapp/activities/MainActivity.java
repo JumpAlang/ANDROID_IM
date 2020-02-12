@@ -15,6 +15,7 @@ import androidx.annotation.NonNull;
 import com.bumptech.glide.Glide;
 import com.example.common.common.app.Activity;
 import com.example.common.common.app.Application;
+import com.example.factory.model.db.Group;
 import com.example.factory.persistence.Account;
 import com.example.imapp.LaunchActivity;
 import com.example.imapp.R;
@@ -162,8 +163,18 @@ public class MainActivity extends Activity
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         Log.d(TAG, "onNavigationItemSelected:"+item);
-        // 转接事件流到工具类中
-        return mNavHelper.performClickMenu(item.getItemId());
+        switch (item.getItemId()){
+            case R.id.new_group:
+                GroupCreateActivity.show(this);
+                break;
+            case R.id.setting:
+                break;
+                default:
+                    //点击底部，直接分发
+                    return mNavHelper.performClickMenu(item.getItemId());
+
+        }
+        return true;
     }
     /**
      * toolbar点击事件

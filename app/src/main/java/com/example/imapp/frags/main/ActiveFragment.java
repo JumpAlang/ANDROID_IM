@@ -19,6 +19,7 @@ import com.example.factory.presenter.contact.ContactContract;
 import com.example.factory.presenter.message.SessionContract;
 import com.example.factory.presenter.message.SessionPresenter;
 import com.example.imapp.R;
+import com.example.imapp.activities.MessageActivity;
 
 import java.util.ArrayList;
 
@@ -89,6 +90,17 @@ public class ActiveFragment extends PresenterFragment<SessionContract.Presenter>
 
             @Override
             public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+
+            }
+        });
+        mAdapter.setListener(new RecyclerAdapter.AdapterListener<Session>() {
+            @Override
+            public void onItemClick(RecyclerAdapter.ViewHolder holder, Session session) {
+                MessageActivity.show(getActivity(),session);
+            }
+
+            @Override
+            public void onItemLongClick(RecyclerAdapter.ViewHolder holder, Session session) {
 
             }
         });

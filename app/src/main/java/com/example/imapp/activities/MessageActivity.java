@@ -17,6 +17,7 @@ import com.example.factory.model.db.Group;
 import com.example.factory.model.db.Message;
 import com.example.factory.model.db.Session;
 import com.example.imapp.R;
+import com.example.imapp.frags.message.ChatGroupFragment;
 import com.example.imapp.frags.message.ChatUserFragment;
 
 import butterknife.BindView;
@@ -117,8 +118,7 @@ public class MessageActivity extends ToolbarActivity {
         Fragment fragment;
         sessionTitle.setText(sessionName);
         if (mIsGroup){
-            //fragment = new ChatGroupFragment();
-            fragment = new ChatUserFragment();
+            fragment = new ChatGroupFragment();
         } else {
             fragment = new ChatUserFragment();
         }

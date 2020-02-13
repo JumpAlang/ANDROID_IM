@@ -1,12 +1,16 @@
 package com.example.factory.presenter.message;
 
 
+import android.util.Log;
+
 import com.example.factory.data.helper.MessageHelper;
 import com.example.factory.data.message.MessageDataSource;
 import com.example.factory.model.api.message.MsgCreateModel;
 import com.example.factory.model.db.Message;
 import com.example.factory.presenter.BaseSourcePresenter;
 import java.util.List;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
 
 /**
  * 聊天Presenter的基础类
@@ -18,7 +22,7 @@ import java.util.List;
 public class ChatPresenter<View extends ChatContract.View>
         extends BaseSourcePresenter<Message, Message, MessageDataSource, View>
         implements ChatContract.Presenter {
-
+    public static final String TAG="ChatPresenter";
     // 接收者Id，可能是群，或者人的ID
     protected String mReceiverId;
     // 区分是人还是群Id
@@ -73,20 +77,37 @@ public class ChatPresenter<View extends ChatContract.View>
 
     @Override
     public void onDataLoaded(List<Message> messages) {
-//        ChatContract.View view = getView();
-//        if (view == null)
-//            return;
-//
-//        // 拿到老数据
-//        @SuppressWarnings("unchecked")
-//        List<Message> old = view.getRecyclerAdapter().getItems();
-
-        // 差异计算
-//        DiffUiDataCallback<Message> callback = new DiffUiDataCallback<>(old, messages);
-//        final DiffUtil.DiffResult result = DiffUtil.calculateDiff(callback);
-//
-//        // 进行界面刷新
-//        refreshData(result, messages);
-
+        Log.d(TAG, "onDataLoaded: "+messages.size());
+        List<Message> old = getView().getAdapter().getMessageList();
+        for (int i = 0; i < old.size(); i++) {
+            Log.d(TAG, "onDataLoaded: "+old.get(i).getType());
+        }
+        //初次进入或者没有消息时
+        if(old.size()==0){
+            getView().getAdapter().addToEndChronologically(messages);
+        }else {
+            for (int i = 0; i < messages.size(); i++) {
+                final Message newMessage = messages.get(i);
+                //判断新消息种是否对老消息有所改变
+                if(i<old.size()){
+                    Message oldMessage = old.get(i);
+                    //如果不相同更新
+                    if(!oldMessage.isSame(newMessage)){
+                        getView().getAdapter().updateMessage(newMessage);
+                    }
+                }else {
+                    Log.d(TAG, "messages: "+newMessage.getContent());
+                    AndroidSchedulers.mainThread().scheduleDirect(new Runnable() {
+                        @Override
+                        public void run() {
+                            getView().getAdapter().addToStart(newMessage,true);
+                        }
+                    });
+                }
+            }
+        }
+        //跳转到最下面
+        if(messages.size()!=0)
+            getView().getAdapter().getLayoutManager().scrollToPosition(0);
     }
 }

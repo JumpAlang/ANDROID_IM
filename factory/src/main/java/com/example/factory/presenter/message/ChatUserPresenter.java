@@ -36,40 +36,4 @@ public class ChatUserPresenter extends ChatPresenter<ChatContract.UserView>
         super.pushText(content);
     }
 
-    @Override
-    public void onDataLoaded(final List<Message> messages) {
-        Log.d(TAG, "onDataLoaded: "+messages.size());
-        super.onDataLoaded(messages);
-        List<Message> old = getView().getAdapter().getMessageList();
-        for (int i = 0; i < old.size(); i++) {
-            Log.d(TAG, "onDataLoaded: "+old.get(i).getType());
-        }
-        //初次进入或者没有消息时
-        if(old.size()==0){
-            getView().getAdapter().addToEndChronologically(messages);
-        }else {
-            for (int i = 0; i < messages.size(); i++) {
-                final Message newMessage = messages.get(i);
-                //判断新消息种是否对老消息有所改变
-                if(i<old.size()){
-                    Message oldMessage = old.get(i);
-                    //如果不相同更新
-                    if(!oldMessage.isSame(newMessage)){
-                        getView().getAdapter().updateMessage(newMessage);
-                    }
-                }else {
-                    Log.d(TAG, "messages: "+newMessage.getContent());
-                    AndroidSchedulers.mainThread().scheduleDirect(new Runnable() {
-                        @Override
-                        public void run() {
-                            getView().getAdapter().addToStart(newMessage,true);
-                        }
-                    });
-                }
-            }
-        }
-        //跳转到最下面
-        if(messages.size()!=0)
-            getView().getAdapter().getLayoutManager().scrollToPosition(0);
-    }
 }

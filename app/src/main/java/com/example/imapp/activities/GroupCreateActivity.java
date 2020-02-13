@@ -137,7 +137,7 @@ public class GroupCreateActivity extends PresenterToolbarActivity<GroupCreateCon
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.search, menu);
+        inflater.inflate(R.menu.group_create, menu);
         return super.onCreateOptionsMenu(menu);
     }
 

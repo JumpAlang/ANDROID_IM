@@ -29,15 +29,13 @@ public interface ChatContract {
     }
 
     // 界面的基类
-    interface View<InitModel> extends BaseContract.RecyclerView<Presenter, Message> {
-        // 初始化的Model
-        void onInit(InitModel model);
+    interface View<T> extends BaseContract.RecyclerView<Presenter, Message> {
+        MsgListAdapter<Message> getAdapter();
     }
 
     // 人聊天的界面
     interface UserView extends View<User> {
 
-        MsgListAdapter<Message> getAdapter();
     }
 
     // 群聊天的界面

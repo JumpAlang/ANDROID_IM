@@ -13,6 +13,7 @@ import com.example.factory.model.db.GroupMember_Table;
 import com.example.factory.model.db.Group_Table;
 import com.example.factory.model.db.User;
 import com.example.factory.model.db.User_Table;
+import com.example.factory.model.db.view.MemberUserModel;
 import com.example.factory.net.Network;
 import com.example.factory.net.RemoteService;
 import com.raizlabs.android.dbflow.sql.language.Join;
@@ -179,18 +180,18 @@ public class GroupHelper {
         });
     }
 
-    // 关联查询一个用户和群成员的表，返回一个MemberUserModel表的集合
-//    public static List<MemberUserModel> getMemberUsers(String groupId, int size) {
-//        return SQLite.select(GroupMember_Table.alias.withTable().as("alias"),
-//                User_Table.id.withTable().as("id"),
-//                User_Table.name.withTable().as("name"),
-//                User_Table.portrait.withTable().as("portrait"))
-//                .from(GroupMember.class)
-//                .join(User.class, Join.JoinType.INNER)
-//                .on(GroupMember_Table.user_id.withTable().eq(User_Table.id.withTable()))
-//                .where(GroupMember_Table.group_id.withTable().eq(groupId))
-//                .orderBy(GroupMember_Table.user_id, true)
-//                .limit(size)
-//                .queryCustomList(MemberUserModel.class);
-//    }
+//     关联查询一个用户和群成员的表，返回一个MemberUserModel表的集合
+    public static List<MemberUserModel> getMemberUsers(String groupId, int size) {
+        return SQLite.select(GroupMember_Table.alias.withTable().as("alias"),
+                User_Table.id.withTable().as("id"),
+                User_Table.name.withTable().as("name"),
+                User_Table.portrait.withTable().as("portrait"))
+                .from(GroupMember.class)
+                .join(User.class, Join.JoinType.INNER)
+                .on(GroupMember_Table.user_id.withTable().eq(User_Table.id.withTable()))
+                .where(GroupMember_Table.group_id.withTable().eq(groupId))
+                .orderBy(GroupMember_Table.user_id, true)
+                .limit(size)
+                .queryCustomList(MemberUserModel.class);
+    }
 }

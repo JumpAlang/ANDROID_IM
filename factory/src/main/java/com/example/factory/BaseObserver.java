@@ -12,10 +12,16 @@ import io.reactivex.disposables.Disposable;
 public abstract class BaseObserver<T> implements Observer<RspModel<T>>{
 
     public final String TAG=this.getClass().getName();
+    Disposable d;
+
+    public Disposable getDisposable() {
+        return d;
+    }
 
     @Override
     public void onSubscribe(Disposable d) {
         Log.d(TAG, "onSubscribe: ");
+        this.d=d;
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.example.factory.presenter.user;
 
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.example.common.factory.data.DataSource;
 import com.example.common.factory.presenter.BasePresenter;
@@ -23,14 +24,15 @@ import com.example.factory.persistence.Account;
  */
 public class UpdateInfoPresenter extends BasePresenter<UpdateInfoContract.View>
         implements UpdateInfoContract.Presenter{
+    public static final String TAG="UpdateInfoPresenter";
     public UpdateInfoPresenter(UpdateInfoContract.View view) {
         super(view);
+        updateObserver=new UpdateObserver();
     }
-
+    private UpdateObserver updateObserver;
     @Override
     public void update(final String photoFilePath, final String desc, final boolean isMan) {
         start();
-
         final UpdateInfoContract.View view = getView();
 
         if (TextUtils.isEmpty(photoFilePath) || TextUtils.isEmpty(desc)) {
@@ -49,12 +51,19 @@ public class UpdateInfoPresenter extends BasePresenter<UpdateInfoContract.View>
                         UserUpdateModel model = new UserUpdateModel("", url, desc,
                                 isMan ? User.SEX_MAN : User.SEX_WOMAN);
                         // 进行网络请求，上传
-                        UserHelper.update(model, new UpdateObserver());
+                        UserHelper.update(model, updateObserver);
                     }
                 }
             });
         }
     }
+
+    @Override
+    public void update(String str, int type) {
+        Log.d(TAG, "update text:"+str+" type:"+type);
+//        if(type==InfoUpdateActivity.NAME_CHANGE)
+    }
+
 
     class UpdateObserver extends BaseObserver<UserCard>{
         final UpdateInfoContract.View view = getView();
@@ -84,6 +93,15 @@ public class UpdateInfoPresenter extends BasePresenter<UpdateInfoContract.View>
             if (view == null)
                 return;
             view.showError(R.string.data_network_error);
+        }
+    }
+
+    @Override
+    public void destroy() {
+        super.destroy();
+        if(updateObserver!=null){
+            if(!updateObserver.getDisposable().isDisposed())
+                updateObserver.getDisposable().dispose();
         }
     }
 }

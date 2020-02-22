@@ -36,7 +36,9 @@ public abstract class BaseSourcePresenter<Data, ViewModel,
     @Override
     public void destroy() {
         super.destroy();
-        mSource.dispose();
-        mSource = null;
+        if (mSource != null){
+            mSource.dispose();
+            mSource = null;
+        }
     }
 }

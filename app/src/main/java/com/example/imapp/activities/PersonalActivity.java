@@ -35,7 +35,7 @@ public class PersonalActivity extends PresenterToolbarActivity<PersonalContract.
     ImageView mHeader;
     @BindView(R.id.im_portrait)
     PortraitView mPortrait;
-    @BindView(R.id.txt_name)
+    @BindView(R.id.text_alias)
     TextView mName;
     @BindView(R.id.text_detail)
     TextView mDesc;
@@ -50,8 +50,6 @@ public class PersonalActivity extends PresenterToolbarActivity<PersonalContract.
         Intent intent = new Intent(context, PersonalActivity.class);
         intent.putExtra(BOUND_KEY_ID, userId);
         context.startActivity(intent);
-
-
     }
 
     @Override

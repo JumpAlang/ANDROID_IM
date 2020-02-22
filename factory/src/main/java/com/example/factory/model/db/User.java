@@ -195,4 +195,21 @@ public class User extends BaseDbModel<User> implements Author, IUser {
                         && Objects.equals(isFollow, old.isFollow)
         );
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", phone='" + phone + '\'' +
+                ", portrait='" + portrait + '\'' +
+                ", desc='" + desc + '\'' +
+                ", sex=" + sex +
+                ", alias='" + alias + '\'' +
+                ", follows=" + follows +
+                ", following=" + following +
+                ", isFollow=" + isFollow +
+                ", modifyAt=" + modifyAt +
+                '}';
+    }
 }

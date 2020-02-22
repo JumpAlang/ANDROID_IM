@@ -19,7 +19,6 @@ import com.example.factory.model.db.Session;
 import com.example.imapp.R;
 import com.example.imapp.frags.message.ChatGroupFragment;
 import com.example.imapp.frags.message.ChatUserFragment;
-
 import butterknife.BindView;
 
 public class MessageActivity extends ToolbarActivity {
@@ -56,13 +55,21 @@ public class MessageActivity extends ToolbarActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.person,menu);
+
         return true;
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         Log.d(TAG, "onOptionsItemSelected:"+item);
-        PersonalActivity.show(this,mReceiverId);
-        return true;
+        if(item.getItemId()==R.id.action_search){
+            if(mIsGroup)
+                GroupActivity.show(this,mReceiverId);
+            else
+                PersonalActivity.show(this,mReceiverId);
+            return true;
+        } else {
+            return super.onOptionsItemSelected(item);
+        }
     }
     /**
      * 显示人的聊天界面

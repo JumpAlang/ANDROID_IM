@@ -1,5 +1,7 @@
 package com.example.factory.data.helper;
 
+import android.util.Log;
+
 import com.example.common.factory.data.DataSource;
 import com.example.factory.Factory;
 import com.example.factory.R;
@@ -32,6 +34,7 @@ import retrofit2.Response;
  * @version 1.0.0
  */
 public class GroupHelper {
+    public static final String TAG="GroupHelper";
     public static Group find(String groupId) {
         Group group = findFromLocal(groupId);
         if (group == null)
@@ -39,6 +42,20 @@ public class GroupHelper {
         return group;
     }
 
+    public static Group search(String id) {
+        Group group = findFromLocal(id);
+        if (group == null) {
+            return findFormNet(id);
+        }
+        return group;
+    }
+    public static Group searchFirstOfNet(String id) {
+        Group group = findFormNet(id);
+        if (group == null) {
+            return findFromLocal(id);
+        }
+        return group;
+    }
     // 从本地找Group
     public static Group findFromLocal(String groupId) {
         return SQLite.select()
@@ -59,6 +76,7 @@ public class GroupHelper {
 
                 User user = UserHelper.search(card.getOwnerId());
                 if (user != null) {
+                    Log.d(TAG, "findFormNet: "+card.build(user).toString());
                     return card.build(user);
                 }
             }

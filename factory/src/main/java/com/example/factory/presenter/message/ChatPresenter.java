@@ -10,6 +10,7 @@ import com.example.factory.model.db.Message;
 import com.example.factory.presenter.BaseSourcePresenter;
 import java.util.List;
 
+import cn.jiguang.imui.chatinput.model.FileItem;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 
 /**
@@ -54,8 +55,21 @@ public class ChatPresenter<View extends ChatContract.View>
     }
 
     @Override
-    public void pushImages(String[] paths) {
+    public void pushImages(List<FileItem> mFileItems) {
         // TODO 发送图片
+        if (mFileItems == null || mFileItems.size() == 0)
+            return;
+        // 此时路径是本地的手机上的路径
+        for (FileItem mFileItem : mFileItems) {
+            // 构建一个新的消息
+            MsgCreateModel model = new MsgCreateModel.Builder()
+                    .receiver(mReceiverId, mReceiverType)
+                    .content(mFileItem.getFilePath(), Message.TYPE_PIC)
+                    .build();
+
+            // 进行网络发送
+            MessageHelper.push(model);
+        }
     }
 
     @Override
@@ -76,38 +90,35 @@ public class ChatPresenter<View extends ChatContract.View>
     }
 
     @Override
-    public void onDataLoaded(List<Message> messages) {
+    public void onDataLoaded(final List<Message> messages) {
         Log.d(TAG, "onDataLoaded: "+messages.size());
-        List<Message> old = getView().getAdapter().getMessageList();
-        for (int i = 0; i < old.size(); i++) {
-            Log.d(TAG, "onDataLoaded: "+old.get(i).getType());
-        }
-        //初次进入或者没有消息时
-        if(old.size()==0){
-            getView().getAdapter().addToEndChronologically(messages);
-        }else {
-            for (int i = 0; i < messages.size(); i++) {
-                final Message newMessage = messages.get(i);
-                //判断新消息种是否对老消息有所改变
-                if(i<old.size()){
-                    Message oldMessage = old.get(i);
-                    //如果不相同更新
-                    if(!oldMessage.isSame(newMessage)){
-                        getView().getAdapter().updateMessage(newMessage);
-                    }
+        final List<Message> old = getView().getAdapter().getMessageList();
+        AndroidSchedulers.mainThread().scheduleDirect(new Runnable() {
+            @Override
+            public void run() {
+                //初次进入或者没有消息时
+                if(old.size()==0){
+                    getView().getAdapter().addToEndChronologically(messages);
                 }else {
-                    Log.d(TAG, "messages: "+newMessage.getContent());
-                    AndroidSchedulers.mainThread().scheduleDirect(new Runnable() {
-                        @Override
-                        public void run() {
+                    for (int i = 0; i < messages.size(); i++) {
+                        final Message newMessage = messages.get(i);
+                        Log.d(TAG, "messages: "+newMessage.getStatus());
+                        //判断新消息种是否对老消息有所改变
+                        if(i<old.size()){
+                            Message oldMessage = old.get(i);
+                            //如果不相同更新
+                            if(!oldMessage.isUiContentSame(newMessage)){
+                                getView().getAdapter().updateMessage(newMessage);
+                            }
+                        }else {
                             getView().getAdapter().addToStart(newMessage,true);
                         }
-                    });
+                    }
                 }
+                //跳转到最下面
+                if(messages.size()!=0)
+                    getView().getAdapter().getLayoutManager().scrollToPosition(0);
             }
-        }
-        //跳转到最下面
-        if(messages.size()!=0)
-            getView().getAdapter().getLayoutManager().scrollToPosition(0);
+        });
     }
 }

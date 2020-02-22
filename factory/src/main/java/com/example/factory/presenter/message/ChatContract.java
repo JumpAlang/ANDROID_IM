@@ -5,6 +5,9 @@ import com.example.factory.model.db.Group;
 import com.example.factory.model.db.Message;
 import com.example.factory.model.db.User;
 
+import java.util.List;
+
+import cn.jiguang.imui.chatinput.model.FileItem;
 import cn.jiguang.imui.messages.MsgListAdapter;
 
 /**
@@ -22,7 +25,7 @@ public interface ChatContract {
         void pushAudio(String path);
 
         // 发送图片
-        void pushImages(String[] paths);
+        void pushImages(List<FileItem> mFileItems);
 
         // 重新发送一个消息，返回是否调度成功
         boolean rePush(Message message);

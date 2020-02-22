@@ -2,6 +2,7 @@ package com.example.factory.presenter.group;
 
 import androidx.recyclerview.widget.DiffUtil;
 
+import com.example.factory.Factory;
 import com.example.factory.data.group.GroupsDataSource;
 import com.example.factory.data.group.GroupsRepository;
 import com.example.factory.data.helper.GroupHelper;
@@ -10,6 +11,8 @@ import com.example.factory.presenter.BaseSourcePresenter;
 import com.example.factory.utils.DiffUiDataCallback;
 
 import java.util.List;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
 
 /**
  * 我的群组Presenter
@@ -27,12 +30,29 @@ public class GroupsPresenter extends BaseSourcePresenter<Group, Group,
     @Override
     public void start() {
         super.start();
-
-        // 加载网络数据, 以后可以优化到下拉刷新中
-        // 只有用户下拉进行网络请求刷新
         GroupHelper.refreshGroups();
+//        Factory.runOnAsync(new Runnable() {
+//            @Override
+//            public void run() {
+//                GroupsContract.View view = getView();
+//                if (view != null) {
+//                    String id = view.getGroupId();
+//                    Group group = GroupHelper.search(id);
+//                    onLoaded(view, group);
+//                    //获取数据刷新成员
+//                    GroupHelper.refreshGroups();
+//                }
+//            }
+//        });
     }
-
+//    private void onLoaded(final GroupsContract.View view, final Group group){
+//        AndroidSchedulers.mainThread().scheduleDirect(new Runnable() {
+//            @Override
+//            public void run() {
+//                view.onLoadDone(group);
+//            }
+//        });
+//    }
     @Override
     public void onDataLoaded(List<Group> groups) {
         final GroupsContract.View view = getView();

@@ -16,6 +16,7 @@ import com.alibaba.sdk.android.oss.model.PutObjectRequest;
 import com.alibaba.sdk.android.oss.model.PutObjectResult;
 import com.example.common.common.app.Application;
 import com.example.common.utils.HashUtil;
+import com.example.common.utils.StreamUtil;
 
 import java.io.File;
 import java.util.Date;
@@ -24,7 +25,7 @@ public class UploadHelper {
     private static final String TAG="UploadHelper";
     private static final String AccessKeyId="LTAI4Fx7GQBzutchdMUMZTDF";
     private static final String AccessKeySecret="opWMoU74QBYjolLiqBWw7D2bMa3cku";
-    private static final String ENDPOINT = "oss-cn-hangzhou.aliyuncs.com";
+    public static final String ENDPOINT = "oss-cn-hangzhou.aliyuncs.com";
     private static final String BUCKET_NAME = "sunhaobin";
 
     private static final Object lock=new Object();
@@ -61,7 +62,7 @@ public class UploadHelper {
      */
     public String uploadImage(String path) {
         String key = getImageObjKey(path);
-        return upLoad(key, path);
+        return uploadexe(key, path);
     }
 
     /**
@@ -86,8 +87,26 @@ public class UploadHelper {
         return upLoad(key, path);
     }
 
+    private String uploadexe(String objKey, String path) {
+        // 构造一个上传请求
+        PutObjectRequest request = new PutObjectRequest(BUCKET_NAME,
+                objKey, path);
 
-    public String upLoad(String objectKey,String path){
+        try {
+            // 开始同步上传
+            PutObjectResult result = ossClient.putObject(request);
+            // 得到一个外网可访问的地址
+            String url = ossClient.presignPublicObjectURL(BUCKET_NAME, objKey);
+            // 格式打印输出
+            Log.d(TAG, String.format("PublicObjectURL:%s", url));
+            return url;
+        } catch (Exception e) {
+            e.printStackTrace();
+            // 如果有异常则返回空
+            return null;
+        }
+    }
+    public String upLoad(String objectKey, final String path){
         // 构造上传请求。
         PutObjectRequest put = new PutObjectRequest(BUCKET_NAME, objectKey, path);
 
@@ -105,6 +124,7 @@ public class UploadHelper {
                 Log.d("PutObject", "UploadSuccess");
                 Log.d("ETag", result.getETag());
                 Log.d("RequestId", result.getRequestId());
+                // 清理缓存
             }
 
             @Override

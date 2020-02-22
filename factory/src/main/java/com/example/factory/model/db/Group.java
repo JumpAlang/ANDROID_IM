@@ -24,6 +24,11 @@ import java.util.Objects;
  */
 @Table(database = AppDatabase.class)
 public class Group extends BaseDbModel<Group> implements Serializable {
+
+    public static final int NOTIFY_LEVEL_INVALID = -1; // 默认不接收消息
+    public static final int NOTIFY_LEVEL_NONE = 0; // 默认通知级别
+    public static final int NOTIFY_LEVEL_CLOSE = 1; // 接收消息不提示
+
     @PrimaryKey
     private String id; // 群Id
     @Column
@@ -39,9 +44,25 @@ public class Group extends BaseDbModel<Group> implements Serializable {
     @Column
     private Date modifyAt;// 信息修改时间
 
-    @ForeignKey(tableClass = User.class, stubbedRelationship = true)
+    @ForeignKey(tableClass = User.class)
     private User owner;// 创建者外键
 
+    @Override
+    public String toString() {
+        return "Group{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", desc='" + desc + '\'' +
+                ", picture='" + picture + '\'' +
+                ", notifyLevel=" + notifyLevel +
+                ", joinAt=" + joinAt +
+                ", modifyAt=" + modifyAt +
+                ", owner=" + owner +
+                ", holder=" + holder +
+                ", groupMemberCount=" + groupMemberCount +
+                ", groupLatelyMembers=" + groupLatelyMembers +
+                '}';
+    }
 
     public Object holder; // 预留字段，用于界面显示
 

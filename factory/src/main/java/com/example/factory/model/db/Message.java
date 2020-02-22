@@ -182,7 +182,7 @@ public class Message extends BaseDbModel<Message> implements  Serializable, IMes
 
     @Override
     public String getMediaFilePath() {
-        return null;
+        return content;
         //todo 媒体储存路径？？
     }
 

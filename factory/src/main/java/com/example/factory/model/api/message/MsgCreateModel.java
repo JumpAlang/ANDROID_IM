@@ -1,5 +1,7 @@
 package com.example.factory.model.api.message;
 
+import android.util.Log;
+
 import com.example.factory.model.card.MessageCard;
 import com.example.factory.model.db.Message;
 import com.example.factory.persistence.Account;
@@ -11,6 +13,7 @@ import java.util.UUID;
  * @version 1.0.0
  */
 public class MsgCreateModel {
+    public static final String TAG="MsgCreateModel";
     // ID从客户端生产，一个UUID
     private String id;
     private String content;
@@ -58,7 +61,15 @@ public class MsgCreateModel {
     // 当我们需要发送一个文件的时候，content刷新的问题
 
     private MessageCard card;
-
+    // 同步到卡片的最新状态
+    public void refreshByCard() {
+        if (card == null)
+            return;
+        // 刷新内容和附件信息
+        this.content = card.getContent();
+        this.attach = card.getAttach();
+        Log.d(TAG, "refreshByCard: "+content+attach);
+    }
     // 返回一个Card
     public MessageCard buildCard() {
         if (card == null) {

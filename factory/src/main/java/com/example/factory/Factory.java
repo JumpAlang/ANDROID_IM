@@ -25,10 +25,17 @@ import com.google.gson.reflect.TypeToken;
 import com.raizlabs.android.dbflow.config.FlowConfig;
 import com.raizlabs.android.dbflow.config.FlowManager;
 
+import org.reactivestreams.Subscriber;
+import org.reactivestreams.Subscription;
+
 import java.lang.reflect.Type;
 import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
+
+import io.reactivex.Observable;
+import io.reactivex.functions.Action;
+import io.reactivex.functions.Function;
 
 /**
  * @author qiujuer Email:qiujuer@live.cn
@@ -209,7 +216,6 @@ public class Factory {
                 case PushModel.ENTITY_TYPE_EXIT_GROUP_MEMBERS: {
                     // TODO 成员退出的推送
                 }
-
             }
         }
     }

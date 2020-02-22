@@ -1,6 +1,7 @@
 package com.example.imapp.frags.message;
 
 
+import android.Manifest;
 import android.content.Context;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -21,6 +22,8 @@ import com.bumptech.glide.Glide;
 import com.example.common.common.app.PresenterFragment;
 import com.example.common.common.widget.ChatView;
 import com.example.common.common.widget.recycler.RecyclerAdapter;
+import com.example.factory.data.helper.MessageHelper;
+import com.example.factory.model.api.message.MsgCreateModel;
 import com.example.factory.model.db.Message;
 import com.example.factory.model.db.User;
 import com.example.factory.presenter.message.ChatContract;
@@ -30,6 +33,7 @@ import com.example.imapp.activities.MessageActivity;
 import com.google.android.material.appbar.AppBarLayout;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -53,7 +57,9 @@ import pub.devrel.easypermissions.EasyPermissions;
 public abstract class ChatFragment<T> extends PresenterFragment<ChatContract.Presenter>
         implements ChatContract.View<T>, EasyPermissions.PermissionCallbacks, View.OnTouchListener, SensorEventListener, OnMenuClickListener {
     public static final String TAG = "ChatFragment";
-
+    private final int RC_RECORD_VOICE = 0x0001;
+    private final int RC_CAMERA = 0x0002;
+    private final int RC_PHOTO = 0x0003;
 
     @BindView(R.id.chat_view)
     ChatView mChatView;
@@ -164,7 +170,10 @@ public abstract class ChatFragment<T> extends PresenterFragment<ChatContract.Pre
 
             @Override
             public void loadImage(ImageView imageView, String string) {
-                Log.d(TAG, "loadImage: ");
+                Log.d(TAG, "loadImage: "+string);
+                Glide.with(ChatFragment.this)
+                        .load(string)
+                        .into(imageView);
             }
 
             @Override
@@ -185,36 +194,83 @@ public abstract class ChatFragment<T> extends PresenterFragment<ChatContract.Pre
 
     //发送文件
     @Override
-    public void onSendFiles(List<FileItem> list) {
+    public void onSendFiles(List<FileItem> mFileItems) {
         Log.d(TAG, "onSendFiles: ");
+        for (int i = 0; i < mFileItems.size(); i++) {
+            String filePath = mFileItems.get(i).getFilePath();
+            Log.d(TAG, "filePath: "+filePath);
+        }
+        mPresenter.pushImages(mFileItems);
     }
 
     //单击语音时触发
     @Override
     public boolean switchToMicrophoneMode() {
         Log.d(TAG, "switchToMicrophoneMode: ");
-        return false;
+        scrollToBottom();
+        String[] perms = new String[]{
+                Manifest.permission.RECORD_AUDIO,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE
+        };
+
+        if (!EasyPermissions.hasPermissions(getActivity(), perms)) {
+            EasyPermissions.requestPermissions(getActivity(),
+                    getResources().getString(R.string.rationale_record_voice),
+                    RC_RECORD_VOICE, perms);
+        }
+        return true;
     }
 
     //单击图片时候触发
     @Override
     public boolean switchToGalleryMode() {
         Log.d(TAG, "switchToGalleryMode: ");
-        return false;
+        scrollToBottom();
+        String[] perms = new String[]{
+                Manifest.permission.READ_EXTERNAL_STORAGE
+        };
+
+        if (!EasyPermissions.hasPermissions(getActivity(), perms)) {
+            EasyPermissions.requestPermissions(getActivity(),
+                    getResources().getString(R.string.rationale_photo),
+                    RC_PHOTO, perms);
+        }
+        // If you call updateData, select photo view will try to update data(Last update over 30 seconds.)
+        mChatView.getChatInputView().getSelectPhotoView().updateData();
+        return true;
     }
 
     //单击相机时触发
     @Override
     public boolean switchToCameraMode() {
         Log.d(TAG, "switchToCameraMode: ");
-        return false;
+        scrollToBottom();
+        String[] perms = new String[]{
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.CAMERA,
+                Manifest.permission.RECORD_AUDIO
+        };
+
+        if (!EasyPermissions.hasPermissions(getActivity(), perms)) {
+            EasyPermissions.requestPermissions(getActivity(),
+                    getResources().getString(R.string.rationale_camera),
+                    RC_CAMERA, perms);
+            return false;
+        } else {
+//            File rootDir = getFilesDir();
+//            String fileDir = rootDir.getAbsolutePath() + "/photo";
+//            mChatView.setCameraCaptureFile(fileDir, new SimpleDateFormat("yyyy-MM-dd-hhmmss",
+//                    Locale.getDefault()).format(new Date()));
+        }
+        return true;
     }
 
     //点击表情
     @Override
     public boolean switchToEmojiMode() {
         Log.d(TAG, "switchToEmojiMode: ");
-        return false;
+        scrollToBottom();
+        return true;
     }
 
     @Override

@@ -252,7 +252,8 @@ public class Session extends BaseDbModel<Session> {
     @Override
     public boolean isUiContentSame(Session oldT) {
         return this.content.equals(oldT.content)
-                && Objects.equals(this.modifyAt, oldT.modifyAt);
+                && Objects.equals(this.modifyAt, oldT.modifyAt)
+                &&unReadCount==oldT.unReadCount;
     }
 
 

@@ -4,6 +4,7 @@ import android.util.Log;
 
 import androidx.recyclerview.widget.DiffUtil;
 
+import com.example.factory.data.helper.DbHelper;
 import com.example.factory.data.message.SessionDataSource;
 import com.example.factory.data.message.SessionRepository;
 import com.example.factory.model.db.Session;
@@ -21,6 +22,7 @@ import java.util.List;
 public class SessionPresenter extends BaseSourcePresenter<Session, Session,
         SessionDataSource, SessionContract.View> implements SessionContract.Presenter {
     public static final String TAG="SessionPresenter";
+
     public SessionPresenter(SessionContract.View view) {
         super(new SessionRepository(), view);
         Log.d(TAG, "SessionPresenter: ");
@@ -40,5 +42,11 @@ public class SessionPresenter extends BaseSourcePresenter<Session, Session,
 
         // 刷新界面
         refreshData(result, sessions);
+    }
+
+
+    @Override
+    public void clearUnReadCount(Session session) {
+        DbHelper.instance.clearUnReadCount(session);
     }
 }

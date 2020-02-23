@@ -61,6 +61,12 @@ public class DragBubbleView extends View {
 
     public void setmTextStr(String mTextStr) {
         this.mTextStr = mTextStr;
+        if(mTextStr.equals("0")){
+            this.setVisibility(INVISIBLE);
+            return;
+        }else {
+            this.setVisibility(VISIBLE);
+        }
         invalidate();
     }
 
@@ -225,6 +231,7 @@ public class DragBubbleView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+        Log.d("TAG", "onDraw: "+mTextStr);
         if (mBubbleState == BUBBLE_STATE_CONNECT){
             //绘制不动气泡
             canvas.drawCircle(mBubFixedCenter.x, mBubFixedCenter.y, mBubFixedRadius, mBubblePaint);
@@ -317,6 +324,7 @@ public class DragBubbleView extends View {
                         startBubbleRestAnim();//回到原理位置动画
                     }else {
                         startBubbleBurstAnim();//气泡爆炸动画
+                        mClearUnReadCountListeren.clear();
                     }
 
                 }
@@ -338,6 +346,14 @@ public class DragBubbleView extends View {
             }
         });
         anim.start();
+    }
+    private ClearUnReadCountListeren mClearUnReadCountListeren;
+    public interface ClearUnReadCountListeren{
+        void clear();
+    }
+
+    public void setmClearUnReadCountListeren(ClearUnReadCountListeren mClearUnReadCountListeren) {
+        this.mClearUnReadCountListeren = mClearUnReadCountListeren;
     }
 
     private void startBubbleRestAnim() {

@@ -1,8 +1,16 @@
 package com.example.factory.data.helper;
 
+import android.util.Log;
+
+import com.example.factory.model.db.AppDatabase;
 import com.example.factory.model.db.Session;
 import com.example.factory.model.db.Session_Table;
+import com.raizlabs.android.dbflow.config.DatabaseDefinition;
+import com.raizlabs.android.dbflow.config.FlowManager;
 import com.raizlabs.android.dbflow.sql.language.SQLite;
+import com.raizlabs.android.dbflow.structure.ModelAdapter;
+import com.raizlabs.android.dbflow.structure.database.DatabaseWrapper;
+import com.raizlabs.android.dbflow.structure.database.transaction.ITransaction;
 
 /**
  * 会话辅助工具类

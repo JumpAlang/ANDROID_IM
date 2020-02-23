@@ -97,6 +97,7 @@ public class ActiveFragment extends PresenterFragment<SessionContract.Presenter>
         mAdapter.setListener(new RecyclerAdapter.AdapterListener<Session>() {
             @Override
             public void onItemClick(RecyclerAdapter.ViewHolder holder, Session session) {
+                mPresenter.clearUnReadCount(session);
                 MessageActivity.show(getActivity(),session);
             }
 
@@ -143,6 +144,12 @@ public class ActiveFragment extends PresenterFragment<SessionContract.Presenter>
             mContent.setText(TextUtils.isEmpty(session.getContent()) ? "" : session.getContent());
             mTime.setText(DateTimeUtil.getSampleDate(session.getModifyAt()));
             unReadCount.setmTextStr(String.valueOf(session.getUnReadCount()));
+            unReadCount.setmClearUnReadCountListeren(new DragBubbleView.ClearUnReadCountListeren() {
+                @Override
+                public void clear() {
+                    mPresenter.clearUnReadCount(session);
+                }
+            });
         }
     }
     @Override

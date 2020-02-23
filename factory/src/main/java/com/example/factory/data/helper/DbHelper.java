@@ -31,7 +31,7 @@ import java.util.Set;
  */
 public class DbHelper {
     public static final String TAG="DbHelper";
-    private static final DbHelper instance;
+    public static final DbHelper instance;
 
     static {
         instance = new DbHelper();
@@ -281,6 +281,7 @@ public class DbHelper {
 
                     // 把会话，刷新到当前Message的最新状态
                     session.refreshToNow();
+                    session.setUnReadCount(session.getUnReadCount()+ 1);
                     // 数据存储
                     Log.d(TAG, "execute: "+session.getContent());
                     adapter.save(session);
@@ -293,7 +294,33 @@ public class DbHelper {
             }
         }).build().execute();
     }
+    public void clearUnReadCount(final Session session) {
 
+        // 异步的数据库查询，并异步的发起二次通知
+        DatabaseDefinition definition = FlowManager.getDatabase(AppDatabase.class);
+        definition.beginTransactionAsync(new ITransaction() {
+            @Override
+            public void execute(DatabaseWrapper databaseWrapper) {
+                ModelAdapter<Session> adapter = FlowManager.getModelAdapter(Session.class);
+                Session sessionLocal = SessionHelper.findFromLocal(session.getId());
+
+                if (session == null) {
+                    // 第一次聊天，创建一个你和对方的一个会话
+                    return;
+                }
+
+                // 把会话，刷新到当前Message的最新状态
+//                    session.refreshToNow();
+                session.setUnReadCount(0);
+                // 数据存储
+                Log.d(TAG, "execute: "+session.getUnReadCount());
+                adapter.save(session);
+                // 调用直接进行一次通知分发
+                DbHelper.instance.notifySave(Session.class, sessionLocal);
+
+            }
+        }).build().execute();
+    }
     /**
      * 通知监听器
      */

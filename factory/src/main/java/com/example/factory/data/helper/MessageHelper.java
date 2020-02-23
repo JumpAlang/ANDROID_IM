@@ -123,6 +123,7 @@ public class MessageHelper {
                                     MessageCard rspCard = rspModel.getResult();
                                     if (rspCard != null) {
                                         // 成功的调度
+                                        rspCard.setStatus((Message.STATUS_DONE));
                                         Factory.getMessageCenter().dispatch(rspCard);
                                     }
                                 } else {

@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.common.common.app.Fragment;
 import com.example.common.common.app.PresenterFragment;
+import com.example.common.common.widget.DragBubbleView;
 import com.example.common.common.widget.EmptyView;
 import com.example.common.common.widget.PortraitView;
 import com.example.common.common.widget.recycler.RecyclerAdapter;
@@ -126,6 +127,9 @@ public class ActiveFragment extends PresenterFragment<SessionContract.Presenter>
         @BindView(R.id.txt_time)
         TextView mTime;
 
+        @BindView(R.id.unReadCount)
+        DragBubbleView unReadCount;
+
         ViewHolder(View itemView) {
             super(itemView);
         }
@@ -133,11 +137,12 @@ public class ActiveFragment extends PresenterFragment<SessionContract.Presenter>
         @Override
         protected void onBind(Session session) {
             session.load();
-            Log.d(TAG, "onBind: "+session.getTitle());
+            Log.d(TAG, "onBind: "+session.toString());
             mPortraitView.setup(Glide.with(ActiveFragment.this), session.getPicture());
             mName.setText(session.getTitle());
             mContent.setText(TextUtils.isEmpty(session.getContent()) ? "" : session.getContent());
             mTime.setText(DateTimeUtil.getSampleDate(session.getModifyAt()));
+            unReadCount.setmTextStr(String.valueOf(session.getUnReadCount()));
         }
     }
     @Override

@@ -54,6 +54,16 @@ public class DragBubbleView extends View {
      * 气泡颜色
      */
     private int mBubbleColor;
+
+    public String getmTextStr() {
+        return mTextStr;
+    }
+
+    public void setmTextStr(String mTextStr) {
+        this.mTextStr = mTextStr;
+        invalidate();
+    }
+
     /**
      * 气泡消息文字
      */
@@ -312,7 +322,6 @@ public class DragBubbleView extends View {
                 }
                 break;
         }
-
         return true;
     }
 

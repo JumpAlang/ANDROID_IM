@@ -67,6 +67,7 @@
         tools:text="17-04-12" />
 
     <com.example.common.common.widget.DragBubbleView
+        android:id="@+id/unReadCount"
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:layout_gravity="end|bottom"

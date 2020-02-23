@@ -1,6 +1,8 @@
 package com.example.factory.data.message;
 
 import android.text.TextUtils;
+import android.util.Log;
+
 import com.example.factory.data.helper.DbHelper;
 import com.example.factory.data.helper.GroupHelper;
 import com.example.factory.data.helper.MessageHelper;
@@ -22,6 +24,7 @@ import java.util.concurrent.Executors;
  * @version 1.0.0
  */
 public class MessageDispatcher implements MessageCenter {
+    public static final String TAG="MessageDispatcher";
     private static MessageCenter instance;
     // 单线程池；处理卡片一个个的消息进行处理
     private final Executor executor = Executors.newSingleThreadExecutor();
@@ -39,6 +42,7 @@ public class MessageDispatcher implements MessageCenter {
 
     @Override
     public void dispatch(MessageCard... cards) {
+        Log.d(TAG, "MessageCard dispatch: "+cards[0].getStatus());
         if (cards == null || cards.length == 0)
             return;
 

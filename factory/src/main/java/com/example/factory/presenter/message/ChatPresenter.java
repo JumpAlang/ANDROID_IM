@@ -102,10 +102,11 @@ public class ChatPresenter<View extends ChatContract.View>
                 }else {
                     for (int i = 0; i < messages.size(); i++) {
                         final Message newMessage = messages.get(i);
-                        Log.d(TAG, "messages: "+newMessage.getStatus());
+//                        Log.d(TAG, "messages: "+newMessage.getContent()+" status:"+newMessage.getStatus());
                         //判断新消息种是否对老消息有所改变
                         if(i<old.size()){
-                            Message oldMessage = old.get(i);
+                            Message oldMessage = old.get(old.size()-i-1);
+//                            Log.d(TAG, "oldmessages: "+oldMessage.getContent()+" status:"+oldMessage.getStatus());
                             //如果不相同更新
                             if(!oldMessage.isUiContentSame(newMessage)){
                                 getView().getAdapter().updateMessage(newMessage);

@@ -7,7 +7,9 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -34,7 +36,9 @@ import com.google.android.material.appbar.AppBarLayout;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 
 import butterknife.BindView;
@@ -98,6 +102,13 @@ public abstract class ChatFragment<T> extends PresenterFragment<ChatContract.Pre
             @Override
             public void onStartRecord() {
                 Log.d(TAG, "onStartRecord: ");
+                String path = Environment.getExternalStorageDirectory().getPath() + "/voice";
+                File destDir = new File(path);
+                if (!destDir.exists()) {
+                    destDir.mkdirs();
+                }
+                mChatView.setRecordVoiceFile(destDir.getPath(), DateFormat.format("yyyy-MM-dd-hhmmss",
+                        Calendar.getInstance(Locale.CHINA)) + "");
             }
 
             @Override

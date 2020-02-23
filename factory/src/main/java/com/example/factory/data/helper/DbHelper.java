@@ -8,6 +8,7 @@ import com.example.factory.model.db.GroupMember;
 import com.example.factory.model.db.Group_Table;
 import com.example.factory.model.db.Message;
 import com.example.factory.model.db.Session;
+import com.example.factory.persistence.Account;
 import com.raizlabs.android.dbflow.config.DatabaseDefinition;
 import com.raizlabs.android.dbflow.config.FlowManager;
 import com.raizlabs.android.dbflow.sql.language.SQLite;
@@ -281,7 +282,12 @@ public class DbHelper {
 
                     // 把会话，刷新到当前Message的最新状态
                     session.refreshToNow();
-                    session.setUnReadCount(session.getUnReadCount()+ 1);
+                    //是否是当前打开的session
+                    if(session.isNowSession()){
+                        clearUnReadCount(session);
+                    }else {
+                        session.setUnReadCount(session.getUnReadCount()+ 1);
+                    }
                     // 数据存储
                     Log.d(TAG, "execute: "+session.getContent());
                     adapter.save(session);

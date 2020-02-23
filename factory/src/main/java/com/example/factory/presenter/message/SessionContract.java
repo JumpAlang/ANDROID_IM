@@ -9,7 +9,7 @@ import com.example.factory.model.db.Session;
  * @version 1.0.0
  */
 public interface SessionContract {
-    // 什么都不需要额外定义，开始就是调用start即可
+
     interface Presenter extends BaseContract.Presenter {
         void clearUnReadCount(Session session);
     }

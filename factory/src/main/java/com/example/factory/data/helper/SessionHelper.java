@@ -26,4 +26,22 @@ public class SessionHelper {
                 .where(Session_Table.id.eq(id))
                 .querySingle();
     }
+
+    /**
+     * 设置当前的Session
+     * @param
+     * @param isNow
+     * @return
+     */
+    public static Session setNowSession(String id,Boolean isNow){
+        ModelAdapter<Session> adapter = FlowManager.getModelAdapter(Session.class);
+        Session sessionLocal = findFromLocal(id);
+        if (sessionLocal == null) {
+            // 第一次聊天，创建一个你和对方的一个会话
+            return null;
+        }
+        sessionLocal.setNowSession(isNow);
+        adapter.save(sessionLocal);
+        return sessionLocal;
+    }
 }

@@ -58,14 +58,18 @@ public class DragBubbleView extends View {
     public String getmTextStr() {
         return mTextStr;
     }
-
+//    private Context context;
+//    private AttributeSet attributeSet;
+//    private int defStyleAttr;
     public void setmTextStr(String mTextStr) {
         this.mTextStr = mTextStr;
         if(mTextStr.equals("0")){
-            this.setVisibility(INVISIBLE);
+//            init(context,attributeSet,defStyleAttr);
+            mBubbleState=BUBBLE_STATE_DISMISS;
+            mBubMovableCenter=mBubFixedCenter;
             return;
         }else {
-            this.setVisibility(VISIBLE);
+            mBubbleState=BUBBLE_STATE_DEFAULT;
         }
         invalidate();
     }
@@ -165,7 +169,11 @@ public class DragBubbleView extends View {
     }
 
     public DragBubbleView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+
         super(context, attrs, defStyleAttr);
+//        this.context=context;
+//        this.attributeSet=attrs;
+//        this.defStyleAttr=defStyleAttr;
         init(context,attrs,defStyleAttr);
     }
 
@@ -214,6 +222,7 @@ public class DragBubbleView extends View {
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
+        Log.d("TAG", "onSizeChanged: "+w+" "+h+" "+oldw+" "+oldh);
         //不动气泡圆心
         if (mBubFixedCenter == null){
             mBubFixedCenter = new PointF(w/2,h/2);
@@ -231,7 +240,7 @@ public class DragBubbleView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        Log.d("TAG", "onDraw: "+mTextStr);
+        Log.d("TAG", "onDraw: "+mBubFixedCenter);
         if (mBubbleState == BUBBLE_STATE_CONNECT){
             //绘制不动气泡
             canvas.drawCircle(mBubFixedCenter.x, mBubFixedCenter.y, mBubFixedRadius, mBubblePaint);

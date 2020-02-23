@@ -52,6 +52,9 @@ public class Session extends BaseDbModel<Session> {
     @Column
     private Date modifyAt; // 最后更改时间
 
+    @Column
+    private Boolean isNowSession=false;
+
     @ForeignKey(tableClass = Message.class)
     private Message message; // 对应的消息，外键为Message的Id
 
@@ -81,7 +84,12 @@ public class Session extends BaseDbModel<Session> {
         this.content = message.getSampleContent();
         this.modifyAt = message.getCreateAt();
     }
-
+    public void setNowSession(Boolean nowSession) {
+        isNowSession = nowSession;
+    }
+    public Boolean isNowSession(){
+        return isNowSession;
+    }
     public String getId() {
         return id;
     }

@@ -13,6 +13,7 @@ import com.example.common.common.app.Activity;
 import com.example.common.common.app.Fragment;
 import com.example.common.common.app.ToolbarActivity;
 import com.example.common.factory.model.Author;
+import com.example.factory.data.helper.SessionHelper;
 import com.example.factory.model.db.Group;
 import com.example.factory.model.db.Message;
 import com.example.factory.model.db.Session;
@@ -50,6 +51,7 @@ public class MessageActivity extends ToolbarActivity {
         intent.putExtra(KEY_RECEIVER_ID, session.getId());
         intent.putExtra(KEY_RECEIVER_IS_GROUP, session.getReceiverType() == Message.RECEIVER_TYPE_GROUP);
         context.startActivity(intent);
+        SessionHelper.setNowSession(session.getId(),true);
     }
 
     @Override
@@ -138,5 +140,11 @@ public class MessageActivity extends ToolbarActivity {
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.message_fragment, fragment)
                 .commit();
+    }
+
+    @Override
+    protected void onDestroy() {
+        SessionHelper.setNowSession(mReceiverId,false);
+        super.onDestroy();
     }
 }

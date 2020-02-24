@@ -3,6 +3,7 @@ package com.example.imapp.activities;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
@@ -14,6 +15,9 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.TimeUtils;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toolbar;
 
@@ -30,6 +34,7 @@ import com.bumptech.glide.request.target.Target;
 import com.bumptech.glide.request.transition.Transition;
 import com.example.common.common.app.PresenterToolbarActivity;
 import com.example.common.common.app.ToolbarActivity;
+import com.example.common.common.widget.PortraitView;
 import com.example.common.common.widget.recycler.RecyclerAdapter;
 import com.example.common.utils.DateTimeUtil;
 import com.example.factory.data.helper.GroupHelper;
@@ -43,6 +48,7 @@ import com.example.factory.presenter.group.GroupsPresenter;
 import com.example.imapp.R;
 
 import butterknife.BindView;
+import butterknife.OnCheckedChanged;
 
 public class GroupActivity extends PresenterToolbarActivity<GroupContract.Presenter>
         implements GroupContract.View {
@@ -65,6 +71,8 @@ public class GroupActivity extends PresenterToolbarActivity<GroupContract.Presen
     @BindView(R.id.group_detail)
     TextView groupDetail;
 
+    RecyclerAdapter<MemberUserModel> mRecycler;
+
     public static void show(Context context, String groupId) {
         Intent intent = new Intent(context, GroupActivity.class);
         intent.putExtra(BOUND_KEY_ID, groupId);
@@ -84,6 +92,20 @@ public class GroupActivity extends PresenterToolbarActivity<GroupContract.Presen
     protected void initWidget() {
         super.initWidget();
         setTitle("");
+        // 初始化Recycler
+        groupNumber.setLayoutManager(new LinearLayoutManager(this));
+        groupNumber.setAdapter(mRecycler=new RecyclerAdapter<MemberUserModel>() {
+            @Override
+            protected int getItemViewType(int position, MemberUserModel userCard) {
+                // 返回cell的布局id
+                return R.layout.cell_portrait_list;
+            }
+
+            @Override
+            protected ViewHolder<MemberUserModel> onCreateViewHolder(View root, int viewType) {
+                return new GroupActivity.ViewHolder(root);
+            }
+        });
     }
 
     @Override
@@ -108,7 +130,7 @@ public class GroupActivity extends PresenterToolbarActivity<GroupContract.Presen
 
     @Override
     public RecyclerAdapter<MemberUserModel> getRecyclerAdapter() {
-        return null;
+        return mRecycler;
     }
 
     @Override
@@ -159,4 +181,19 @@ public class GroupActivity extends PresenterToolbarActivity<GroupContract.Presen
                     }
                 });
     }
+    class ViewHolder extends RecyclerAdapter.ViewHolder<MemberUserModel>{
+
+        @BindView(R.id.im_portrait)
+        PortraitView mPortraitView;
+
+        public ViewHolder(View itemView) {
+            super(itemView);
+        }
+
+        @Override
+        protected void onBind(MemberUserModel memberUserModel) {
+            mPortraitView.setup(Glide.with(GroupActivity.this), memberUserModel.getPortrait());
+        }
+    }
+
 }

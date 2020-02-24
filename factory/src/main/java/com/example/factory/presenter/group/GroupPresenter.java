@@ -34,7 +34,7 @@ public class GroupPresenter extends BaseRecyclerPresenter<MemberUserModel, Group
             }
         });
         // 异步加载
-//        Factory.runOnAsync(loader);
+        Factory.runOnAsync(loader);
     }
     private void onLoaded(final GroupContract.View view, final Group group){
         AndroidSchedulers.mainThread().scheduleDirect(new Runnable() {
@@ -54,7 +54,7 @@ public class GroupPresenter extends BaseRecyclerPresenter<MemberUserModel, Group
             String groupId = view.getGroupId();
 
             // 传递数量为-1 代表查询所有
-            List<MemberUserModel> models = GroupHelper.getMemberUsers(groupId, -1);
+            List<MemberUserModel> models = GroupHelper.getMemberUsers(groupId, 5);
 
             refreshData(models);
         }

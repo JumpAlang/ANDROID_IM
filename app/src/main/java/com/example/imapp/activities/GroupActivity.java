@@ -98,7 +98,8 @@ public class GroupActivity extends PresenterToolbarActivity<GroupContract.Presen
             @Override
             protected int getItemViewType(int position, MemberUserModel userCard) {
                 // 返回cell的布局id
-                return R.layout.cell_portrait_list;
+//                return R.layout.cell_portrait_list;
+                return 0;
             }
 
             @Override

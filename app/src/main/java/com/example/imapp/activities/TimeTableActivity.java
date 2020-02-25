@@ -38,7 +38,6 @@ public class TimeTableActivity extends PresenterToolbarActivity<TimeTableContrac
         super.initWidget();
         //初始化周选择控件
         mWeekView.curWeek(1)
-                .isShow(true)//设置隐藏，默认显示
                 .showView();
         //初始化主视图
         mTimetableView.curWeek(1)
@@ -46,6 +45,7 @@ public class TimeTableActivity extends PresenterToolbarActivity<TimeTableContrac
                 .maxSlideItem(10)
                 .monthWidthDp(30)
                 .showView();
+        setTitle("课程表");
     }
 
     @Override

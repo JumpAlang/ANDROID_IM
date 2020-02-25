@@ -11,6 +11,8 @@ import com.example.factory.model.db.Session;
 import com.example.factory.presenter.BaseSourcePresenter;
 import com.example.factory.utils.DiffUiDataCallback;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -34,7 +36,12 @@ public class SessionPresenter extends BaseSourcePresenter<Session, Session,
         SessionContract.View view = getView();
         if (view == null)
             return;
-
+        Collections.sort(sessions, new Comparator<Session>() {
+            @Override
+            public int compare(Session o1, Session o2) {
+                return o1.getModifyAt().compareTo(o2.getModifyAt());
+            }
+        });
         // 差异对比
         List<Session> old = view.getRecyclerAdapter().getItems();
         DiffUiDataCallback<Session> callback = new DiffUiDataCallback<>(old, sessions);

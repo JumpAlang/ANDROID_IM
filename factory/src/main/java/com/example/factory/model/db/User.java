@@ -15,7 +15,7 @@ import java.util.Objects;
 import cn.jiguang.imui.commons.models.IUser;
 
 /**
- * @author qiujuer Email:qiujuer@live.cn
+ * @author 1050483859@qq.com
  * @version 1.0.0
  */
 @Table(database = AppDatabase.class)

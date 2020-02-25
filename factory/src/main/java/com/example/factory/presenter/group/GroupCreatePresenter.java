@@ -23,7 +23,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 /**
  * 群创建界面的Presenter
  *
- * @author qiujuer Email:qiujuer@live.cn
+ * @author 1050483859@qq.com
  * @version 1.0.0
  */
 public class GroupCreatePresenter extends BaseRecyclerPresenter<GroupCreateContract.ViewModel, GroupCreateContract.View>

@@ -8,7 +8,7 @@ import com.example.common.common.widget.recycler.RecyclerAdapter;
 /**
  * MVP模式中公共的基本契约
  *
- * @author qiujuer Email:qiujuer@live.cn
+ * @author 1050483859@qq.com
  * @version 1.0.0
  */
 public interface BaseContract {

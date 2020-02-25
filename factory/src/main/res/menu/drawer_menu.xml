@@ -8,7 +8,7 @@
             android:title="新建群组"
             />
         <item
-            android:id="@+id/class_schedule"
+            android:id="@+id/time_table"
             android:icon="@drawable/ic_class"
             android:title="我的课程"
             />

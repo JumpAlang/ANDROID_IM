@@ -20,7 +20,7 @@ import java.util.concurrent.Executors;
 /**
  * 消息中心的实现类
  *
- * @author qiujuer Email:qiujuer@live.cn
+ * @author 1050483859@qq.com
  * @version 1.0.0
  */
 public class MessageDispatcher implements MessageCenter {

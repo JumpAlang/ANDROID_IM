@@ -6,7 +6,7 @@ import com.example.common.factory.presenter.BasePresenter;
 /**
  * 搜索群的逻辑实现
  *
- * @author qiujuer Email:qiujuer@live.cn
+ * @author 1050483859@qq.com
  * @version 1.0.0
  */
 public class SearchGroupPresenter extends BasePresenter<SearchContract.GroupView>

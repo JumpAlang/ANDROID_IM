@@ -30,7 +30,7 @@ import retrofit2.Response;
 /**
  * 对群的一个简单的辅助工具类
  *
- * @author qiujuer Email:qiujuer@live.cn
+ * @author 1050483859@qq.com
  * @version 1.0.0
  */
 public class GroupHelper {

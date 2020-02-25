@@ -22,7 +22,7 @@ import java.util.regex.Pattern;
 import static com.example.factory.data.helper.AccountHelper.bindPush;
 
 /**
- * @author qiujuer Email:qiujuer@live.cn
+ * @author 1050483859@qq.com
  * @version 1.0.0
  */
 public class RegisterPresenter extends BasePresenter<RegisterContract.View>

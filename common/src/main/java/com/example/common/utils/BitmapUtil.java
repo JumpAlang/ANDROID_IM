@@ -21,7 +21,7 @@ import static com.example.common.utils.StreamUtil.close;
 /**
  * Bitmap 工具类
  *
- * @author qiujuer Email:qiujuer@live.cn
+ * @author 1050483859@qq.com
  * @version 1.0.0
  */
 public final class BitmapUtil {

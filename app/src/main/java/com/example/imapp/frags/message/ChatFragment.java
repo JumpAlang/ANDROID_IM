@@ -55,7 +55,7 @@ import cn.jiguang.imui.messages.ptr.PullToRefreshLayout;
 import pub.devrel.easypermissions.EasyPermissions;
 
 /**
- * @author qiujuer Email:qiujuer@live.cn
+ * @author 1050483859@qq.com
  * @version 1.0.0
  */
 public abstract class ChatFragment<T> extends PresenterFragment<ChatContract.Presenter>

@@ -167,6 +167,9 @@ public class MainActivity extends Activity
             case R.id.new_group:
                 GroupCreateActivity.show(this);
                 break;
+            case R.id.time_table:
+                TimeTableActivity.show(this);
+                break;
             case R.id.setting:
                 break;
                 default:

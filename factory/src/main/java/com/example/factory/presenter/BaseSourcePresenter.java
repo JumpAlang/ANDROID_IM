@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * 基础的仓库源的Presenter定义
  *
- * @author qiujuer Email:qiujuer@live.cn
+ * @author 1050483859@qq.com
  * @version 1.0.0
  */
 public abstract class BaseSourcePresenter<Data, ViewModel,

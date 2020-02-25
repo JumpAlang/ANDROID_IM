@@ -17,7 +17,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 /**
  * 我的群组Presenter
  *
- * @author qiujuer Email:qiujuer@live.cn
+ * @author 1050483859@qq.com
  * @version 1.0.0
  */
 public class GroupsPresenter extends BaseSourcePresenter<Group, Group,

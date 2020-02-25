@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * 我的群组的数据仓库 是对GroupsDataSource的实现
  *
- * @author qiujuer Email:qiujuer@live.cn
+ * @author 1050483859@qq.com
  * @version 1.0.0
  */
 public class GroupsRepository extends BaseDbRepository<Group>

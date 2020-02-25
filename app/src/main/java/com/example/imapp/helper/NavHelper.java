@@ -12,7 +12,7 @@ import androidx.fragment.app.FragmentTransaction;
  * 解决对Fragment的调度与重用问题，
  * 达到最优的Fragment切换
  *
- * @author qiujuer Email:qiujuer@live.cn
+ * @author 1050483859@qq.com
  * @version 1.0.0
  */
 public class NavHelper<T> {

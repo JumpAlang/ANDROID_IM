@@ -5,7 +5,7 @@ import com.example.factory.Factory;
 import com.igexin.sdk.PushManager;
 
 /**
- * @author qiujuer Email:qiujuer@live.cn
+ * @author 1050483859@qq.com
  * @version 1.0.0
  */
 public class App extends Application {

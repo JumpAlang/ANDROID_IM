@@ -3,7 +3,7 @@ package com.example.factory.model.api.account;
 /**
  * 注册使用的请求Model
  *
- * @author qiujuer Email:qiujuer@live.cn
+ * @author 1050483859@qq.com
  * @version 1.0.0
  */
 public class RegisterModel {

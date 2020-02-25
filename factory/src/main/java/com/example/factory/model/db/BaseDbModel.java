@@ -9,7 +9,7 @@ import com.raizlabs.android.dbflow.structure.BaseModel;
  * 基础了数据库框架DbFlow中的基础类
  * 同时定义类我们需要的方法
  *
- * @author qiujuer Email:qiujuer@live.cn
+ * @author 1050483859@qq.com
  * @version 1.0.0
  */
 public abstract class BaseDbModel<Model> extends BaseModel

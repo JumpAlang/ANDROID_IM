@@ -9,7 +9,7 @@ import com.example.factory.model.db.User;
 import com.example.factory.model.db.User_Table;
 import com.raizlabs.android.dbflow.sql.language.SQLite;
 /**
- * @author qiujuer Email:qiujuer@live.cn
+ * @author 1050483859@qq.com
  * @version 1.0.0
  */
 public class Account {

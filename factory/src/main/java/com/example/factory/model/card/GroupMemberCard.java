@@ -8,7 +8,7 @@ import java.util.Date;
 
 /**
  * 群成员卡片信息
- * @author qiujuer Email:qiujuer@live.cn
+ * @author 1050483859@qq.com
  * @version 1.0.0
  */
 

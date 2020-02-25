@@ -7,7 +7,7 @@ import com.raizlabs.android.dbflow.annotation.QueryModel;
 /**
  * 用户基础信息的Model，可以和数据库进行查询
  *
- * @author qiujuer Email:qiujuer@live.cn
+ * @author 1050483859@qq.com
  * @version 1.0.0
  */
 @QueryModel(database = AppDatabase.class)

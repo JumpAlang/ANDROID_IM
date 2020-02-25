@@ -3,7 +3,7 @@ package com.example.factory.model.api;
 import java.util.Date;
 
 /**
- * @author qiujuer Email:qiujuer@live.cn
+ * @author 1050483859@qq.com
  * @version 1.0.0
  */
 @SuppressWarnings({"WeakerAccess", "unused"})

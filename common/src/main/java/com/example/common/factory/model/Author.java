@@ -3,7 +3,7 @@ package com.example.common.factory.model;
 /**
  * 基础用户接口
  *
- * @author qiujuer Email:qiujuer@live.cn
+ * @author 1050483859@qq.com
  * @version 1.0.0
  */
 public interface Author {

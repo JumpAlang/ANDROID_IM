@@ -55,4 +55,5 @@ dependencies {
     implementation 'cn.jiguang.imui:chatinput:0.10.0' //聊天输入框
     implementation 'cn.jiguang.imui:messagelist:0.8.0'//聊天信息列表
     implementation 'org.clojars.cbilson:pinyin4j:2.5.0'
+    implementation 'com.github.zfman:TimetableView:2.0.6'//课表控件
 }

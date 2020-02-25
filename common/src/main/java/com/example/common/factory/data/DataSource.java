@@ -6,7 +6,7 @@ import androidx.annotation.StringRes;
 /**
  * 数据源接口定义
  *
- * @author qiujuer Email:qiujuer@live.cn
+ * @author 1050483859@qq.com
  * @version 1.0.0
  */
 public interface DataSource {

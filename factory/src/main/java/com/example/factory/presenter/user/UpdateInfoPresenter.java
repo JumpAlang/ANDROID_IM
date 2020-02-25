@@ -19,7 +19,7 @@ import com.example.factory.persistence.Account;
 
 
 /**
- * @author qiujuer Email:qiujuer@live.cn
+ * @author 1050483859@qq.com
  * @version 1.0.0
  */
 public class UpdateInfoPresenter extends BasePresenter<UpdateInfoContract.View>

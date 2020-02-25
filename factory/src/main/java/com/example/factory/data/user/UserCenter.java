@@ -6,7 +6,7 @@ import com.example.factory.model.card.UserCard;
 /**
  * 用户中心的基本定义
  *
- * @author qiujuer Email:qiujuer@live.cn
+ * @author 1050483859@qq.com
  * @version 1.0.0
  */
 public interface UserCenter {

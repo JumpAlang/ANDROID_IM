@@ -22,7 +22,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
  * 基础的数据库仓库
  * 实现对数据库的基本的监听操作
  *
- * @author qiujuer Email:qiujuer@live.cn
+ * @author 1050483859@qq.com
  * @version 1.0.0
  */
 public abstract class BaseDbRepository<Data extends BaseDbModel<Data>> implements DbDataSource<Data>,

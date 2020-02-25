@@ -7,7 +7,7 @@ import com.raizlabs.android.dbflow.annotation.QueryModel;
 /**
  * 群成员对应的用户的简单信息表
  *
- * @author qiujuer Email:qiujuer@live.cn
+ * @author 1050483859@qq.com
  * @version 1.0.0
  */
 @QueryModel(database = AppDatabase.class)

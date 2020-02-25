@@ -14,7 +14,7 @@ import java.util.List;
  * 跟群聊天的时候的聊天列表
  * 关注的内容一定是我发给群或者是别人发送到群的信息
  *
- * @author qiujuer Email:qiujuer@live.cn
+ * @author 1050483859@qq.com
  * @version 1.0.0
  */
 public class MessageGroupRepository extends BaseDbRepository<Message>

@@ -13,7 +13,7 @@ import java.util.Objects;
 /**
  * 群成员Model表
  *
- * @author qiujuer Email:qiujuer@live.cn
+ * @author 1050483859@qq.com
  * @version 1.0.0
  */
 @Table(database = AppDatabase.class)

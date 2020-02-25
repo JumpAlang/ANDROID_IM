@@ -6,7 +6,7 @@ import android.util.Log;
 import com.example.common.factory.presenter.BaseContract;
 
 /**
- * @author qiujuer Email:qiujuer@live.cn
+ * @author 1050483859@qq.com
  * @version 1.0.0
  */
 public abstract class PresenterFragment<Presenter extends BaseContract.Presenter> extends Fragment

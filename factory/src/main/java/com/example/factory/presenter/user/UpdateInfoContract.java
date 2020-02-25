@@ -6,7 +6,7 @@ import com.example.common.factory.presenter.BaseContract;
 /**
  * 更新用户信息的基本的契约
  *
- * @author qiujuer Email:qiujuer@live.cn
+ * @author 1050483859@qq.com
  * @version 1.0.0
  */
 public interface UpdateInfoContract {

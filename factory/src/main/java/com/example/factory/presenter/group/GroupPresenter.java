@@ -29,18 +29,19 @@ public class GroupPresenter extends BaseRecyclerPresenter<MemberUserModel, Group
                 if (view != null) {
                     String id = view.getGroupId();
                     Group group = GroupHelper.searchFirstOfNet(id);
-                    onLoaded(view,group);
+                    int number=(int)GroupHelper.getMemberCount(id);
+                    onLoaded(view,group,number);
                 }
             }
         });
         // 异步加载
         Factory.runOnAsync(loader);
     }
-    private void onLoaded(final GroupContract.View view, final Group group){
+    private void onLoaded(final GroupContract.View view, final Group group,final int number){
         AndroidSchedulers.mainThread().scheduleDirect(new Runnable() {
             @Override
             public void run() {
-                view.onLoadDone(group);
+                view.onLoadDone(group,number);
             }
         });
     }
@@ -59,5 +60,6 @@ public class GroupPresenter extends BaseRecyclerPresenter<MemberUserModel, Group
             refreshData(models);
         }
     };
+
 }
 

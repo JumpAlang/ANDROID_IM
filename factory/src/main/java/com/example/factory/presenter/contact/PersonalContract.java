@@ -19,9 +19,6 @@ public interface PersonalContract {
         // 加载数据完成
         void onLoadDone(User user);
 
-        // 是否发起聊天
-        void allowSayHello(boolean isAllow);
-
         // 设置关注状态
         void setFollowStatus(boolean isFollow);
     }

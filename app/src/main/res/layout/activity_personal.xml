@@ -1,195 +1,195 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="360dp"
+<?xml version="1.0" encoding="utf-8" ?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
-
-    <TextView
-        android:id="@+id/text_alias"
-        android:layout_width="wrap_content"
-        android:layout_height="36dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="8dp"
-        android:text="thyme"
-        android:textColor="@color/black_alpha_240"
-        android:textSize="25sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
-
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="96dp"
-        android:layout_marginEnd="8dp"
-        android:text="名称"
-        android:textColor="@color/black_alpha_144"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.027"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline1" />
-
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:text="账号信息"
-        android:textColor="@color/black_alpha_144"
-        app:layout_constraintBottom_toTopOf="@+id/text_phone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.027"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <ImageView
-        android:id="@+id/im_header"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="@dimen/len_48"
-        android:contentDescription="@string/app_name"
-        android:scaleType="centerCrop"
-        android:src="@drawable/default_portrait"
-        app:layout_constraintBottom_toTopOf="@+id/guideline1"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#ebebeb"
+    android:orientation="vertical">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/trans"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/im_header" />
+        android:background="@color/white"/>
 
-    <TextView
-        android:id="@+id/txt_name"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/len_16"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="32dp"
-        android:ellipsize="end"
-        android:text="@string/app_name"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar"
-        android:visibility="gone"/>
+        android:orientation="vertical">
 
-    <com.example.common.common.widget.PortraitView
-        android:id="@+id/im_portrait"
-        android:layout_width="96dp"
-        android:layout_height="96dp"
-        android:layout_gravity="bottom"
-        android:layout_marginStart="@dimen/len_16"
-        app:civ_border_color="@color/white"
-        app:civ_border_width="2dp"
-        app:layout_constraintBottom_toBottomOf="@id/guideline1"
-        app:layout_constraintLeft_toLeftOf="parent"
-        tools:src="@drawable/default_portrait" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="94dp"
+            android:layout_marginTop="20dp"
+            android:background="@color/white"
+            android:padding="15dp">
 
-    <TextView
-        android:id="@+id/text_detail"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/len_16"
-        android:text="Hugh Michael Jackman is an Australian actor, singer and producer. Jackman has won international recognition for his roles in variety of film genres."
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        android:textColor="@color/black_alpha_240"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+            <ImageView
+                android:id="@+id/ivAvatar"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:scaleType="centerCrop" />
 
-    <net.qiujuer.genius.ui.widget.Button
-        android:id="@+id/btn_say_hello"
-        android:layout_width="140dp"
-        android:layout_height="42dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_margin="@dimen/len_28"
-        android:layout_marginLeft="28dp"
-        android:layout_marginTop="120dp"
-        android:layout_marginBottom="8dp"
-        android:background="@drawable/sel_btn_bg_accent_44"
-        android:gravity="center"
-        android:minWidth="@dimen/len_156"
-        android:text="删除好友"
-        android:textAppearance="@style/TextAppearance.AppCompat.Button"
-        android:textColor="@color/white"
-        app:gTouchColor="@color/white_alpha_48"
-        app:gTouchCornerRadius="22dp"
-        app:gTouchEffect="ripple"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_detail" />
+            <LinearLayout
+                android:id="@+id/ll_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="12dp"
+                android:layout_toRightOf="@id/ivAvatar"
+                android:orientation="horizontal">
 
-    <net.qiujuer.genius.ui.widget.Button
-        android:id="@+id/btn_delete"
-        android:layout_width="140dp"
-        android:layout_height="44dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_margin="@dimen/len_28"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="80dp"
-        android:background="@drawable/sel_btn_bg_accent_44"
-        android:gravity="center"
-        android:minWidth="@dimen/len_156"
-        android:text="@string/btn_send_start"
-        android:textAppearance="@style/TextAppearance.AppCompat.Button"
-        android:textColor="@color/white"
-        app:gTouchColor="@color/white_alpha_48"
-        app:gTouchCornerRadius="22dp"
-        app:gTouchEffect="ripple"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.927"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/btn_say_hello"
-        app:layout_constraintTop_toBottomOf="@+id/text_detail" />
+                <TextView
+                    android:id="@+id/group_name"
+                    android:singleLine="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#333333"
+                    android:textSize="16sp"
+                    android:text="备注" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="16dp"
+                android:layout_toRightOf="@id/ivAvatar">
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline1"
-        android:layout_width="wrap_content"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="账号:"
+                    android:textColor="#AAAAAA"
+                    android:textSize="13sp" />
+                <TextView
+                    android:id="@+id/text_phone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#AAAAAA"
+                    android:textSize="13sp" />
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            style="@style/Layouts.normal_RelativeLayout"
+            android:layout_marginTop="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#333333"
+                android:textSize="16sp"
+                android:layout_centerVertical="true"
+                android:text="设置备注和标签" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            style="@style/Layouts.normal_RelativeLayout"
+            android:layout_marginTop="20dp">
+
+            <TextView
+                android:id="@+id/tv_region_temp"
+                android:textColor="#333333"
+                android:textSize="15sp"
+                android:layout_width="96dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:text="性别" />
+
+            <TextView
+                android:id="@+id/text_sex"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/tv_region_temp"
+                android:textColor="#AAAAAA"
+                android:textSize="14sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.1dp"
+                android:layout_alignParentBottom="true"
+                android:background="#DBDBDB" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            style="@style/Layouts.normal_RelativeLayout"
+            android:layout_height="48dp"
+            android:background="#ffffff">
+
+            <TextView
+                android:id="@+id/tv_sign_temp"
+                android:textColor="#333333"
+                android:textSize="15sp"
+                android:layout_width="96dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:text="个型签名" />
+
+            <TextView
+                android:id="@+id/text_detail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/tv_sign_temp"
+                android:text="志存高远，脚踏实地"
+                android:textColor="#AAAAAA"
+                android:textSize="14sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.1dp"
+                android:layout_alignParentBottom="true"
+                android:background="#DBDBDB" />
+        </RelativeLayout>
+    </LinearLayout>
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.40218878" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="168dp"
-        android:layout_marginEnd="8dp"
-        android:text="个人签名"
-        android:textColor="@color/black_alpha_144"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.027"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/im_portrait" />
-
-    <TextView
-        android:id="@+id/text_phone"
-        android:layout_width="wrap_content"
-        android:layout_height="36dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="8dp"
-        android:text="18360059878"
-        android:textColor="@color/black_alpha_240"
-        android:textSize="25sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline1" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_marginBottom="@dimen/len_40">
+        <net.qiujuer.genius.ui.widget.Button
+            android:id="@+id/btn_delete"
+            android:layout_width="0dp"
+            android:layout_height="42dp"
+            android:layout_weight="1"
+            android:layout_marginHorizontal="20dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/sel_btn_bg_accent_44"
+            android:gravity="center"
+            android:minWidth="@dimen/len_156"
+            android:text="删除好友"
+            android:textAppearance="@style/TextAppearance.AppCompat.Button"
+            android:textColor="@color/white"
+            app:gTouchColor="@color/white_alpha_48"
+            app:gTouchCornerRadius="22dp"/>
+        <net.qiujuer.genius.ui.widget.Button
+            android:id="@+id/btn_say_hello"
+            android:layout_width="0dp"
+            android:layout_height="42dp"
+            android:layout_weight="1"
+            android:layout_marginHorizontal="20dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/sel_btn_bg_accent_44"
+            android:gravity="center"
+            android:minWidth="@dimen/len_156"
+            android:text="发送消息"
+            android:textAppearance="@style/TextAppearance.AppCompat.Button"
+            android:textColor="@color/white"
+            app:gTouchColor="@color/white_alpha_48"
+            app:gTouchCornerRadius="22dp"/>
+    </LinearLayout>
+</LinearLayout>

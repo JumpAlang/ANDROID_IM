@@ -18,6 +18,7 @@ import android.util.TimeUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toolbar;
 
@@ -65,11 +66,20 @@ public class GroupActivity extends PresenterToolbarActivity<GroupContract.Presen
     @BindView(R.id.join_group_time)
     TextView groupJoinTime;
 
-    @BindView(R.id.group_message)
-    TextView groupMessage;
+//    @BindView(R.id.group_message)
+//    TextView groupMessage;
 
     @BindView(R.id.group_detail)
     TextView groupDetail;
+
+    @BindView(R.id.ivAvatar)
+    ImageView ivAvatar;
+
+    @BindView(R.id.group_master)
+    TextView groupMaster;
+
+    @BindView(R.id.number)
+    TextView groupNumbertext;
 
     RecyclerAdapter<MemberUserModel> mRecycler;
 
@@ -91,15 +101,14 @@ public class GroupActivity extends PresenterToolbarActivity<GroupContract.Presen
     @Override
     protected void initWidget() {
         super.initWidget();
-        setTitle("");
+        setTitle("详细资料");
         // 初始化Recycler
-        groupNumber.setLayoutManager(new LinearLayoutManager(this));
+        groupNumber.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
         groupNumber.setAdapter(mRecycler=new RecyclerAdapter<MemberUserModel>() {
             @Override
             protected int getItemViewType(int position, MemberUserModel userCard) {
                 // 返回cell的布局id
-//                return R.layout.cell_portrait_list;
-                return 0;
+                return R.layout.cell_portrait_list;
             }
 
             @Override
@@ -145,42 +154,33 @@ public class GroupActivity extends PresenterToolbarActivity<GroupContract.Presen
     }
 
     @Override
-    public void onLoadDone(Group group) {
+    public void onLoadDone(Group group,int number) {
         groupName.setText(group.getName());
         groupDetail.setText(group.getDesc());
-        String notifyLevel="接收并提醒";
-        switch (group.getNotifyLevel()){
-            case Group.NOTIFY_LEVEL_NONE:
-                notifyLevel="接收并提醒";
-                break;
-            case Group.NOTIFY_LEVEL_CLOSE:
-                notifyLevel="接收消息不提示";
-                break;
-            case Group.NOTIFY_LEVEL_INVALID:
-                notifyLevel="不接收消息";
-                break;
-
-        }
-        groupMessage.setText(notifyLevel);
+//        String notifyLevel="接收并提醒";
+//        switch (group.getNotifyLevel()){
+//            case Group.NOTIFY_LEVEL_NONE:
+//                notifyLevel="接收并提醒";
+//                break;
+//            case Group.NOTIFY_LEVEL_CLOSE:
+//                notifyLevel="接收消息不提示";
+//                break;
+//            case Group.NOTIFY_LEVEL_INVALID:
+//                notifyLevel="不接收消息";
+//                break;
+//
+//        }
+//        groupMessage.setText(notifyLevel);
         groupJoinTime.setText(DateTimeUtil.getSampleDate(group.getJoinAt()));
+        groupMaster.setText(group.getOwner().getName());
+        groupNumbertext.setText(number+"人");
         loadbar(group);
     }
     public void loadbar(Group group){
         Glide.with(this)
                 .asDrawable()
                 .load(group.getPicture())
-                .into(new CustomTarget<Drawable>() {
-                    @Override
-                    public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
-                        Log.d(TAG, "onResourceReady: ");
-                        getSupportActionBar().setBackgroundDrawable(resource);
-                    }
-
-                    @Override
-                    public void onLoadCleared(@Nullable Drawable placeholder) {
-                        Log.d(TAG, "onLoadCleared: ");
-                    }
-                });
+                .into(ivAvatar);
     }
     class ViewHolder extends RecyclerAdapter.ViewHolder<MemberUserModel>{
 

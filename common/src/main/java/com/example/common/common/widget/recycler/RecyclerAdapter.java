@@ -26,7 +26,7 @@ import butterknife.Unbinder;
 public abstract class RecyclerAdapter<Data>
         extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder<Data>>
         implements View.OnClickListener, View.OnLongClickListener, AdapterCallback<Data> {
-    private final List<Data> mDataList;
+    protected final List<Data> mDataList;
     private AdapterListener<Data> mListener;
     public static final String TAG="RecyclerAdapter";
     /**

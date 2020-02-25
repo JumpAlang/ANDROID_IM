@@ -15,6 +15,6 @@ public interface GroupContract {
         // 获取群的ID
         String getGroupId();
 
-        public void onLoadDone(Group group);
+        public void onLoadDone(Group group,int number);
     }
 }

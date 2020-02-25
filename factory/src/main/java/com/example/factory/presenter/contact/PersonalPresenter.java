@@ -62,7 +62,6 @@ public class PersonalPresenter extends BasePresenter<PersonalContract.View>
                 Log.d(TAG, "run: "+user.toString());
                 view.onLoadDone(user);
                 view.setFollowStatus(isFollow);
-                view.allowSayHello(allowSayHello);
             }
         });
     }

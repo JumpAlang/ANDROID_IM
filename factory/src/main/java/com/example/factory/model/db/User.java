@@ -57,6 +57,16 @@ public class User extends BaseDbModel<User> implements Author, IUser {
     @Column
     private Date modifyAt;
 
+    private Boolean isFrist;
+
+    public Boolean getFrist() {
+        return isFrist;
+    }
+
+    public void setFrist(Boolean frist) {
+        isFrist = frist;
+    }
+
     public String getId() {
         return id;
     }

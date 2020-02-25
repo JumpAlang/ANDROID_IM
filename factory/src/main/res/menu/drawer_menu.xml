@@ -2,11 +2,18 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <group>
-        <item android:id="@+id/new_group"
+        <item
+            android:id="@+id/new_group"
             android:icon="@drawable/new_icon"
             android:title="新建群组"
             />
-        <item android:id="@+id/setting"
+        <item
+            android:id="@+id/class_schedule"
+            android:icon="@drawable/ic_class"
+            android:title="我的课程"
+            />
+        <item
+            android:id="@+id/setting"
             android:icon="@drawable/setting_icon"
             android:title="我的设置" />
     </group>

@@ -16,6 +16,7 @@ import com.example.common.common.widget.recycler.RecyclerAdapter;
 import com.example.factory.model.db.User;
 import com.example.factory.presenter.contact.ContactContract;
 import com.example.factory.presenter.contact.ContactPresenter;
+import com.example.factory.utils.HanyuToPinyin;
 import com.example.imapp.R;
 import com.example.imapp.activities.MessageActivity;
 import com.example.imapp.activities.PersonalActivity;
@@ -53,23 +54,16 @@ public class ContactFragment extends PresenterFragment<ContactContract.Presenter
         // 初始化Recycler
         mRecycler.setLayoutManager(new LinearLayoutManager(getContext()));
         mRecycler.setAdapter(mAdapter = new RecyclerAdapter<User>() {
+
             @Override
             public void onBindViewHolder(ViewHolder<User> holder, int position) {
-//                if(position==0){
-//
-//                }else{
-                    super.onBindViewHolder(holder, position);
-//                }
+                super.onBindViewHolder(holder, position);
             }
 
             @Override
             protected int getItemViewType(int position, User userCard) {
                 // 返回cell的布局id
-//                if(position==0){
-//                    return R.layout.cell_contact_grow;
-//                }else {
                     return R.layout.cell_contact_person;
-//                }
             }
 
             @Override
@@ -120,12 +114,15 @@ public class ContactFragment extends PresenterFragment<ContactContract.Presenter
 
 
     class ViewHolder extends RecyclerAdapter.ViewHolder<User> {
+
         @BindView(R.id.im_portrait)
         PortraitView mPortraitView;
 
         @BindView(R.id.txt_name)
         TextView mName;
 
+        @BindView(R.id.tv_catalog)
+        TextView zimu;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -133,9 +130,16 @@ public class ContactFragment extends PresenterFragment<ContactContract.Presenter
 
         @Override
         protected void onBind(User user) {
-            Log.d(TAG, "onBind: ");
+            Log.d(TAG, "onBind: "+user.getFrist());
             mPortraitView.setup(Glide.with(ContactFragment.this), user.getPortrait());
             mName.setText(user.getName());
+            //改字母首次出现
+            if(user.getFrist()){
+                String name2 = HanyuToPinyin.hanziToCapital(user.getName());
+                zimu.setText(name2);
+            }else {
+                zimu.setVisibility(View.GONE);
+            }
         }
 
         @OnClick(R.id.im_portrait)

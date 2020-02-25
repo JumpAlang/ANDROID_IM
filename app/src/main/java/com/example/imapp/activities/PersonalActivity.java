@@ -26,23 +26,31 @@ import com.example.imapp.R;
 import butterknife.BindView;
 import butterknife.OnClick;
 
+import static com.example.factory.model.db.User.SEX_MAN;
+
 public class PersonalActivity extends PresenterToolbarActivity<PersonalContract.Presenter>
         implements PersonalContract.View {
     private static final String BOUND_KEY_ID = "BOUND_KEY_ID";
     private String userId;
 
-    @BindView(R.id.im_header)
-    ImageView mHeader;
-    @BindView(R.id.im_portrait)
-    PortraitView mPortrait;
-    @BindView(R.id.text_alias)
+    @BindView(R.id.ivAvatar)
+    ImageView mPortrait;
+
+    @BindView(R.id.group_name)
     TextView mName;
+
+    @BindView(R.id.text_sex)
+    TextView sex;
+
     @BindView(R.id.text_detail)
     TextView mDesc;
+
     @BindView(R.id.text_phone)
     TextView mPhone;
+
     @BindView(R.id.btn_say_hello)
     Button mSayHello;
+
     @BindView(R.id.btn_delete)
     Button mDelete;
 
@@ -70,7 +78,7 @@ public class PersonalActivity extends PresenterToolbarActivity<PersonalContract.
             mSayHello.setVisibility(View.INVISIBLE);
             mDelete.setVisibility(View.INVISIBLE);
         }
-        setTitle("");
+        setTitle("详细资料");
     }
 
     @Override
@@ -97,7 +105,7 @@ public class PersonalActivity extends PresenterToolbarActivity<PersonalContract.
         return super.onOptionsItemSelected(item);
     }
 
-    @OnClick(R.id.btn_delete)
+    @OnClick(R.id.btn_say_hello)
     void onSayHelloClick() {
         // 发起聊天的点击
         User user = mPresenter.getUserPersonal();
@@ -132,18 +140,19 @@ public class PersonalActivity extends PresenterToolbarActivity<PersonalContract.
     public void onLoadDone(User user) {
         if (user == null)
             return;
-        mPortrait.setup(Glide.with(this), user);
+        Glide.with(this)
+                .asBitmap()
+                .load(user.getPortrait())
+                .into(mPortrait);
         mName.setText(user.getName());
         mDesc.setText(user.getDesc());
         mPhone.setText(user.getPhone());
-//        mFollows.setText(String.format(getString(R.string.label_follows), user.getFollows()));
-//        mFollowing.setText(String.format(getString(R.string.label_following), user.getFollowing()));
+        if(user.getSex()==SEX_MAN){
+            sex.setText("男");
+        }else {
+            sex.setText("女");
+        }
         hideLoading();
-    }
-
-    @Override
-    public void allowSayHello(boolean isAllow) {
-//        mSayHello.setVisibility(isAllow ? View.VISIBLE : View.GONE);
     }
 
     @Override

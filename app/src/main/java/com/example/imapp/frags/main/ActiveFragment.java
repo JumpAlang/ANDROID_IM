@@ -145,13 +145,17 @@ public class ActiveFragment extends PresenterFragment<SessionContract.Presenter>
             mTime.setText(DateTimeUtil.getSampleDate(session.getModifyAt()));
             int unReadCountText=session.getUnReadCount();
 
-            unReadCount.setText(String.valueOf(unReadCountText));
+            //消息0时隐藏
+            if(unReadCountText==0){
+                unReadCount.setVisibility(View.INVISIBLE);
+            }else {
+                //设置未读消息数，重新创建 显示
+                unReadCount.setText(String.valueOf(unReadCountText));
+                unReadCount.reCreate();
+                unReadCount.setVisibility(View.VISIBLE);
+            }
+            //当触摸拖动消失后未读消息值0
             unReadCount.setOnBubbleStateListener(new DragBubbleView.OnBubbleStateListener() {
-                @Override
-                public void onShow() {
-
-                }
-                //消失时，重置未读数为0
                 @Override
                 public void onDismiss() {
                     mPresenter.clearUnReadCount(session);

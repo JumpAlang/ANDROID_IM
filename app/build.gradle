@@ -62,6 +62,7 @@ dependencies {
     implementation "com.github.Raizlabs.DBFlow:dbflow:4.2.4"
     implementation 'androidx.recyclerview:recyclerview:1.2.0-alpha01'
     implementation 'com.github.zfman:TimetableView:2.0.6'//课表控件
+    implementation 'com.king.zxing:zxing-lite:1.1.6-androidx'//二维码扫描库
     implementation project(path: ':common')
     implementation project(path: ':factory')
 }

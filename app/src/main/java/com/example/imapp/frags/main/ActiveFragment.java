@@ -154,7 +154,7 @@ public class ActiveFragment extends PresenterFragment<SessionContract.Presenter>
                 unReadCount.reCreate();
                 unReadCount.setVisibility(View.VISIBLE);
             }
-            //当触摸拖动消失后未读消息值0
+            //当触摸拖动消失后未消读息值0
             unReadCount.setOnBubbleStateListener(new DragBubbleView.OnBubbleStateListener() {
                 @Override
                 public void onDismiss() {

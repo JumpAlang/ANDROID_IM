@@ -26,6 +26,9 @@ import com.example.imapp.helper.NavHelper;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
+import com.king.zxing.CaptureActivity;
+
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.widget.Toolbar;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
@@ -195,7 +198,7 @@ public class MainActivity extends Activity
                 SearchActivity.show(this,TYPE_USER);
                 break;
             case R.id.add:
-
+                startActivityForResult(new Intent(this, CaptureActivity.class),0);
                 break;
             case android.R.id.home:
                 mDrawerLayout.openDrawer(GravityCompat.START);
@@ -205,4 +208,10 @@ public class MainActivity extends Activity
         return true;
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        Log.d(TAG, "onActivityResult: "+requestCode+requestCode);
+        super.onActivityResult(requestCode, resultCode, data);
+//        Log.d(TAG, "onActivityResult: "+data.getExtras().get);
+    }
 }

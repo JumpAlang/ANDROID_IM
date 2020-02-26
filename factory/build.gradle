@@ -56,4 +56,5 @@ dependencies {
     implementation 'cn.jiguang.imui:messagelist:0.8.0'//聊天信息列表
     implementation 'org.clojars.cbilson:pinyin4j:2.5.0'
     implementation 'com.github.zfman:TimetableView:2.0.6'//课表控件
+    implementation 'com.king.zxing:zxing-lite:1.1.6-androidx'//二维码扫描库
 }

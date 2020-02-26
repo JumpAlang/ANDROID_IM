@@ -53,26 +53,6 @@ public class MessageActivity extends ToolbarActivity {
         context.startActivity(intent);
         SessionHelper.setNowSession(session.getId(),true);
     }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.person,menu);
-
-        return true;
-    }
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        Log.d(TAG, "onOptionsItemSelected:"+item);
-        if(item.getItemId()==R.id.action_search){
-            if(mIsGroup)
-                GroupActivity.show(this,mReceiverId);
-            else
-                PersonalActivity.show(this,mReceiverId);
-            return true;
-        } else {
-            return super.onOptionsItemSelected(item);
-        }
-    }
     /**
      * 显示人的聊天界面
      *
@@ -87,8 +67,8 @@ public class MessageActivity extends ToolbarActivity {
         intent.putExtra(KEY_RECEIVER_ID, author.getId());
         intent.putExtra(KEY_RECEIVER_IS_GROUP, false);
         context.startActivity(intent);
+        SessionHelper.setNowSession(author.getId(),true);
     }
-
     /**
      * 发起群聊天
      *
@@ -103,6 +83,29 @@ public class MessageActivity extends ToolbarActivity {
         intent.putExtra(KEY_RECEIVER_ID, group.getId());
         intent.putExtra(KEY_RECEIVER_IS_GROUP, true);
         context.startActivity(intent);
+        SessionHelper.setNowSession(group.getId(),true);
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.person,menu);
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Log.d(TAG, "onOptionsItemSelected:"+item);
+        if(item.getItemId()==R.id.action_search){
+            if(mIsGroup)
+                GroupActivity.show(this,mReceiverId);
+            else
+                PersonalActivity.show(this,mReceiverId);
+            return true;
+        } else {
+            return super.onOptionsItemSelected(item);
+        }
     }
 
     @Override

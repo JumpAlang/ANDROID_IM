@@ -1,6 +1,8 @@
 package com.example.factory.utils;
 
 
+import android.util.Log;
+
 import androidx.recyclerview.widget.DiffUtil;
 
 import java.util.List;

@@ -36,12 +36,12 @@ public class SessionPresenter extends BaseSourcePresenter<Session, Session,
         SessionContract.View view = getView();
         if (view == null)
             return;
-        Collections.sort(sessions, new Comparator<Session>() {
-            @Override
-            public int compare(Session o1, Session o2) {
-                return o1.getModifyAt().compareTo(o2.getModifyAt());
-            }
-        });
+//        Collections.sort(sessions, new Comparator<Session>() {
+//            @Override
+//            public int compare(Session o1, Session o2) {
+//                return o1.getModifyAt().compareTo(o2.getModifyAt());
+//            }
+//        });
         // 差异对比
         List<Session> old = view.getRecyclerAdapter().getItems();
         DiffUiDataCallback<Session> callback = new DiffUiDataCallback<>(old, sessions);

@@ -38,7 +38,8 @@ public class SessionHelper {
         Session sessionLocal = findFromLocal(id);
         if (sessionLocal == null) {
             // 第一次聊天，创建一个你和对方的一个会话
-            return null;
+            sessionLocal=new Session();
+            sessionLocal.setId(id);
         }
         sessionLocal.setNowSession(isNow);
         adapter.save(sessionLocal);

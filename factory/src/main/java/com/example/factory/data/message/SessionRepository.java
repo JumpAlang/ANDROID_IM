@@ -29,6 +29,7 @@ public class SessionRepository extends BaseDbRepository<Session>
         // 数据库查询
         SQLite.select()
                 .from(Session.class)
+                .where(Session_Table.content.isNotNull())
                 .orderBy(Session_Table.modifyAt, false) // false 是倒序
                 .limit(100)
                 .async()

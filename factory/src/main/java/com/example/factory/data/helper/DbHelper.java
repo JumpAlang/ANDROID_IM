@@ -256,7 +256,7 @@ public class DbHelper {
      *
      * @param messages Message列表
      */
-    private void updateSession(Message... messages) {
+    private void updateSession(final Message... messages) {
         // 标示一个Session的唯一性
         final Set<Session.Identify> identifies = new HashSet<>();
         for (Message message : messages) {

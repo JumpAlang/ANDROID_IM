@@ -143,10 +143,17 @@ public class ActiveFragment extends PresenterFragment<SessionContract.Presenter>
             mName.setText(session.getTitle());
             mContent.setText(TextUtils.isEmpty(session.getContent()) ? "" : session.getContent());
             mTime.setText(DateTimeUtil.getSampleDate(session.getModifyAt()));
-            unReadCount.setmTextStr(String.valueOf(session.getUnReadCount()));
-            unReadCount.setmClearUnReadCountListeren(new DragBubbleView.ClearUnReadCountListeren() {
+            int unReadCountText=session.getUnReadCount();
+
+            unReadCount.setText(String.valueOf(unReadCountText));
+            unReadCount.setOnBubbleStateListener(new DragBubbleView.OnBubbleStateListener() {
                 @Override
-                public void clear() {
+                public void onShow() {
+
+                }
+                //消失时，重置未读数为0
+                @Override
+                public void onDismiss() {
                     mPresenter.clearUnReadCount(session);
                 }
             });

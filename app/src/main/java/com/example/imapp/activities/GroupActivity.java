@@ -1,40 +1,17 @@
 package com.example.imapp.activities;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
-import android.util.TimeUtils;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.CheckBox;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toolbar;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.RequestBuilder;
-import com.bumptech.glide.load.DataSource;
-import com.bumptech.glide.load.engine.GlideException;
-import com.bumptech.glide.request.RequestFutureTarget;
-import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.target.BitmapImageViewTarget;
-import com.bumptech.glide.request.target.CustomTarget;
-import com.bumptech.glide.request.target.SimpleTarget;
-import com.bumptech.glide.request.target.Target;
-import com.bumptech.glide.request.transition.Transition;
 import com.example.common.common.app.PresenterToolbarActivity;
-import com.example.common.common.app.ToolbarActivity;
 import com.example.common.common.widget.PortraitView;
 import com.example.common.common.widget.recycler.RecyclerAdapter;
 import com.example.common.utils.DateTimeUtil;
@@ -42,14 +19,13 @@ import com.example.factory.data.helper.GroupHelper;
 import com.example.factory.model.db.Group;
 import com.example.factory.model.db.view.MemberUserModel;
 import com.example.factory.presenter.group.GroupContract;
-import com.example.factory.presenter.group.GroupCreateContract;
 import com.example.factory.presenter.group.GroupPresenter;
-import com.example.factory.presenter.group.GroupsContract;
-import com.example.factory.presenter.group.GroupsPresenter;
 import com.example.imapp.R;
 
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
-import butterknife.OnCheckedChanged;
+import butterknife.OnClick;
 
 public class GroupActivity extends PresenterToolbarActivity<GroupContract.Presenter>
         implements GroupContract.View {
@@ -66,8 +42,8 @@ public class GroupActivity extends PresenterToolbarActivity<GroupContract.Presen
     @BindView(R.id.join_group_time)
     TextView groupJoinTime;
 
-//    @BindView(R.id.group_message)
-//    TextView groupMessage;
+    @BindView(R.id.more_number)
+    RelativeLayout moreNumber;
 
     @BindView(R.id.group_detail)
     TextView groupDetail;
@@ -157,20 +133,6 @@ public class GroupActivity extends PresenterToolbarActivity<GroupContract.Presen
     public void onLoadDone(Group group,int number) {
         groupName.setText(group.getName());
         groupDetail.setText(group.getDesc());
-//        String notifyLevel="接收并提醒";
-//        switch (group.getNotifyLevel()){
-//            case Group.NOTIFY_LEVEL_NONE:
-//                notifyLevel="接收并提醒";
-//                break;
-//            case Group.NOTIFY_LEVEL_CLOSE:
-//                notifyLevel="接收消息不提示";
-//                break;
-//            case Group.NOTIFY_LEVEL_INVALID:
-//                notifyLevel="不接收消息";
-//                break;
-//
-//        }
-//        groupMessage.setText(notifyLevel);
         groupJoinTime.setText(DateTimeUtil.getSampleDate(group.getJoinAt()));
         groupMaster.setText(group.getOwner().getName());
         groupNumbertext.setText(number+"人");
@@ -196,5 +158,8 @@ public class GroupActivity extends PresenterToolbarActivity<GroupContract.Presen
             mPortraitView.setup(Glide.with(GroupActivity.this), memberUserModel.getPortrait());
         }
     }
-
+    @OnClick(R.id.more_number)
+    public void moreNumber(){
+        GroupMemberActivity.showAdmin(this,mReceiverId);
+    }
 }

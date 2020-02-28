@@ -1,5 +1,7 @@
 package com.example.factory.data.group;
 
+import android.util.Log;
+
 import com.example.factory.data.helper.DbHelper;
 import com.example.factory.data.helper.GroupHelper;
 import com.example.factory.data.helper.UserHelper;
@@ -66,6 +68,7 @@ public class GroupDispatcher implements GroupCenter {
                     members.add(member);
                 }
             }
+            Log.d("TAG", "run: "+members.size());
             if (members.size() > 0)
                 DbHelper.save(GroupMember.class, members.toArray(new GroupMember[0]));
         }

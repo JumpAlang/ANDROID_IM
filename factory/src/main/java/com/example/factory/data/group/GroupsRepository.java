@@ -48,7 +48,6 @@ public class GroupsRepository extends BaseDbRepository<Group>
             group.holder = null;
             GroupHelper.refreshGroupMember(group);
         }
-
         // 所有的群我都需要关注显示
         return true;
     }

@@ -160,6 +160,7 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/more_number"
                 style="@style/Layouts.normal_RelativeLayout">
 
                 <TextView
@@ -180,6 +181,12 @@
                     android:text="志存高远，脚踏实地"
                     android:textColor="#AAAAAA"
                     android:textSize="14sp" />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_more"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"/>
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="0.1dp"

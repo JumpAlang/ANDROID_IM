@@ -9,13 +9,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-import androidx.annotation.MainThread;
-import androidx.annotation.NonNull;
-
 import com.bumptech.glide.Glide;
 import com.example.common.common.app.Activity;
-import com.example.common.common.app.Application;
-import com.example.factory.model.db.Group;
+import com.example.factory.Factory;
 import com.example.factory.persistence.Account;
 import com.example.imapp.LaunchActivity;
 import com.example.imapp.R;
@@ -28,10 +24,10 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.king.zxing.CaptureActivity;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.widget.Toolbar;
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import butterknife.BindView;
@@ -173,6 +169,9 @@ public class MainActivity extends Activity
             case R.id.time_table:
                 TimeTableActivity.show(this);
                 break;
+            case R.id.logout:
+                onclickLogout();
+                break;
             case R.id.setting:
                 break;
                 default:
@@ -181,6 +180,16 @@ public class MainActivity extends Activity
 
         }
         return true;
+    }
+    private void onclickLogout(){
+        //清空mxl中的登陆信息
+        Factory.logout();
+        //重新初始化Factory
+        Factory.setup();
+        //启动launcher界面
+        startActivity(new Intent(Factory.app(), LaunchActivity.class));
+        //关闭主界面
+        this.finish();
     }
     /**
      * toolbar点击事件

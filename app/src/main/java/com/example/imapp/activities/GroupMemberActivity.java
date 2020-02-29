@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
@@ -34,7 +36,7 @@ public class GroupMemberActivity extends PresenterToolbarActivity<GroupMembersCo
     private String mGroupId;
     private boolean mIsAdmin;
     private RecyclerAdapter<MemberUserModel> mAdapter;
-
+    GroupMemberAddFragment mGroupMemberAddFragment=new GroupMemberAddFragment();
 
     public static void show(Context context, String groupId) {
         show(context, groupId, false);
@@ -59,6 +61,24 @@ public class GroupMemberActivity extends PresenterToolbarActivity<GroupMembersCo
     @Override
     protected int getContentLayoutId() {
         return R.layout.activity_group_member;
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        if(mIsAdmin) {
+            getMenuInflater().inflate(R.menu.add,menu);
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.add:
+                mGroupMemberAddFragment.show(getSupportFragmentManager(), GroupMemberAddFragment.class.getName());
+                return true;
+        }
+        return false;
     }
 
     @Override
@@ -95,11 +115,6 @@ public class GroupMemberActivity extends PresenterToolbarActivity<GroupMembersCo
         // 开始数据刷新
         mPresenter.refresh();
 
-        // 显示管理员界面，添加成员
-        if (mIsAdmin) {
-            new GroupMemberAddFragment()
-                    .show(getSupportFragmentManager(), GroupMemberAddFragment.class.getName());
-        }
     }
 
     @Override

@@ -2,9 +2,7 @@ package com.example.factory;
 
 import android.util.Log;
 
-import androidx.annotation.StringRes;
 import com.example.common.common.app.Application;
-import com.example.common.factory.data.DataSource;
 import com.example.factory.data.group.GroupCenter;
 import com.example.factory.data.group.GroupDispatcher;
 import com.example.factory.data.message.MessageCenter;
@@ -25,17 +23,10 @@ import com.google.gson.reflect.TypeToken;
 import com.raizlabs.android.dbflow.config.FlowConfig;
 import com.raizlabs.android.dbflow.config.FlowManager;
 
-import org.reactivestreams.Subscriber;
-import org.reactivestreams.Subscription;
-
 import java.lang.reflect.Type;
 import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
-
-import io.reactivex.Observable;
-import io.reactivex.functions.Action;
-import io.reactivex.functions.Function;
 
 /**
  * @author 1050483859@qq.com
@@ -214,7 +205,6 @@ public class Factory {
                     break;
                 }
                 case PushModel.ENTITY_TYPE_EXIT_GROUP_MEMBERS: {
-                    // TODO 成员退出的推送
                 }
             }
         }
@@ -223,9 +213,11 @@ public class Factory {
     /**
      * 收到账户退出的消息需要进行账户退出重新登录
      */
-    private void logout() {
-
+    public static void logout() {
+        Account.clear(Application.getInstance());
     }
+
+
 
     /**
      * 获取一个用户中心的实现类
@@ -241,4 +233,5 @@ public class Factory {
     public static MessageCenter getMessageCenter() {
         return MessageDispatcher.instance();
     }
+
 }

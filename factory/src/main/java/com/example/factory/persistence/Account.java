@@ -99,7 +99,7 @@ public class Account {
      *
      * @return True已登录
      */
-    public static boolean isLogin() {
+    public static boolean  isLogin() {
         // 用户Id 和 Token 不为空
         return !TextUtils.isEmpty(userId)
                 && !TextUtils.isEmpty(token);

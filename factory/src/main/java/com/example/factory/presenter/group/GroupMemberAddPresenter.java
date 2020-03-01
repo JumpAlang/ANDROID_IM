@@ -1,5 +1,7 @@
 package com.example.factory.presenter.group;
 
+import android.util.Log;
+
 import com.example.common.factory.data.DataSource;
 import com.example.common.factory.presenter.BaseRecyclerPresenter;
 import com.example.factory.Factory;
@@ -117,12 +119,11 @@ public class GroupMemberAddPresenter extends BaseRecyclerPresenter<GroupCreateCo
         AndroidSchedulers.mainThread().scheduleDirect(new Runnable() {
             @Override
             public void run() {
-                GroupMemberAddContract.View view = getView();
-                if (view == null)
-                    return;
+                Log.d(TAG, "run: onAddedSucceed");
                 view.onAddedSucceed();
             }
         });
+        
     }
 
     @Override

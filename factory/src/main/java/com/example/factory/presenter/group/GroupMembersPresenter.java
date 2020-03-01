@@ -1,5 +1,7 @@
 package com.example.factory.presenter.group;
 
+import android.util.Log;
+
 import com.example.common.factory.presenter.BaseRecyclerPresenter;
 import com.example.factory.Factory;
 import com.example.factory.data.helper.GroupHelper;
@@ -13,6 +15,7 @@ import java.util.List;
  */
 public class GroupMembersPresenter extends BaseRecyclerPresenter<MemberUserModel, GroupMembersContract.View>
         implements GroupMembersContract.Presenter {
+    public static final String TAG="GroupMembersPresenter";
 
     public GroupMembersPresenter(GroupMembersContract.View view) {
         super(view);
@@ -35,11 +38,13 @@ public class GroupMembersPresenter extends BaseRecyclerPresenter<MemberUserModel
                 return;
 
             String groupId = view.getGroupId();
-
             // 传递数量为-1 代表查询所有
             List<MemberUserModel> models = GroupHelper.getMemberUsers(groupId, -1);
-
+            for (int i = 0; i < models.size(); i++) {
+                Log.d(TAG, "run: "+models.get(i).getName());
+            }
             refreshData(models);
         }
     };
+
 }

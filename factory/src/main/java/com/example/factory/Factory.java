@@ -180,8 +180,9 @@ public class Factory {
                     break;
                 }
 
-                case PushModel.ENTITY_TYPE_ADD_FRIEND: {
-                    // 好友添加
+                case PushModel.ENTITY_TYPE_ADD_FRIEND:
+                case PushModel.ENTITY_TYPE_REMOVE_FRIEND:{
+                    // 好友变动
                     UserCard card = getGson().fromJson(entity.content, UserCard.class);
                     getUserCenter().dispatch(card);
                     break;
@@ -197,8 +198,7 @@ public class Factory {
                 case PushModel.ENTITY_TYPE_ADD_GROUP_MEMBERS:
                 case PushModel.ENTITY_TYPE_MODIFY_GROUP_MEMBERS: {
                     // 群成员变更, 回来的是一个群成员的列表
-                    Type type = new TypeToken<List<GroupMemberCard>>() {
-                    }.getType();
+                    Type type = new TypeToken<List<GroupMemberCard>>() {}.getType();
                     List<GroupMemberCard> card = getGson().fromJson(entity.content, type);
                     // 把数据集合丢到数据中心处理
                     getGroupCenter().dispatch(card.toArray(new GroupMemberCard[0]));

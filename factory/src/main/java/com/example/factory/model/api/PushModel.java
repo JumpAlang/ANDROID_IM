@@ -24,6 +24,8 @@ public class PushModel {
     public static final int ENTITY_TYPE_MESSAGE = 200;
     // 新朋友添加
     public static final int ENTITY_TYPE_ADD_FRIEND = 1001;
+    // 删除朋友
+    public static final int ENTITY_TYPE_REMOVE_FRIEND = 1101;
     // 新群添加
     public static final int ENTITY_TYPE_ADD_GROUP = 1002;
     // 新的群成员添加

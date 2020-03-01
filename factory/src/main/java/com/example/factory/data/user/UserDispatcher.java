@@ -1,6 +1,7 @@
 package com.example.factory.data.user;
 
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.example.factory.data.helper.DbHelper;
 import com.example.factory.model.card.UserCard;
@@ -58,11 +59,18 @@ public class UserDispatcher implements UserCenter {
                 if (card == null || TextUtils.isEmpty(card.getId()))
                     continue;
                 // 添加操作
+                //全部值为关注
                 users.add(card.build());
             }
 
-            // 进行数据库存储，并分发通知, 异步的操作
-            DbHelper.save(User.class, users.toArray(new User[0]));
-        }
+            //要么全是添加 要么全是删除操作
+            if(users.get(0).isFollow()){
+                Log.d("UserDispatcher", "save");
+                DbHelper.save(User.class, users.toArray(new User[0]));
+            } else {
+                Log.d("UserDispatcher", "delete");
+                DbHelper.delete(User.class, users.toArray(new User[0]));
+            }
+    }
     }
 }

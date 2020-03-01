@@ -8,6 +8,7 @@ import com.example.factory.model.db.GroupMember;
 import com.example.factory.model.db.Group_Table;
 import com.example.factory.model.db.Message;
 import com.example.factory.model.db.Session;
+import com.example.factory.model.db.User;
 import com.example.factory.persistence.Account;
 import com.raizlabs.android.dbflow.config.DatabaseDefinition;
 import com.raizlabs.android.dbflow.config.FlowManager;
@@ -216,10 +217,28 @@ public class DbHelper {
         } else if (Message.class.equals(tClass)) {
             // 消息变化，应该通知会话列表更新
             updateSession((Message[]) models);
+        }else if(User.class.equals(tClass)){
+            updateSession((User[]) models);
         }
     }
 
-
+    private void updateSession(User... users){
+        // 异步的数据库查询，并异步的发起二次通知
+        DatabaseDefinition definition = FlowManager.getDatabase(AppDatabase.class);
+        definition.beginTransactionAsync(new ITransaction() {
+            @Override
+            public void execute(DatabaseWrapper databaseWrapper) {
+                ModelAdapter<Session> adapter = FlowManager.getModelAdapter(Session.class);
+                for (User user : users) {
+                    Session session = SessionHelper.findFromLocal(user.getId());
+                    if(session==null)
+                        return;
+                    adapter.delete(session);
+                    instance.notifyDelete(Session.class, session);
+                }
+            }
+        }).build().execute();
+    }
     /**
      * 从成员中找出成员对应的群，并对群进行更新
      *
@@ -274,14 +293,13 @@ public class DbHelper {
                 int index = 0;
                 for (Session.Identify identify : identifies) {
                     Session session = SessionHelper.findFromLocal(identify.id);
-
+                    Log.d(TAG, "execute: "+identify.id+"+"+identify.type);
                     if (session == null) {
                         // 第一次聊天，创建一个你和对方的一个会话
                         session = new Session(identify);
                     }
-
                     // 把会话，刷新到当前Message的最新状态
-                    session.refreshToNow();
+                    session.refreshToNow(identify);
                     //是否是当前打开的session
                     if(session.isNowSession()){
                         clearUnReadCount(session);
@@ -289,7 +307,7 @@ public class DbHelper {
                         session.setUnReadCount(session.getUnReadCount()+ 1);
                     }
                     // 数据存储
-                    Log.d(TAG, "execute: "+session.getContent());
+                    Log.d(TAG, "session: "+session.getContent());
                     adapter.save(session);
                     // 添加到集合
                     sessions[index++] = session;

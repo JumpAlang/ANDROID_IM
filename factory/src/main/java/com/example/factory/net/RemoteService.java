@@ -71,6 +71,10 @@ public interface RemoteService {
     @PUT("user/follow/{userId}")
     Observable<RspModel<UserCard>> userFollow(@Path("userId") String userId);
 
+    // 用户关注接口
+    @PUT("user/remove/{userId}")
+    Observable<RspModel<UserCard>> userDelete(@Path("userId") String userId);
+
     // 获取联系人列表
     @GET("user/contact")
     Observable<RspModel<List<UserCard>>> userContacts();
@@ -106,4 +110,7 @@ public interface RemoteService {
     @POST("group/{groupId}/member")
     Call<RspModel<List<GroupMemberCard>>> groupMemberAdd(@Path("groupId") String groupId,
                                                          @Body GroupMemberAddModel model);
+
+    @GET("subject")
+    Observable<RspModel<String>> pullTimeData();
 }

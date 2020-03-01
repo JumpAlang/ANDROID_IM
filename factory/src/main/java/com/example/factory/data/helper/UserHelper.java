@@ -43,6 +43,7 @@ import retrofit2.Response;
  * @version 1.0.0
  */
 public class UserHelper {
+    public static final String TAG="UserHelper";
     // 更新用户信息的操作，异步的
     public static void update(UserUpdateModel model, Observer<RspModel<UserCard>> observer) {
         // 调用Retrofit对我们的网络请求接口做代理
@@ -76,6 +77,26 @@ public class UserHelper {
                 .doOnNext(new Consumer<RspModel<UserCard>>() {
                     @Override
                     public void accept(RspModel<UserCard> rspModel) throws Exception {
+                        UserCard userCard = rspModel.getResult();
+                        // 保存到本地数据库
+                        Factory.getUserCenter().dispatch(userCard);
+                    }
+                })
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
+    // 删除网络请求
+    public static void delete(String id,Observer<RspModel<UserCard>> observer) {
+        RemoteService service = Network.remote();
+        Observable<RspModel<UserCard>> rspModelObservable = service.userDelete(id);
+
+        // 网络请求
+        rspModelObservable.subscribeOn(Schedulers.newThread())
+                .observeOn(Schedulers.io())
+                .doOnNext(new Consumer<RspModel<UserCard>>() {
+                    @Override
+                    public void accept(RspModel<UserCard> rspModel) throws Exception {
+                        Log.d(TAG, "accept: 删除本地数据库");
                         UserCard userCard = rspModel.getResult();
                         // 保存到本地数据库
                         Factory.getUserCenter().dispatch(userCard);

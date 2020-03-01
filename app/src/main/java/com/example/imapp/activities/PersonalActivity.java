@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.common.common.app.Activity;
+import com.example.common.common.app.Application;
 import com.example.common.common.app.PresenterToolbarActivity;
 import com.example.common.common.widget.PortraitView;
 import com.example.factory.model.db.User;
@@ -106,31 +107,18 @@ public class PersonalActivity extends PresenterToolbarActivity<PersonalContract.
     }
 
     @OnClick(R.id.btn_say_hello)
-    void onSayHelloClick() {
+    void onSayHellOnClick() {
         // 发起聊天的点击
         User user = mPresenter.getUserPersonal();
         if (user == null)
             return;
         MessageActivity.show(this, user);
     }
-
-
-    /**
-     * 更改关注菜单状态
-     */
-//    private void changeFollowItemStatus() {
-//        if (mFollowItem == null)
-//            return;
-//
-//        // 根据状态设置颜色
-//        Drawable drawable = mIsFollowUser ? getResources()
-//                .getDrawable(R.drawable.ic_favorite) :
-//                getResources().getDrawable(R.drawable.ic_favorite_border);
-//        drawable = DrawableCompat.wrap(drawable);
-//        DrawableCompat.setTint(drawable, Resource.Color.WHITE);
-//        mFollowItem.setIcon(drawable);
-//    }
-
+    @OnClick(R.id.btn_delete)
+    void deleteOnClick(){
+        User user = mPresenter.getUserPersonal();
+        mPresenter.deleteUser();
+    }
     @Override
     public String getUserId() {
         return userId;
@@ -157,8 +145,11 @@ public class PersonalActivity extends PresenterToolbarActivity<PersonalContract.
 
     @Override
     public void setFollowStatus(boolean isFollow) {
-//        mIsFollowUser = isFollow;
-//        changeFollowItemStatus();
+        if(!isFollow){
+            mSayHello.setVisibility(View.INVISIBLE);
+            mDelete.setVisibility(View.INVISIBLE);
+            Application.showToast("删除成功");
+        }
     }
 
     @Override

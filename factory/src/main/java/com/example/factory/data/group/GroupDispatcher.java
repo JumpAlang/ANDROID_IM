@@ -21,6 +21,7 @@ import java.util.concurrent.Executors;
  * @version 1.0.0
  */
 public class GroupDispatcher implements GroupCenter {
+    public static final String TAG="GroupDispatcher";
     private static GroupCenter instance;
     private Executor executor = Executors.newSingleThreadExecutor();
 
@@ -68,7 +69,8 @@ public class GroupDispatcher implements GroupCenter {
                     members.add(member);
                 }
             }
-            Log.d("TAG", "run: "+members.size());
+            Log.d(TAG, "GroupMember: "+members.size());
+            //fixme 为什么不能即时刷新
             if (members.size() > 0)
                 DbHelper.save(GroupMember.class, members.toArray(new GroupMember[0]));
         }
@@ -95,6 +97,7 @@ public class GroupDispatcher implements GroupCenter {
                     groups.add(group);
                 }
             }
+            Log.d(TAG, "Group: "+groups);
             if (groups.size() > 0)
                 DbHelper.save(Group.class, groups.toArray(new Group[0]));
         }

@@ -1,6 +1,7 @@
 package com.example.factory.model.db;
 
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.example.factory.data.helper.GroupHelper;
 import com.example.factory.data.helper.MessageHelper;
@@ -23,6 +24,7 @@ import java.util.Objects;
  */
 @Table(database = AppDatabase.class)
 public class Session extends BaseDbModel<Session> {
+    public static final String TAG="Sessiondb";
     @Override
     public String toString() {
         return "Session{" +
@@ -154,8 +156,11 @@ public class Session extends BaseDbModel<Session> {
         this.modifyAt = modifyAt;
     }
 
-    public void refreshToNow(){
+    public void refreshToNow(Identify identify){
         Message message;
+        this.id = identify.id;
+        this.receiverType = identify.type;
+        Log.d(TAG, "refreshToNow: "+receiverType);
         if (receiverType == Message.RECEIVER_TYPE_GROUP) {
             // 刷新当前对应的群的相关信息
             message = MessageHelper.findLastWithGroup(id);

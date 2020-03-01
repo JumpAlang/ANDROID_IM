@@ -74,6 +74,12 @@ public class TimeTableActivity extends PresenterToolbarActivity<TimeTableContrac
         setTitle("");
     }
 
+    @Override
+    protected void initData() {
+        super.initData();
+        mPresenter.pullData();
+    }
+
     @OnClick(R.id.title)
     public void swtchWeek(){
         if (mWeekView.isShowing())

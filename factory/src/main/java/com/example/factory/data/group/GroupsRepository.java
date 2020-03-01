@@ -1,6 +1,7 @@
 package com.example.factory.data.group;
 
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.example.factory.data.BaseDbRepository;
 import com.example.factory.data.helper.GroupHelper;
@@ -19,12 +20,12 @@ import java.util.List;
  */
 public class GroupsRepository extends BaseDbRepository<Group>
         implements GroupsDataSource {
-
+    public static final String TAG="GroupsRepository";
 
     @Override
     public void load(SucceedCallback<List<Group>> callback) {
         super.load(callback);
-
+        Log.d(TAG, "load: ");
         SQLite.select()
                 .from(Group.class)
                 .orderBy(Group_Table.name, true)

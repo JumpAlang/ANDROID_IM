@@ -125,7 +125,6 @@ public class Message extends BaseDbModel<Message> implements  Serializable, IMes
 
     public int getType() {
         MessageType Itype=MessageType.EVENT;
-        Log.d(TAG, "onDataLoaded11: "+oldType);
         switch (oldType){
             case TYPE_STR:
                 if(isSend())

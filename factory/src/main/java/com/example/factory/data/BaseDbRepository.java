@@ -1,6 +1,8 @@
 package com.example.factory.data;
 
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 
 import com.example.common.factory.data.DbDataSource;
@@ -32,6 +34,7 @@ public abstract class BaseDbRepository<Data extends BaseDbModel<Data>> implement
     private SucceedCallback<List<Data>> callback;
     protected final LinkedList<Data> dataList = new LinkedList<>(); // 当前缓存的数据
     private Class<Data> dataClass; // 当前范型对应的真实的Class信息
+    public static final String TAG="BaseDbRepository";
 
     @SuppressWarnings("unchecked")
     public BaseDbRepository() {
@@ -79,11 +82,15 @@ public abstract class BaseDbRepository<Data extends BaseDbModel<Data>> implement
         // 但数据库数据删除的操作
         boolean isChanged = false;
         for (Data data : list) {
-            if (dataList.remove(data))
+            int i = indexOf(data);
+            if (i!=-1){
+                dataList.remove(i);
                 isChanged = true;
+            }
         }
 
         // 有数据变更，则进行界面刷新
+        Log.d(TAG, "onDataDelete: "+isChanged);
         if (isChanged)
             notifyDataChange();
     }

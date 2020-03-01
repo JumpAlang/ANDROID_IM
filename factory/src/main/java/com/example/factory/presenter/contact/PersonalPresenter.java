@@ -3,8 +3,12 @@ package com.example.factory.presenter.contact;
 import android.util.Log;
 
 import com.example.common.factory.presenter.BasePresenter;
+import com.example.factory.BaseObserver;
 import com.example.factory.Factory;
+import com.example.factory.R;
 import com.example.factory.data.helper.UserHelper;
+import com.example.factory.model.api.RspModel;
+import com.example.factory.model.card.UserCard;
 import com.example.factory.model.db.User;
 import com.example.factory.persistence.Account;
 
@@ -24,7 +28,7 @@ public class PersonalPresenter extends BasePresenter<PersonalContract.View>
     public PersonalPresenter(PersonalContract.View view) {
         super(view);
     }
-
+    DeleteObserver mDeleteObserver;
 
     @Override
     public void start() {
@@ -61,7 +65,6 @@ public class PersonalPresenter extends BasePresenter<PersonalContract.View>
             public void run() {
                 Log.d(TAG, "run: "+user.toString());
                 view.onLoadDone(user);
-                view.setFollowStatus(isFollow);
             }
         });
     }
@@ -69,5 +72,41 @@ public class PersonalPresenter extends BasePresenter<PersonalContract.View>
     @Override
     public User getUserPersonal() {
         return user;
+    }
+
+    @Override
+    public void deleteUser() {
+        Log.d(TAG, "deleteUser: ");
+        mDeleteObserver=new DeleteObserver();
+        UserHelper.delete(getView().getUserId(),mDeleteObserver);
+    }
+    class DeleteObserver extends BaseObserver<UserCard> {
+        final PersonalContract.View view = getView();
+        @Override
+        public void onNext(RspModel<UserCard> rspModel) {
+            super.onNext(rspModel);
+            if (view == null)
+                return;
+            if (rspModel.success()) {
+                Log.d(TAG, "onNext: success");
+                view.setFollowStatus(false);
+            } else {
+                int id = Factory.decodeRspCode(rspModel);
+                view.showError(id);
+            }
+        }
+
+        @Override
+        public void onError(Throwable e) {
+            super.onError(e);
+            view.showError(R.string.data_network_error);
+        }
+    }
+
+    @Override
+    public void destroy() {
+        super.destroy();
+        if(mDeleteObserver!=null)
+            mDeleteObserver.getDisposable().dispose();
     }
 }

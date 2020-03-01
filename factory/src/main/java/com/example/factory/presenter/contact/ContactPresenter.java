@@ -77,7 +77,6 @@ public class ContactPresenter extends BaseSourcePresenter<User, User, ContactDat
             }else {
                 String name1 = HanyuToPinyin.hanziToCapital(users.get(i-1).getName());
                 String name2 = HanyuToPinyin.hanziToCapital(users.get(i).getName());
-                Log.d(TAG, "setUserFlag: "+name1+" "+name2);
                 if(name1.charAt(0)==name2.charAt(0)){
                     users.get(i).setFrist(false);
                 }else {

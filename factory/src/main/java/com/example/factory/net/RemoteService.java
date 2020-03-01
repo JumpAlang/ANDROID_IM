@@ -34,27 +34,18 @@ public interface RemoteService {
 
     /**
      * 注册接口
-     *
-     * @param model 传入的是RegisterModel
-     * @return 返回的是RspModel<AccountRspModel>
      */
     @POST("account/register")
     Observable<RspModel<AccountRspModel>> accountRegister(@Body RegisterModel model);
 
     /**
      * 登录接口
-     *
-     * @param model LoginModel
-     * @return RspModel<AccountRspModel>
      */
     @POST("account/login")
     Observable<RspModel<AccountRspModel>> accountLogin(@Body LoginModel model);
 
     /**
      * 绑定设备Id
-     *
-     * @param pushId 设备Id
-     * @return RspModel<AccountRspModel>
      */
     @POST("account/bind/{pushId}")
     Observable<RspModel<AccountRspModel>> accountBind(@Path(encoded = true, value = "pushId") String pushId);
@@ -79,6 +70,7 @@ public interface RemoteService {
     @GET("user/contact")
     Observable<RspModel<List<UserCard>>> userContacts();
 
+    //获取某人信息
     @GET("user/{userId}")
     Call<RspModel<UserCard>> userFind(@Path("userId") String userId);
 
@@ -108,9 +100,10 @@ public interface RemoteService {
 
     // 给群添加成员
     @POST("group/{groupId}/member")
-    Call<RspModel<List<GroupMemberCard>>> groupMemberAdd(@Path("groupId") String groupId,
-                                                         @Body GroupMemberAddModel model);
+    Call<RspModel<List<GroupMemberCard>>> groupMemberAdd(@Path("groupId") String groupId, @Body GroupMemberAddModel model);
 
+    //拉取本人的课程信息
     @GET("subject")
     Observable<RspModel<String>> pullTimeData();
+
 }

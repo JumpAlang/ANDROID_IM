@@ -27,7 +27,7 @@ public class SearchUserPresenter extends BasePresenter<SearchContract.UserView>
     public SearchUserPresenter(SearchContract.UserView view) {
         super(view);
     }
-
+    private searchObserver mSearchObserver;
     /**
      * 搜索联系人
      * @param content
@@ -36,7 +36,8 @@ public class SearchUserPresenter extends BasePresenter<SearchContract.UserView>
     public void search(String content) {
         Log.d(TAG, "search: "+content);
         start();
-        UserHelper.search(content, new searchObserver());
+        mSearchObserver=new searchObserver();
+        UserHelper.search(content, mSearchObserver);
     }
 
     class searchObserver extends BaseObserver<List<UserCard>>{
@@ -62,5 +63,12 @@ public class SearchUserPresenter extends BasePresenter<SearchContract.UserView>
             view.showError(R.string.data_network_error);
             super.onError(e);
         }
+    }
+    @Override
+    public void destroy() {
+        super.destroy();
+        if(mSearchObserver!=null&&mSearchObserver.getDisposable()!=null)
+            if(!mSearchObserver.getDisposable().isDisposed())
+                mSearchObserver.getDisposable().dispose();
     }
 }

@@ -32,7 +32,7 @@ public class RegisterPresenter extends BasePresenter<RegisterContract.View>
     public RegisterPresenter(RegisterContract.View view) {
         super(view);
     }
-
+    RegisterObserver registerObserver;
     @Override
     public void register(String phone, String name, String password) {
         Log.d(TAG, "register phone:"+phone+",name:"+name+",password:"+password);
@@ -57,7 +57,8 @@ public class RegisterPresenter extends BasePresenter<RegisterContract.View>
             // 构造Model，进行请求调用
             RegisterModel model = new RegisterModel(phone, password, name, Account.getPushId());
             // 进行网络请求，并设置回送接口为自己
-            AccountHelper.register(model, new RegisterObserver());
+            registerObserver=new RegisterObserver();
+            AccountHelper.register(model, registerObserver);
         }
     }
     class RegisterObserver extends BaseObserver<AccountRspModel>{
@@ -111,5 +112,12 @@ public class RegisterPresenter extends BasePresenter<RegisterContract.View>
         // 手机号不为空，并且满足格式
         return !TextUtils.isEmpty(phone)
                 && Pattern.matches(Common.Constance.REGEX_MOBILE, phone);
+    }
+    @Override
+    public void destroy() {
+        super.destroy();
+        if(registerObserver!=null&&registerObserver.getDisposable()!=null)
+            if(!registerObserver.getDisposable().isDisposed())
+                registerObserver.getDisposable().dispose();
     }
 }

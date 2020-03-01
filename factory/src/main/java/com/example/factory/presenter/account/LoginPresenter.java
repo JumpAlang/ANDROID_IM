@@ -29,15 +29,10 @@ public class LoginPresenter extends BasePresenter<LoginContract.View>
         implements LoginContract.Presenter{
     
     public static final String TAG="LoginPresenter";
-    Disposable disposable;
-    
+    bindObserver mBindObserver;
+    loginObserver mLoginObserver;
     public LoginPresenter(LoginContract.View view) {
         super(view);
-    }
-
-    @Override
-    public void destroy() {
-        super.destroy();
     }
 
     @Override
@@ -51,7 +46,8 @@ public class LoginPresenter extends BasePresenter<LoginContract.View>
         } else {
             // 尝试传递PushId
             LoginModel model = new LoginModel(phone, password, Account.getPushId());
-            AccountHelper.login(model, new loginObserver());
+            mLoginObserver=new loginObserver();
+            AccountHelper.login(model, mLoginObserver);
         }
     }
 
@@ -77,7 +73,8 @@ public class LoginPresenter extends BasePresenter<LoginContract.View>
                     view.loginSuccess();
                 } else {
                     // 进行绑定的唤起
-                    bindPush(new bindObserver());
+                    mBindObserver=new bindObserver();
+                    bindPush(mBindObserver);
                 }
             } else {
                 int id = Factory.decodeRspCode(rspModel);
@@ -123,5 +120,15 @@ public class LoginPresenter extends BasePresenter<LoginContract.View>
             if (view != null)
                 view.showError(R.string.data_network_error);
         }
+    }
+    @Override
+    public void destroy() {
+        super.destroy();
+        if(mLoginObserver!=null&&mLoginObserver.getDisposable()!=null)
+            if(!mLoginObserver.getDisposable().isDisposed())
+                mLoginObserver.getDisposable().dispose();
+        if(mBindObserver!=null&&mBindObserver.getDisposable()!=null)
+            if(!mBindObserver.getDisposable().isDisposed())
+                mBindObserver.getDisposable().dispose();
     }
 }

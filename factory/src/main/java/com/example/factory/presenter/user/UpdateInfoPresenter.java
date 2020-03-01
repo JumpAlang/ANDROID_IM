@@ -99,9 +99,8 @@ public class UpdateInfoPresenter extends BasePresenter<UpdateInfoContract.View>
     @Override
     public void destroy() {
         super.destroy();
-        if(updateObserver!=null){
+        if(updateObserver!=null&&updateObserver.getDisposable()!=null)
             if(!updateObserver.getDisposable().isDisposed())
                 updateObserver.getDisposable().dispose();
-        }
     }
 }

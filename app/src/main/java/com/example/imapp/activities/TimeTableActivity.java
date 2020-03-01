@@ -9,15 +9,27 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.util.Log;
+import android.view.View;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.common.common.app.PresenterToolbarActivity;
 import com.example.common.common.app.ToolbarActivity;
+import com.example.factory.data.helper.TimeTableHelper;
+import com.example.factory.model.card.SubjectCard;
 import com.example.factory.presenter.timetable.TimeTableContract;
 import com.example.factory.presenter.timetable.TimeTablePresent;
 import com.example.imapp.R;
 import com.zhuangfei.timetable.TimetableView;
+import com.zhuangfei.timetable.listener.ISchedule;
 import com.zhuangfei.timetable.listener.IWeekView;
+import com.zhuangfei.timetable.listener.OnItemBuildAdapter;
 import com.zhuangfei.timetable.model.Schedule;
 import com.zhuangfei.timetable.view.WeekView;
 
@@ -26,6 +38,7 @@ import java.util.List;
 
 public class TimeTableActivity extends PresenterToolbarActivity<TimeTableContract.Presenter>
         implements TimeTableContract.View {
+    public static final String TAG="TimeTableActivity";
 
     @BindView(R.id.id_weekview)
     WeekView mWeekView;
@@ -41,13 +54,15 @@ public class TimeTableActivity extends PresenterToolbarActivity<TimeTableContrac
     public static void show(Context context) {
         context.startActivity(new Intent(context,TimeTableActivity.class));
     }
-
     @Override
     protected void initWidget() {
         super.initWidget();
         //初始化周选择控件
+        initTime();
+        setTitle("");
+    }
+    public void initTime(){
         mWeekView.curWeek(1)
-                .isShow(false)
                 .callback(new IWeekView.OnWeekItemClickedListener() {
                     @Override
                     public void onWeekClicked(int week) {
@@ -64,16 +79,41 @@ public class TimeTableActivity extends PresenterToolbarActivity<TimeTableContrac
                         onWeekLeftLayoutClicked();
                     }
                 })
+                .isShow(false)//设置隐藏，默认显示
                 .showView();
-        //初始化主视图
+
         mTimetableView.curWeek(1)
                 .curTerm("大三下学期")
-                .maxSlideItem(10)
-                .monthWidthDp(30)
+                .callback(new ISchedule.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View v, List<Schedule> scheduleList) {
+                        display(scheduleList);
+                    }
+                })
+                .isShowNotCurWeek(false)
+                .callback(new ISchedule.OnItemLongClickListener() {
+                    @Override
+                    public void onLongClick(View v, int day, int start) {
+                        Toast.makeText(TimeTableActivity.this,
+                                "长按:周" + day  + ",第" + start + "节",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .callback(new ISchedule.OnWeekChangedListener() {
+                    @Override
+                    public void onWeekChanged(int curWeek) {
+                        titleTextView.setText("第" + curWeek + "周");
+                    }
+                })
                 .showView();
-        setTitle("");
     }
-
+    protected void display(List<Schedule> beans) {
+        String str = "";
+        for (Schedule bean : beans) {
+            str += bean.getName() + ","+bean.getWeekList().toString()+","+bean.getStart()+","+bean.getStep()+"\n";
+        }
+        Toast.makeText(this, str, Toast.LENGTH_SHORT).show();
+    }
     @Override
     protected void initData() {
         super.initData();
@@ -82,6 +122,7 @@ public class TimeTableActivity extends PresenterToolbarActivity<TimeTableContrac
 
     @OnClick(R.id.title)
     public void swtchWeek(){
+        Log.d(TAG, "swtchWeek: ");
         if (mWeekView.isShowing())
             hideWeekView();
         else
@@ -160,7 +201,9 @@ public class TimeTableActivity extends PresenterToolbarActivity<TimeTableContrac
     }
 
     @Override
-    public void updateSucceed() {
-
+    public void updateSucceed(List<SubjectCard> subjectCards) {
+        Log.d(TAG, "updateSucceed: ");
+        mWeekView.source(subjectCards).showView();
+        mTimetableView.source(subjectCards).updateView();
     }
 }

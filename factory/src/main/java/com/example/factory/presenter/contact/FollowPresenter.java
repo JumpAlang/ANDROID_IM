@@ -18,11 +18,12 @@ public class FollowPresenter extends BasePresenter<FollowContact.View> implement
     public FollowPresenter(FollowContact.View view) {
         super(view);
     }
-
+    followObserver followObserver;
     @Override
     public void follow(String id) {
         Log.d(TAG, "follow: ");
-        UserHelper.follow(id,new followObserver());
+        followObserver=new followObserver();
+        UserHelper.follow(id,followObserver);
     }
     class followObserver extends BaseObserver<UserCard> {
         final FollowContact.View view = getView();
@@ -45,5 +46,12 @@ public class FollowPresenter extends BasePresenter<FollowContact.View> implement
             super.onError(e);
             view.showError(R.string.data_network_error);
         }
+    }
+    @Override
+    public void destroy() {
+        super.destroy();
+        if(followObserver!=null&&followObserver.getDisposable()!=null)
+            if(!followObserver.getDisposable().isDisposed())
+                followObserver.getDisposable().dispose();
     }
 }

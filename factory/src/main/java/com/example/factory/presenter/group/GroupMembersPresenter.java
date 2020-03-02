@@ -30,6 +30,7 @@ public class GroupMembersPresenter extends BaseRecyclerPresenter<MemberUserModel
         Factory.runOnAsync(loader);
     }
 
+
     private Runnable loader = new Runnable() {
         @Override
         public void run() {
@@ -46,5 +47,4 @@ public class GroupMembersPresenter extends BaseRecyclerPresenter<MemberUserModel
             refreshData(models);
         }
     };
-
 }

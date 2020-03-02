@@ -5,10 +5,10 @@ import android.content.Context;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.common.common.app.Application;
 import com.example.common.common.app.PresenterFragment;
 import com.example.factory.presenter.account.LoginContract;
 import com.example.factory.presenter.account.LoginPresenter;
-import com.example.imapp.App;
 import com.example.imapp.R;
 import com.example.imapp.activities.MainActivity;
 
@@ -108,5 +108,13 @@ public class LoginFragment extends PresenterFragment<LoginContract.Presenter>
     public void loginSuccess() {
         MainActivity.show(getContext());
         getActivity().finish();
+    }
+    @OnClick(R.id.sms_login_btn)
+    public void smsonclick(){
+        Application.showToast("这只是一个图标，现在并没有什么作用");
+    }
+    @OnClick(R.id.wx_login_btn)
+    public void wxonclick(){
+        Application.showToast("这只是一个图标，现在并没有什么作用");
     }
 }

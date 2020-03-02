@@ -8,6 +8,7 @@ public interface GroupContract {
     interface Presenter extends BaseContract.Presenter {
         // 具有一个刷新的方法
         void refresh();
+        public Boolean isAdmin(String mReceiverId);
     }
 
     // 界面

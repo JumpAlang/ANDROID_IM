@@ -4,7 +4,9 @@ import com.example.common.factory.presenter.BaseRecyclerPresenter;
 import com.example.factory.Factory;
 import com.example.factory.data.helper.GroupHelper;
 import com.example.factory.model.db.Group;
+import com.example.factory.model.db.User;
 import com.example.factory.model.db.view.MemberUserModel;
+import com.example.factory.persistence.Account;
 
 import java.util.List;
 
@@ -60,6 +62,16 @@ public class GroupPresenter extends BaseRecyclerPresenter<MemberUserModel, Group
             refreshData(models);
         }
     };
-
+    @Override
+    public Boolean isAdmin(String mReceiverId) {
+        Group group = GroupHelper.findFromLocal(mReceiverId);
+        if(group!=null){
+            User owner = group.getOwner();
+            User user = Account.getUser();
+            if(owner.isSame(user))
+                return true;
+        }
+        return false;
+    }
 }
 

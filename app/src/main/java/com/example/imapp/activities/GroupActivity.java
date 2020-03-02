@@ -11,6 +11,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.common.common.app.Application;
 import com.example.common.common.app.PresenterToolbarActivity;
 import com.example.common.common.widget.PortraitView;
 import com.example.common.common.widget.recycler.RecyclerAdapter;
@@ -56,6 +57,9 @@ public class GroupActivity extends PresenterToolbarActivity<GroupContract.Presen
 
     @BindView(R.id.number)
     TextView groupNumbertext;
+
+    @BindView(R.id.Group_signIn)
+    RelativeLayout GroupSignIn;
 
     RecyclerAdapter<MemberUserModel> mRecycler;
 
@@ -158,8 +162,21 @@ public class GroupActivity extends PresenterToolbarActivity<GroupContract.Presen
             mPortraitView.setup(Glide.with(GroupActivity.this), memberUserModel.getPortrait());
         }
     }
+    @OnClick(R.id.Group_signIn)
+    public void groupSignIn(){
+        if(mPresenter.isAdmin(mReceiverId)){
+            GroupMemberActivity.showAdmin(this,mReceiverId);
+        }else {
+            Application.showToast("您不是管理员，不能进行签到");
+        }
+    }
+
     @OnClick(R.id.more_number)
     public void moreNumber(){
-        GroupMemberActivity.showAdmin(this,mReceiverId);
+        if(mPresenter.isAdmin(mReceiverId)){
+            GroupMemberActivity.showAdmin(this,mReceiverId);
+        }else {
+            GroupMemberActivity.show(this,mReceiverId);
+        }
     }
 }

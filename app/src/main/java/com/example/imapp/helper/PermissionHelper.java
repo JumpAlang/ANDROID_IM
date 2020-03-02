@@ -3,8 +3,6 @@ package com.example.imapp.helper;
 import android.Manifest;
 import android.content.Context;
 
-import androidx.fragment.app.FragmentManager;
-
 import pub.devrel.easypermissions.EasyPermissions;
 
 public class PermissionHelper {
@@ -16,7 +14,8 @@ public class PermissionHelper {
             Manifest.permission.ACCESS_WIFI_STATE,
             Manifest.permission.READ_EXTERNAL_STORAGE,
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
-            Manifest.permission.RECORD_AUDIO
+            Manifest.permission.RECORD_AUDIO,
+            Manifest.permission.CAMERA
     };
     /**
      * 获取是否有网络权限

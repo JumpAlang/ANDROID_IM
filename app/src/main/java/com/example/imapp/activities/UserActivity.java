@@ -2,15 +2,11 @@ package com.example.imapp.activities;
 
 import android.content.Context;
 import android.content.Intent;
-import android.widget.ImageView;
 
-import com.example.common.common.app.Activity;
 import com.example.common.common.app.Fragment;
 import com.example.common.common.app.ToolbarActivity;
 import com.example.imapp.R;
 import com.example.imapp.frags.user.UpdateInfoFragment;
-
-import butterknife.BindView;
 
 /**
  * 用户信息界面
@@ -18,8 +14,6 @@ import butterknife.BindView;
  */
 public class UserActivity extends ToolbarActivity {
     private Fragment mCurFragment;
-    @BindView(R.id.im_bg)
-    ImageView mBg;
 
     /**
      * 显示界面的入口方法

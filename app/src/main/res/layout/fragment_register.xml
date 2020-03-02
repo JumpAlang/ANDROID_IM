@@ -3,15 +3,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@drawable/bg_src_tianjin">
-
+    android:orientation="vertical">
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/icon_image"
+        android:layout_width="92dp"
+        android:layout_height="92dp"
+        android:layout_marginTop="100dp"
+        android:layout_gravity="center_horizontal"
+        android:src="@mipmap/icon"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/len_16"
         android:layout_marginRight="@dimen/len_16"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="45dp"
         android:background="@drawable/bg_account_input"
         android:orientation="vertical"
         android:paddingBottom="@dimen/len_8"
@@ -167,7 +172,7 @@
             android:layout_marginEnd="@dimen/len_16"
             android:gravity="center"
             android:text="@string/label_go_login"
-            android:textColor="@color/white"
+            android:textColor="@color/black_alpha_160"
             android:textSize="@dimen/font_14"
             android:textStyle="bold" />
 
@@ -178,8 +183,7 @@
             android:layout_gravity="end|center_vertical"
             android:contentDescription="@string/app_name"
             android:scaleType="centerInside"
-            android:src="@drawable/ic_direction_right"
-            android:tint="@color/white" />
+            android:src="@drawable/ic_direction_right" />
 
     </FrameLayout>
 
@@ -199,7 +203,7 @@
             android:layout_width="165dp"
             android:layout_height="60dp"
             android:gravity="center"
-            android:text="@string/label_update_info_tips"
+            android:text="@string/label_submit"
             android:textAppearance="?android:textAppearanceButton"
             android:drawableRight="@drawable/next_icn"
             android:insetBottom="0dp"

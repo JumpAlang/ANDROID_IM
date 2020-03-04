@@ -3,23 +3,18 @@ package com.example.common.common.widget;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
-
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.common.R;
 
+import androidx.recyclerview.widget.RecyclerView;
 import cn.jiguang.imui.chatinput.ChatInputView;
+import cn.jiguang.imui.chatinput.listener.CustomMenuEventListener;
 import cn.jiguang.imui.chatinput.listener.OnCameraCallbackListener;
 import cn.jiguang.imui.chatinput.listener.OnClickEditTextListener;
-import cn.jiguang.imui.chatinput.listener.CustomMenuEventListener;
 import cn.jiguang.imui.chatinput.listener.OnMenuClickListener;
 import cn.jiguang.imui.chatinput.listener.RecordVoiceListener;
 import cn.jiguang.imui.chatinput.menu.Menu;

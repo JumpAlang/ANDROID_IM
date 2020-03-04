@@ -22,10 +22,12 @@ public interface ChatContract {
         void pushText(String content);
 
         // 发送语音
-        void pushAudio(String path);
+        void pushAudio(String path,long time);
 
         // 发送图片
         void pushImages(List<FileItem> mFileItems);
+
+        void onclickMessage(Message message);
 
         // 重新发送一个消息，返回是否调度成功
         boolean rePush(Message message);

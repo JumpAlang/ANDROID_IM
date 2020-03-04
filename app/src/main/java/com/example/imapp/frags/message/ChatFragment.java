@@ -18,31 +18,22 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-
 import com.bumptech.glide.Glide;
 import com.example.common.common.app.PresenterFragment;
 import com.example.common.common.widget.ChatView;
 import com.example.common.common.widget.recycler.RecyclerAdapter;
-import com.example.factory.data.helper.MessageHelper;
-import com.example.factory.model.api.message.MsgCreateModel;
 import com.example.factory.model.db.Message;
-import com.example.factory.model.db.User;
 import com.example.factory.presenter.message.ChatContract;
-import com.example.factory.presenter.message.ChatUserPresenter;
 import com.example.imapp.R;
 import com.example.imapp.activities.MessageActivity;
-import com.google.android.material.appbar.AppBarLayout;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
-import java.util.Objects;
 
+import androidx.annotation.NonNull;
 import butterknife.BindView;
-import butterknife.OnClick;
 import cn.jiguang.imui.chatinput.ChatInputView;
 import cn.jiguang.imui.chatinput.listener.OnCameraCallbackListener;
 import cn.jiguang.imui.chatinput.listener.OnMenuClickListener;
@@ -113,7 +104,9 @@ public abstract class ChatFragment<T> extends PresenterFragment<ChatContract.Pre
 
             @Override
             public void onFinishRecord(File voiceFile, int duration) {
-                Log.d(TAG, "onFinishRecord: ");
+                String path = voiceFile.getPath();
+                Log.d(TAG, "onFinishRecord 路径:"+path+" 时常:"+duration);
+                mPresenter.pushAudio(path,duration);
             }
 
             @Override
@@ -191,6 +184,13 @@ public abstract class ChatFragment<T> extends PresenterFragment<ChatContract.Pre
             public void loadVideo(ImageView imageCover, String uri) {
                 Log.d(TAG, "loadVideo: ");
             }
+        });
+        adapter.setOnMsgClickListener(message -> {
+            Log.d(TAG, "onMessageClick: "+message.getType());
+            mPresenter.onclickMessage(message);
+        });
+        adapter.setMsgStatusViewClickListener(message -> {
+            mPresenter.rePush(message);
         });
         mChatView.setAdapter(adapter);
         this.mImm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -351,7 +351,6 @@ public abstract class ChatFragment<T> extends PresenterFragment<ChatContract.Pre
     public void onPermissionsDenied(int requestCode, @NonNull List<String> perms) {
 
     }
-
     @Override
     public boolean onTouch(View view, MotionEvent motionEvent) {
         switch (motionEvent.getAction()) {

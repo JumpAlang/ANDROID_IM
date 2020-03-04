@@ -35,11 +35,8 @@ public class Network {
     private Network() {
     }
 
-    // 构建一个Retrofit
-    public static Retrofit getRetrofit() {
-        if (instance.retrofit != null)
-            return instance.retrofit;
-		HttpLoggingInterceptor logInterceptor = new HttpLoggingInterceptor();
+    public static OkHttpClient getOkHttpClient(){
+        HttpLoggingInterceptor logInterceptor = new HttpLoggingInterceptor();
         logInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         if(BuildConfig.DEBUG){
             //显示日志
@@ -47,7 +44,6 @@ public class Network {
         }else {
             logInterceptor.setLevel(HttpLoggingInterceptor.Level.NONE);
         }
-        // 得到一个OK Client
         OkHttpClient client = new OkHttpClient.Builder()
                 // 给所有的请求添加一个拦截器
                 .addInterceptor(new Interceptor() {
@@ -67,15 +63,22 @@ public class Network {
                         return chain.proceed(newRequest);
                     }
                 })
-				.addInterceptor(logInterceptor)
+                .addInterceptor(logInterceptor)
                 .build();
+        return client;
+    }
+
+    // 构建一个Retrofit
+    public static Retrofit getRetrofit() {
+        if (instance.retrofit != null)
+            return instance.retrofit;
 
         Retrofit.Builder builder = new Retrofit.Builder();
 
         // 设置电脑链接
         instance.retrofit = builder.baseUrl(Common.Constance.API_URL)
                 // 设置client
-                .client(client)
+                .client(getOkHttpClient())
                 // 设置Json解析器
                 .addConverterFactory(GsonConverterFactory.create(Factory.getGson()))
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())

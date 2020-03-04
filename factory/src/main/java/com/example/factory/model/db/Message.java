@@ -3,12 +3,12 @@ package com.example.factory.model.db;
 import android.util.Log;
 
 import com.example.factory.persistence.Account;
-import com.example.factory.utils.DiffUiDataCallback;
+import com.example.factory.utils.FileCache;
 import com.raizlabs.android.dbflow.annotation.Column;
 import com.raizlabs.android.dbflow.annotation.ForeignKey;
 import com.raizlabs.android.dbflow.annotation.PrimaryKey;
 import com.raizlabs.android.dbflow.annotation.Table;
-import com.raizlabs.android.dbflow.structure.BaseModel;
+
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashMap;
@@ -181,13 +181,19 @@ public class Message extends BaseDbModel<Message> implements  Serializable, IMes
 
     @Override
     public String getMediaFilePath() {
+        Log.d(TAG, "getMediaFilePath: ");
+        if(getType() ==IMessage.MessageType.RECEIVE_VOICE.ordinal()
+                ||getType()==IMessage.MessageType.SEND_VOICE.ordinal()){
+            FileCache fileCache=new FileCache("audio/cache", "mp3");
+            String download = fileCache.download(content);
+            return download;
+        }
         return content;
-        //todo 媒体储存路径？？
     }
 
     @Override
     public long getDuration() {
-        return 0;
+        return Long.parseLong(attach);
     }
 
     @Override
@@ -266,7 +272,7 @@ public class Message extends BaseDbModel<Message> implements  Serializable, IMes
         if (oldType == TYPE_PIC)
             return "[图片]";
         else if (oldType == TYPE_AUDIO)
-            return "🎵";
+            return "[语音]";
         else if (oldType == TYPE_FILE)
             return "📃";
         return content;

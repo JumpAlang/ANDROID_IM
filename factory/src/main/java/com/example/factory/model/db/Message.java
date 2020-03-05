@@ -3,7 +3,6 @@ package com.example.factory.model.db;
 import android.util.Log;
 
 import com.example.factory.persistence.Account;
-import com.example.factory.utils.FileCache;
 import com.raizlabs.android.dbflow.annotation.Column;
 import com.raizlabs.android.dbflow.annotation.ForeignKey;
 import com.raizlabs.android.dbflow.annotation.PrimaryKey;
@@ -182,12 +181,6 @@ public class Message extends BaseDbModel<Message> implements  Serializable, IMes
     @Override
     public String getMediaFilePath() {
         Log.d(TAG, "getMediaFilePath: ");
-        if(getType() ==IMessage.MessageType.RECEIVE_VOICE.ordinal()
-                ||getType()==IMessage.MessageType.SEND_VOICE.ordinal()){
-            FileCache fileCache=new FileCache("audio/cache", "mp3");
-            String download = fileCache.download(content);
-            return download;
-        }
         return content;
     }
 

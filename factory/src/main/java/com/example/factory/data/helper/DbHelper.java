@@ -9,7 +9,6 @@ import com.example.factory.model.db.Group_Table;
 import com.example.factory.model.db.Message;
 import com.example.factory.model.db.Session;
 import com.example.factory.model.db.User;
-import com.example.factory.persistence.Account;
 import com.raizlabs.android.dbflow.config.DatabaseDefinition;
 import com.raizlabs.android.dbflow.config.FlowManager;
 import com.raizlabs.android.dbflow.sql.language.SQLite;
@@ -17,6 +16,7 @@ import com.raizlabs.android.dbflow.structure.BaseModel;
 import com.raizlabs.android.dbflow.structure.ModelAdapter;
 import com.raizlabs.android.dbflow.structure.database.DatabaseWrapper;
 import com.raizlabs.android.dbflow.structure.database.transaction.ITransaction;
+
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -124,6 +124,7 @@ public class DbHelper {
             public void execute(DatabaseWrapper databaseWrapper) {
                 // 执行
                 ModelAdapter<Model> adapter = FlowManager.getModelAdapter(tClass);
+
                 // 保存
                 adapter.saveAll(Arrays.asList(models));
                 // 唤起通知

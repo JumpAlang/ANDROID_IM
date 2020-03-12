@@ -1,9 +1,11 @@
 package com.example.common.factory.presenter;
 
 
-import androidx.recyclerview.widget.DiffUtil;
 import com.example.common.common.widget.recycler.RecyclerAdapter;
+
 import java.util.List;
+
+import androidx.recyclerview.widget.DiffUtil;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 
 /**
@@ -62,20 +64,20 @@ public class BaseRecyclerPresenter<ViewMode, View extends BaseContract.RecyclerV
         // 基本的更新数据并刷新界面
         RecyclerAdapter<ViewMode> adapter = view.getRecyclerAdapter();
 
-        int itemCount = adapter.getItemCount();
+//        int itemCount = adapter.getItemCount();
 //        if(itemCount==dataList.size()){
-//            adapter.getItems().clear();
-//            adapter.getItems().addAll(dataList);
-//        }else {
             adapter.getItems().clear();
-            adapter.notifyItemRangeRemoved(0,itemCount);
             adapter.getItems().addAll(dataList);
-            adapter.notifyItemRangeInserted(0, dataList.size());
+            //fixme 这可能会造成闪退
+//        }else {
+//            adapter.getItems().clear();
+//            adapter.notifyItemRangeRemoved(0,itemCount);
+//            adapter.getItems().addAll(dataList);
+//            adapter.notifyItemRangeInserted(0, dataList.size());
 //        }
         // 通知界面刷新占位布局
         view.onAdapterDataChanged();
         // 进行增量更新
         diffResult.dispatchUpdatesTo(adapter);
     }
-
 }

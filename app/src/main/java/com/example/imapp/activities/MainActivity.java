@@ -201,8 +201,6 @@ public class MainActivity extends Activity
         Log.d(TAG, "onOptionsItemSelected:"+item);
         switch (item.getItemId()){
             case R.id.search:
-//                Account.clear(this);
-//                AccountActivity.show(this,true);
                 //todo 先默认搜索人
                 SearchActivity.show(this,TYPE_USER);
                 break;
@@ -221,6 +219,5 @@ public class MainActivity extends Activity
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         Log.d(TAG, "onActivityResult: "+requestCode+requestCode);
         super.onActivityResult(requestCode, resultCode, data);
-//        Log.d(TAG, "onActivityResult: "+data.getExtras().get);
     }
 }

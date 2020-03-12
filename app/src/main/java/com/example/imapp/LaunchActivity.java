@@ -1,14 +1,10 @@
 package com.example.imapp;
 
-import android.Manifest;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 
-import androidx.annotation.NonNull;
-
 import com.example.common.common.app.Activity;
-import com.example.common.common.app.Application;
 import com.example.factory.persistence.Account;
 import com.example.imapp.activities.AccountActivity;
 import com.example.imapp.activities.MainActivity;
@@ -19,6 +15,7 @@ import net.qiujuer.genius.ui.widget.Loading;
 
 import java.util.List;
 
+import androidx.annotation.NonNull;
 import butterknife.BindView;
 import butterknife.OnClick;
 import me.jessyan.autosize.AutoSizeConfig;
@@ -97,10 +94,12 @@ public class LaunchActivity extends Activity implements EasyPermissions.Permissi
     @OnClick(R.id.login_btn)
     void onLoginClick(){
         AccountActivity.show(this,true);
+        this.finish();
     }
     @OnClick(R.id.register_btn)
     void onRegisterClick(){
         AccountActivity.show(this,false);
+        this.finish();
     }
 
     /**

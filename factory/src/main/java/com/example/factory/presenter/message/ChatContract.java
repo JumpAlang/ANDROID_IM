@@ -26,7 +26,7 @@ public interface ChatContract {
 
         // 发送图片
         void pushImages(List<FileItem> mFileItems);
-
+        public void pushImages(String Filepath);
         void onclickMessage(Message message);
 
         // 重新发送一个消息，返回是否调度成功

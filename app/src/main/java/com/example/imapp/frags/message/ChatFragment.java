@@ -129,7 +129,7 @@ public abstract class ChatFragment<T> extends PresenterFragment<ChatContract.Pre
 
             @Override
             public void onTakePictureCompleted(String photoPath) {
-                Log.d(TAG, "onTakePictureCompleted: ");
+                mPresenter.pushImages(photoPath);
             }
 
             @Override

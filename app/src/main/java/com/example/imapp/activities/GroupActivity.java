@@ -165,6 +165,7 @@ public class GroupActivity extends PresenterToolbarActivity<GroupContract.Presen
     @OnClick(R.id.Group_signIn)
     public void groupSignIn(){
         if(mPresenter.isAdmin(mReceiverId)){
+            ZXingCreateActivity.show(this,mReceiverId);
         }else {
             Application.showToast("您不是管理员，不能发起签到");
         }

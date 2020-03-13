@@ -172,6 +172,8 @@ public class MainActivity extends Activity
             case R.id.logout:
                 onclickLogout();
                 break;
+            case R.id.morning:
+                break;
             case R.id.setting:
                 break;
                 default:

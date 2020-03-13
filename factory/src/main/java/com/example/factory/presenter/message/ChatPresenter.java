@@ -87,6 +87,20 @@ public class ChatPresenter<View extends ChatContract.View>
     }
 
     @Override
+    public void pushImages(String Filepath) {
+        if (Filepath == null || Filepath.isEmpty())
+            return;
+        // 此时路径是本地的手机上的路径
+        MsgCreateModel model = new MsgCreateModel.Builder()
+                .receiver(mReceiverId, mReceiverType)
+                .content(Filepath, Message.TYPE_PIC)
+                .build();
+
+        // 进行网络发送
+        MessageHelper.push(model);
+    }
+
+    @Override
     public void onclickMessage(Message message) {
         if (message.getType() == IMessage.MessageType.RECEIVE_IMAGE.ordinal()
                 || message.getType() == IMessage.MessageType.SEND_IMAGE.ordinal()) {

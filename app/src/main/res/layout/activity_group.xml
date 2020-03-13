@@ -111,18 +111,6 @@
             </RelativeLayout>
             <RelativeLayout
                 style="@style/Layouts.normal_RelativeLayout"
-                android:layout_marginTop="10dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="#333333"
-                    android:textSize="16sp"
-                    android:layout_centerVertical="true"
-                    android:text="发起位置签到" />
-            </RelativeLayout>
-            <RelativeLayout
-                style="@style/Layouts.normal_RelativeLayout"
                 android:layout_marginTop="20dp">
 
                 <TextView

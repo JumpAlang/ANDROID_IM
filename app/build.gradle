@@ -80,5 +80,5 @@ dependencies {
     //二维码扫描库
     implementation project(path: ':common')
     implementation project(path: ':factory')
-    implementation (name:'messagelist-0.8.0',ext:'aar')
+    implementation(name: 'messagelist-0.8.0', ext: 'aar')
 }

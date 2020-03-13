@@ -64,4 +64,8 @@ dependencies {
     implementation 'com.king.zxing:zxing-lite:1.1.6-androidx'
     //二维码扫描库
     implementation (name:'messagelist-0.8.0',ext:'aar')
+
+    implementation ('com.github.binarywang:java-emoji-converter:1.0.0'){
+        exclude group: 'xmlpull'
+    }
 }

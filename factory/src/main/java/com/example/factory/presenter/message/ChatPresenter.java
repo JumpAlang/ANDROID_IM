@@ -10,6 +10,7 @@ import com.example.factory.model.api.message.MsgCreateModel;
 import com.example.factory.model.db.Message;
 import com.example.factory.persistence.Account;
 import com.example.factory.presenter.BaseSourcePresenter;
+import com.github.binarywang.java.emoji.EmojiConverter;
 
 import java.util.List;
 
@@ -40,15 +41,14 @@ public class ChatPresenter<View extends ChatContract.View>
         this.mReceiverId = receiverId;
         this.mReceiverType = receiverType;
     }
-
     @Override
     public void pushText(String content) {
+        content= EmojiConverter.getInstance().toAlias(content);
         // 构建一个新的消息
         MsgCreateModel model = new MsgCreateModel.Builder()
                 .receiver(mReceiverId, mReceiverType)
                 .content(content, Message.TYPE_STR)
                 .build();
-
         // 进行网络发送
         MessageHelper.push(model);
     }

@@ -84,6 +84,7 @@ public abstract class ChatFragment<T> extends PresenterFragment<ChatContract.Pre
 
     @Override
     protected void initWidget(View root) {
+
         super.initWidget(root);
         mChatView.initModule(mMsgList, mChatInput, mPtrLayout);
         mChatView.setOnTouchListener(this);
@@ -168,7 +169,7 @@ public abstract class ChatFragment<T> extends PresenterFragment<ChatContract.Pre
             public void loadAvatarImage(ImageView avatarImageView, String string) {
                 Glide.with(getActivity())
                         .load(string)
-                        .centerCrop()
+                        .circleCrop()
                         .into(avatarImageView);
             }
 
@@ -267,11 +268,6 @@ public abstract class ChatFragment<T> extends PresenterFragment<ChatContract.Pre
                     getResources().getString(R.string.rationale_camera),
                     RC_CAMERA, perms);
             return false;
-        } else {
-//            File rootDir = getFilesDir();
-//            String fileDir = rootDir.getAbsolutePath() + "/photo";
-//            mChatView.setCameraCaptureFile(fileDir, new SimpleDateFormat("yyyy-MM-dd-hhmmss",
-//                    Locale.getDefault()).format(new Date()));
         }
         return true;
     }
@@ -309,6 +305,7 @@ public abstract class ChatFragment<T> extends PresenterFragment<ChatContract.Pre
         String str = input.toString();
         if (str != null && !str.equals("")) {
             Log.d(TAG, "onSendTextMessage: " + input.toString());
+
             mPresenter.pushText(input.toString());
             return true;
         }

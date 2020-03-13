@@ -32,11 +32,13 @@
             app:dateTextSize="14sp"
             app:receiveBubblePaddingLeft="16dp"
             app:receiveBubblePaddingRight="8dp"
-            app:receiveTextColor="#ffffff"
+            app:receiveBubbleColor="#EFF0FE"
+            app:receiveTextColor="#BCBEC5"
             app:receiveTextSize="16sp"
             app:sendBubblePaddingLeft="8dp"
             app:sendBubblePaddingRight="16dp"
-            app:sendTextColor="#7587A8"
+            app:sendBubbleColor="#7280FA"
+            app:sendTextColor="#FFFFFF"
             app:sendTextSize="16sp" />
 
     </cn.jiguang.imui.messages.ptr.PullToRefreshLayout>

@@ -3,6 +3,7 @@ package com.example.factory.model.db;
 import android.util.Log;
 
 import com.example.factory.persistence.Account;
+import com.github.binarywang.java.emoji.EmojiConverter;
 import com.raizlabs.android.dbflow.annotation.Column;
 import com.raizlabs.android.dbflow.annotation.ForeignKey;
 import com.raizlabs.android.dbflow.annotation.PrimaryKey;
@@ -175,6 +176,7 @@ public class Message extends BaseDbModel<Message> implements  Serializable, IMes
 
     @Override
     public String getText() {
+        content=EmojiConverter.getInstance().toUnicode(content);
         return content;
     }
 

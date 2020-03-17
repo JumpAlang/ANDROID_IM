@@ -7,11 +7,11 @@ import com.example.factory.data.helper.DbHelper;
 import com.example.factory.data.helper.GroupHelper;
 import com.example.factory.data.helper.MessageHelper;
 import com.example.factory.data.helper.UserHelper;
-import com.example.factory.data.user.UserDispatcher;
 import com.example.factory.model.card.MessageCard;
 import com.example.factory.model.db.Group;
 import com.example.factory.model.db.Message;
 import com.example.factory.model.db.User;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executor;
@@ -90,9 +90,6 @@ public class MessageDispatcher implements MessageCenter {
                     if (card.getStatus() == Message.STATUS_DONE) {
                         // 代表网络发送成功，此时需要修改时间为服务器的时间
                         message.setCreateAt(card.getCreateAt());
-
-                        // 如果没有进入判断，则代表这个消息是发送失败了，
-                        // 重新进行数据库更新而而已
                     }
 
                     // 更新一些会变化的内容

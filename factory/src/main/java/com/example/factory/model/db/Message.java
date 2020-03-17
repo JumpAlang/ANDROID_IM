@@ -109,8 +109,7 @@ public class Message extends BaseDbModel<Message> implements  Serializable, IMes
 
     @Override
     public String getTimeString() {
-//        return createAt.toString();
-        return null;
+        return createAt.toString();
     }
 
     /**
@@ -183,6 +182,7 @@ public class Message extends BaseDbModel<Message> implements  Serializable, IMes
     @Override
     public String getMediaFilePath() {
         Log.d(TAG, "getMediaFilePath: ");
+
         return content;
     }
 

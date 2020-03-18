@@ -63,7 +63,7 @@
         <activity android:name=".activities.GroupActivity" />
         <activity android:name=".activities.GroupMemberActivity" />
         <activity
-            android:name="com.king.zxing.CaptureActivity"
+            android:name=".activities.ZXingScanActivity"
             android:screenOrientation="portrait"
             android:theme="@style/CaptureTheme" />
 

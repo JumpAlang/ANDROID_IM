@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.example.common.common.app.Fragment;
 import com.example.common.common.app.PresenterFragment;
 import com.example.common.common.widget.DragBubbleView;
 import com.example.common.common.widget.EmptyView;
@@ -16,13 +15,10 @@ import com.example.common.common.widget.PortraitView;
 import com.example.common.common.widget.recycler.RecyclerAdapter;
 import com.example.common.utils.DateTimeUtil;
 import com.example.factory.model.db.Session;
-import com.example.factory.presenter.contact.ContactContract;
 import com.example.factory.presenter.message.SessionContract;
 import com.example.factory.presenter.message.SessionPresenter;
 import com.example.imapp.R;
 import com.example.imapp.activities.MessageActivity;
-
-import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;

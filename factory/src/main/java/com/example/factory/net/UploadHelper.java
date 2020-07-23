@@ -23,9 +23,6 @@ import java.util.Date;
 
 public class UploadHelper {
     private static final String TAG="UploadHelper";
-    private static final String AccessKeyId="LTAI4Fx7GQBzutchdMUMZTDF";
-    private static final String AccessKeySecret="opWMoU74QBYjolLiqBWw7D2bMa3cku";
-    public static final String ENDPOINT = "oss-cn-hangzhou.aliyuncs.com";
     private static final String BUCKET_NAME = "sunhaobin";
 
     private static final Object lock=new Object();
